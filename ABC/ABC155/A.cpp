@@ -64,11 +64,11 @@ int avg(int a, int b){
 }
 
 int main(){
-	int n; cin >> n;
-  int oddCnt = 0;
-  for(int i = 0; i < n; i++){
-    int t; cin >> t;
-    if(t % 2) oddCnt++;
-  }
-  cout << (oddCnt % 2 ? "NO" : "YES") << endl;
+  vector<int> in(3);
+  for(int i = 0; i < 3; i++) cin >> in[i];
+
+  sort(in.begin(), in.end());
+  if((in[0] == in[1] && in[1] != in[2]) || (in[0] != in[1] && in[1] == in[2])){
+    cout << "Yes" << endl;
+  }else cout << "No" << endl;
 }

@@ -3,6 +3,7 @@ using namespace std;
  
 #define fs(n) fixed << setprecision(n)
 using ll = long long;
+using ld = long double;
 
 int fact(int x) { return x <= 1 ? 1 : x * fact(x - 1); }
 
@@ -64,11 +65,6 @@ int avg(int a, int b){
 }
 
 int main(){
-	int n; cin >> n;
-  int oddCnt = 0;
-  for(int i = 0; i < n; i++){
-    int t; cin >> t;
-    if(t % 2) oddCnt++;
-  }
-  cout << (oddCnt % 2 ? "NO" : "YES") << endl;
+  ld t, x; cin >> t >> x;
+  cout << fs(12) << t / x << endl;
 }

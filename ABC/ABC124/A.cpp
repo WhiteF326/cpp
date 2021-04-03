@@ -64,11 +64,17 @@ int avg(int a, int b){
 }
 
 int main(){
-	int n; cin >> n;
-  int oddCnt = 0;
-  for(int i = 0; i < n; i++){
-    int t; cin >> t;
-    if(t % 2) oddCnt++;
+	vector<int> bSize(2);
+  cin >> bSize[0] >> bSize[1];
+  int ans = 0;
+
+  if(bSize[0] > bSize[1]){
+    ans += bSize[0];
+    bSize[0]--;
+  }else{
+    ans += bSize[1];
+    bSize[1]--;
   }
-  cout << (oddCnt % 2 ? "NO" : "YES") << endl;
+  ans += max(bSize[0], bSize[1]);
+  cout << ans << endl;
 }

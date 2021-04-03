@@ -64,11 +64,8 @@ int avg(int a, int b){
 }
 
 int main(){
-	int n; cin >> n;
-  int oddCnt = 0;
-  for(int i = 0; i < n; i++){
-    int t; cin >> t;
-    if(t % 2) oddCnt++;
-  }
-  cout << (oddCnt % 2 ? "NO" : "YES") << endl;
+  int h, a; cin >> h >> a;
+  int ans = 0;
+  for(int i = h; i > 0; i -= a) ans++;
+  cout << ans << endl;
 }

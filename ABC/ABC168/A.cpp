@@ -65,10 +65,6 @@ int avg(int a, int b){
 
 int main(){
 	int n; cin >> n;
-  int oddCnt = 0;
-  for(int i = 0; i < n; i++){
-    int t; cin >> t;
-    if(t % 2) oddCnt++;
-  }
-  cout << (oddCnt % 2 ? "NO" : "YES") << endl;
+  vector<string> ans = {"pon", "pon", "hon", "bon", "hon", "hon", "pon", "hon", "pon", "hon"};
+  cout << ans[n % 10] << endl;
 }
