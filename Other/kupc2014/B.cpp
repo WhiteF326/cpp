@@ -90,27 +90,47 @@ ll choose_two(ll m){
 
 
 int main(){
-  int n; ll k; cin >> n >> k;
-  vector<int> a(n);
-  for(int i = 0; i < n; i++) cin >> a[i];
+  vector<bool> cnd(1000, true);
+  int nPrime = 1;
+  for(int i = 0; i <= 200; i++){
+    nPrime = NextPrime(nPrime);
+    //エラトステネスの篩で答えきれない
+    if(nPrime > 1000){
+      break;
+    }
+    cout << "? " << nPrime << endl;
+    string res; cin >> res;
+    // Yが帰って来たら
+    if(res == "Y"){
+      //nPrimeが1009以上ならば! nPrimeで解
+      if(nPrime >= 1009){
+        cout << "! " << nPrime << endl;
+        return 0;
+      }else{
+        // 二分探索に切り替える log2(2000) simeq 11なので問題なし
+        int l = 1, h = 2000 / nPrime;
+        int m = (l + h) / 2;
+        
+      }
+    }
 
-  ll aDiv = 1000000007;
-  ll ans = 0, s1 = 0, s2 = 0;
+    for(int j = 1; j <= 1000; j++){
+      if(j % nPrime == 0) cnd[j - 1] = false;
+    }
 
-  for(int i = 0; i < n; i++){
-    for(int j = i + 1; j < n; j++){
-      if(a[i] > a[j]) s1++;
+    int tmp = 0;
+    for(int j = 1; j <= 1000; j++){
+      tmp += cnd[j - 1];
+    }
+    cout << tmp << endl;
+    //解が判明した
+    if(tmp == 1){
+      for(int j = 1; j <= 1000; j++){
+        if(cnd[j - 1]){
+          cout << "! " << j << endl;
+          return 0;
+        }
+      }
     }
   }
-
-  for(int i = 0; i < n; i++){
-    for(int j = 0; j < n; j++){
-      if(a[i] < a[j]) s2++;
-    }
-  }
-
-  ans += (k * s1) % aDiv;
-  ans += ((k * (k - 1) / 2) % aDiv) * s2;
-  ans %= aDiv;
-  cout << ans << endl;
 }
