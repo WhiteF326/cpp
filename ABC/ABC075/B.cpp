@@ -92,6 +92,31 @@ ll choose_two(ll m){
 
 
 int main(){
-  ll n; cin >> n;
-  cout << (n * (n - 1) / 2) << endl;
+  int h, w; cin >> h >> w;
+  vector<string> s(h);
+  for(int i = 0; i < h; i++){
+    cin >> s[i];
+  }
+  
+  vector<vector<int>> ans(h, vector<int>(w, 0));
+  for(int i = 0; i < h; i++){
+    for(int j = 0; j < w; j++){
+      if(s[i].substr(j, 1) == "#"){
+        ans[i][j] = -1;
+        for(int v = 0; v < 8; v++){
+          int hptr = i + vect[v][0];
+          int wptr = j + vect[v][1];
+          if(hptr >= 0 && hptr < h && wptr >= 0 && wptr < w){
+            if(s[hptr].substr(wptr, 1) != "#") ans[hptr][wptr]++;
+          }
+        }
+      }
+    }
+  }
+  for(int i = 0; i < h; i++){
+    for(int j = 0; j < w; j++){
+      cout << (ans[i][j] == -1 ? "#" : to_string(ans[i][j]));
+    }
+    cout << endl;
+  }
 }
