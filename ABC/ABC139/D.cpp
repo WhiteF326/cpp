@@ -92,6 +92,7 @@ ll choose_two(ll m){
 
 
 int main(){
+  //n側の数列に対して左側に1つ回転した状態が最適なp側の数列になる
   ll n; cin >> n;
   cout << (n * (n - 1) / 2) << endl;
 }
