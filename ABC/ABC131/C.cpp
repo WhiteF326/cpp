@@ -88,8 +88,32 @@ ll choose_two(ll m){
   return m * (m + 1) / 2;
 }
 
+ll gcd(ll a, ll b){
+  if(b == 0) return a;
+  else return gcd(b, a % b);
+}
+
+ll lcm(ll a, ll b){
+  return a * b / gcd(a, b);
+}
+
 
 int main(){
   ll a, b, c, d; cin >> a >> b >> c >> d;
-  
+
+  ll c_m = ceil((b - a) / (double)c);
+  if(a % c == 0 && b % c == 0) c_m++;
+  cout << c_m << endl;
+
+  ll d_m = ceil((b - a) / (double)d);
+  if(a % d == 0 && b % d == 0) d_m++;
+  cout << d_m << endl;
+
+  ll e = lcm(c, d);
+  ll e_m = ceil((b - a) / (double)e);
+  if(a % e == 0 && b % e == 0) e_m++;
+  cout << e_m << endl;
+
+  ll res = c_m + d_m - e_m;
+  cout << (b - a + 1) - res << endl;
 }
