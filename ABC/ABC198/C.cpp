@@ -3,6 +3,7 @@ using namespace std;
  
 #define fs(n) fixed << setprecision(n)
 using ll = long long;
+using ld = long double;
 
 int fact(int x) { return x <= 1 ? 1 : x * fact(x - 1); }
 
@@ -64,5 +65,12 @@ int avg(int a, int b){
 }
 
 int main(){
-  
+  ld r, x, y; cin >> r >> x >> y;
+  ld euc_dist = sqrt(pow(x, 2) + pow(y, 2));
+  // euc_dist < rならば2になる
+  if(euc_dist < r){
+    cout << 2 << endl;
+  }else{
+    cout << ceil(euc_dist / r) << endl;
+  }
 }

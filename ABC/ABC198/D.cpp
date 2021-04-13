@@ -64,5 +64,55 @@ int avg(int a, int b){
 }
 
 int main(){
+  vector<string> s(3);
+  cin >> s[0] >> s[1] >> s[2];
+
+  //数値化
+  vector<vector<int>> posmp(3, vector<int>(0));
+  map<string, int> usedStr; int nxt = 0;
+  const string lst = "abcdefghijklmnopqrstuvwxyz";
+  for(int i = 0; i < 26; i++) usedStr[lst.substr(i, 1)] = -1;
+  for(int h = 0; h < 3; h++){
+    for(int i = 0; i < s[h].length(); i++){
+      if(usedStr[s[h].substr(i, 1)] == -1){
+        usedStr[s[h].substr(i, 1)] = nxt;
+        posmp[h].push_back(nxt);
+        nxt++;
+      }else{
+        posmp[h].push_back(usedStr[s[h].substr(i, 1)]);
+      }
+    }
+  }
+  if(nxt > 10){
+    cout << "UNSOLVABLE" << endl;
+    return 0;
+  }
   
+  vector<ll> perm(10);
+  for(int i = 0; i < 10; i++) perm[i] = i;
+  do{
+    //式の生成
+    vector<ll> res = {0, 0};
+    for(int h = 0; h < 2; h++){
+      for(int i = 0; i < s[h].length(); i++){
+        res[h] += perm[posmp[h][i]] * pow(10, s[h].length() - 1 - i);
+      }
+    }
+    ll t = 0;
+    for(int i = 0; i < s[2].length(); i++){
+      t += perm[posmp[2][i]] * pow(10, s[2].length() - 1 - i);
+    }
+    bool flg = true;
+    for(int lch = 0; lch < 2; lch++){
+      if(floor(log10(res[lch])) + 1 != s[lch].length()) flg = false;
+    }
+    if(floor(log10(t)) + 1 != s[2].length()) flg = false;
+    if(res[0] + res[1] == t && res[0] > 0 && res[1] > 0 && flg){
+      cout << res[0] << endl;
+      cout << res[1] << endl;
+      cout << t << endl;
+      return 0;
+    }
+  }while(next_permutation(perm.begin(), perm.end()));
+  cout << "UNSOLVABLE" << endl;
 }

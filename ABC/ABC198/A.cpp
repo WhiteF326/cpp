@@ -64,5 +64,6 @@ int avg(int a, int b){
 }
 
 int main(){
-  
+  int n; cin >> n;
+  cout << n - 1 << endl;
 }

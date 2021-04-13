@@ -64,5 +64,17 @@ int avg(int a, int b){
 }
 
 int main(){
-  
+  string n; cin >> n;
+  //後ろから0の連続数を確認する
+  for(int i = 0; i < 10; i++){
+    string ns = n;
+    reverse(n.begin(), n.end());
+    if(n == ns){
+      cout << "Yes" << endl;
+      return 0;
+    }
+    reverse(n.begin(), n.end());
+    n = "0" + n;
+  }
+  cout << "No" << endl;
 }

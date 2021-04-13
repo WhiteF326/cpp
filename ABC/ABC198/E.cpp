@@ -64,5 +64,43 @@ int avg(int a, int b){
 }
 
 int main(){
-  
+  int n; cin >> n;
+  vector<int> colors(n);
+  for(int i = 0; i < n; i++) cin >> colors[i];
+  vector<vector<int>> tr(n, vector<int>(0));
+  for(int i = 0; i < n - 1; i++){
+    int a, b; cin >> a >> b;
+    tr[a - 1].push_back(b - 1);
+    tr[b - 1].push_back(a - 1);
+  }
+
+  //dfsして経路復元
+  vector<int> prev(n, -1);
+  vector<bool> visited(n, false);
+  visited[0] = true;
+  queue<int> q;
+  q.push(0);
+  while(q.size()){
+    int d = q.front(); q.pop();
+    for(int i = 0; i < tr[d].size(); i++){
+      if(visited[tr[d][i]] == false){
+        prev[tr[d][i]] = d;
+        q.push(tr[d][i]);
+        visited[tr[d][i]] = true;
+      }
+    }
+  }
+  cout << 1 << endl;
+  for(int i = 1; i < n; i++){
+    bool flg = true;
+    int omitcolor = colors[i];
+    int pos = i;
+    do{
+      pos = prev[pos];
+      if(colors[pos] == omitcolor){
+        flg = false; break;
+      }
+    }while(prev[pos] != -1);
+    if(flg) cout << i + 1 << endl;
+  }
 }
