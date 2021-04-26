@@ -99,4 +99,21 @@ ll lcm(ll a, ll b){
 
 
 int main(){
+  ll n; cin >> n;
+  vector<ll> points(n + 1, 0);
+  vector<ll> dist_next(n + 1);
+  for(int i = 1; i <= n; i++){
+    cin >> points[i];
+    dist_next[i - 1] = abs(points[i] - points[i - 1]);
+  }
+  points.push_back(0);
+  dist_next[n] = abs(points[n]);
+
+  ll o_ans = accumulate(dist_next.begin(), dist_next.end(), 0LL);
+
+  for(int i = 0; i < n; i++){
+    ll t_ans = o_ans - dist_next[i] - dist_next[i + 1];
+    t_ans += abs(points[i + 2] - points[i]);
+    cout << t_ans << endl;
+  }
 }
