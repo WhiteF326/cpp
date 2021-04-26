@@ -4,54 +4,61 @@
     // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        {
-            "type": "java",
-            "name": "Launch EX18",
-            "request": "launch",
-            "mainClass": "Other.APG4b.EX18",
-            "projectName": "cpp_1f123435"
-        },
-        {
-            "type": "java",
-            "name": "Launch Main",
-            "request": "launch",
-            "mainClass": "ABC.ABC197.C_Java.Main",
-            "projectName": "cpp_1f123435"
-        },
-        {
-            "type": "java",
-            "name": "Launch Main",
-            "request": "launch",
-            "mainClass": "ABC.ABC068.C_Java.Main",
-            "projectName": "cpp_1f123435"
-        },
-        {
-            "type": "java",
-            "name": "Launch Main",
-            "request": "launch",
-            "mainClass": "Main",
-            "projectName": "cpp_1f123435"
-        },
-        {
-            "name": "cpp.exe - アクティブ ファイルのビルドとデバッグ",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "miDebuggerPath": "C:\\MinGW\\bin\\gdb.exe",
-            "setupCommands": [
-                {
-                    "description": "gdb の再フォーマットを有効にする",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "C/C++: cpp.exe アクティブなファイルのビルド"
-        }
+      {
+        "type": "java",
+        "name": "Launch Main",
+        "request": "launch",
+        "mainClass": "Main",
+        "projectName": "cpp_fcae95cc"
+      },
+      {
+        "type": "java",
+        "name": "Launch EX18",
+        "request": "launch",
+        "mainClass": "Other.APG4b.EX18",
+        "projectName": "cpp_1f123435"
+      },
+      {
+        "type": "java",
+        "name": "Launch Main",
+        "request": "launch",
+        "mainClass": "ABC.ABC197.C_Java.Main",
+        "projectName": "cpp_1f123435"
+      },
+      {
+        "type": "java",
+        "name": "Launch Main",
+        "request": "launch",
+        "mainClass": "ABC.ABC068.C_Java.Main",
+        "projectName": "cpp_1f123435"
+      },
+      {
+        "type": "java",
+        "name": "Launch Main",
+        "request": "launch",
+        "mainClass": "Main",
+        "projectName": "cpp_1f123435"
+      },
+      {
+        "name": "cpp.exe - アクティブ ファイルのビルドとデバッグ",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "miDebuggerPath": "C:\\MinGW\\bin\\gdb.exe",
+        "setupCommands": [
+          {
+            "description": "gdb の再フォーマットを有効にする",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          }
+        ],
+        "preLaunchTask": "C/C++: cpp.exe アクティブなファイルのビルド"
+      }
     ]
 }
