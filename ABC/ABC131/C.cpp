@@ -101,19 +101,13 @@ ll lcm(ll a, ll b){
 int main(){
   ll a, b, c, d; cin >> a >> b >> c >> d;
 
-  ll c_m = ceil((b - a) / (double)c);
-  if(a % c == 0 && b % c == 0) c_m++;
-  cout << c_m << endl;
-
-  ll d_m = ceil((b - a) / (double)d);
-  if(a % d == 0 && b % d == 0) d_m++;
-  cout << d_m << endl;
-
+  ll c_m = (b / c) - ((a - 1) / c);
+  ll d_m = (b / d) - ((a - 1) / d);
   ll e = lcm(c, d);
-  ll e_m = ceil((b - a) / (double)e);
-  if(a % e == 0 && b % e == 0) e_m++;
-  cout << e_m << endl;
+  ll e_m = (b / e) - ((a - 1) / e);
 
-  ll res = c_m + d_m - e_m;
-  cout << (b - a + 1) - res << endl;
+  ll ans = b - a + 1;
+  ans -= (c_m + d_m - e_m);
+
+  cout << ans << endl;
 }
