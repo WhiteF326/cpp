@@ -99,17 +99,7 @@ ll lcm(ll a, ll b){
 
 
 int main(){
-  int k, a, b;
-  cin >> k >> a >> b;
+  // 2019の約数は1, 3, 673, 2019だけ
+  int l, r; cin >> l >> r;
   
-  if(b - a < 2){
-    cout << 1 + k << endl;
-  }else{
-    int ans = 1;
-    // まず手持ちをaにする
-    for(int i = 0; i < a - 1; i++){
-      k--; ans++;
-      
-    }
-  }
 }
