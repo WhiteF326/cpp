@@ -99,17 +99,15 @@ ll lcm(ll a, ll b){
 
 
 int main(){
-  int k, a, b;
-  cin >> k >> a >> b;
-  
-  if(b - a < 2){
-    cout << 1 + k << endl;
-  }else{
-    int ans = 1;
-    // まず手持ちをaにする
-    for(int i = 0; i < a - 1; i++){
-      k--; ans++;
-      
+  int n; cin >> n;
+  int x = 1; while(x * (x + 1) / 2 < n) x++;    //せいぜい4472
+  vector<int> ans(0);
+  for(int i = x; i >= 1; i--){
+    if(n >= i){
+      n -= i;
+      ans.push_back(i);
     }
   }
+  sort(ans.begin(), ans.end());
+  for(int y : ans) cout << y << endl;
 }
