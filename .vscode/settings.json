@@ -29,6 +29,7 @@
       "xstddef": "cpp",
       "string": "cpp",
       "forward_list": "cpp",
-      "ios": "cpp"
+      "ios": "cpp",
+      "map": "cpp"
     }
 }
