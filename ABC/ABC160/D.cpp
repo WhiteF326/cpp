@@ -9,15 +9,19 @@ int main(){
 
   // l->rの距離はr - l(x->yを使わない場合)
 
+  vector<int> anslist(n, 0);
+
   for(int i = 0; i < n - 1; i++){
-    for(int j = i + 1; i < n; i++){
+    for(int j = i + 1; j < n; j++){
       int res = j - i;
       // x->yを使えるか？
-      if(i <= x && y <= j){
-        // 利用する
-        res -= dist;
-      }
+      res = min(res, abs(x - i) + abs(j - y) + 1);
+      anslist[res]++;
     }
+  }
+  
+  for(int i = 1; i < n; i++){
+    cout << anslist[i] << endl;
   }
 
 }
