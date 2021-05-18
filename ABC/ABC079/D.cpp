@@ -11,26 +11,26 @@ int main(){
   }
   // dj
   // 距離, 頂点
-  priority_queue<pair<int, int>> q;
-  q.push(make_pair(0, 1));
-  vector<int> fulldist(10, INT_MAX);
-  fulldist[1] = 0;
-  while(!q.empty()){
-    auto dest = q.top();
-    q.pop();
-    for(int i = 0; i < 10; i++){
-      // 今見ている場所
-      // if(i == dest.second) continue;
-      if(fulldist[dest.second] > dest.first){
-        fulldist[dest.second] = dest.first;
-        q.push(make_pair(dists[dest.second][i] + fulldist[dest.second], i));
+  vector<int> distfrom1(10, 0);
+  for(int i = 0; i < 10; i++){
+    if(i == 1) continue;
+    priority_queue<pair<int, int>> q;
+    q.push(make_pair(0, i));
+    vector<int> fulldist(10, INT_MAX);
+    fulldist[i] = 0;
+    while(!q.empty()){
+      auto dest = q.top();
+      q.pop();
+      for(int j = 0; j < 10; j++){
+        // 今見ている場所
+        if(fulldist[j] > dest.first + dists[dest.second][j]){
+          fulldist[j] = dest.first + dists[dest.second][j];
+          q.push(make_pair(dists[dest.second][j] + dest.first, j));
+        }
       }
     }
+    distfrom1[i] = fulldist[1];
   }
-
-  for(int i = 0; i < 10; i++){
-    cout << fulldist[i] << " ";
-  }cout << endl;
 
   map<int, int> stage;
   for(int i = 0; i < h; i++){
@@ -42,7 +42,7 @@ int main(){
 
   int ans = 0;
   for(int i = 0; i < 10; i++){
-    ans += stage[i] * fulldist[i];
+    ans += stage[i] * distfrom1[i];
   }
   cout << ans << endl;
 
