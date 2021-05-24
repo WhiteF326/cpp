@@ -28,12 +28,12 @@ int main(){
   for(int i = 3; i < 100000; i += 2){
     dep[i] = dep[i - 2] + (isPrime[i - 1] && isPrime[(i + 1) / 2 - 1] ? 1 : 0);
   }
-  // TODO バグってる
   queue<int> anslist;
   int q; cin >> q;
   for(int i = 0; i < q; i++){
     int l, r; cin >> l >> r;
-    anslist.push(dep[r] - dep[l] + 1);
+    if(l == 1) anslist.push(dep[r]);
+    else anslist.push(dep[r] - dep[l - 2]);
   }
   while(!anslist.empty()){
     cout << anslist.front() << endl;
