@@ -12,7 +12,7 @@ int op(int a, int b){
 }
 
 int e(){
-  return (2 << 30) + 1;
+  return 0;
 }
 
 int main(){
@@ -21,13 +21,20 @@ int main(){
   for(int i = 0; i < n; i++) cin >> a[i];
   segtree<int, op, e> seg(a);
 
+  queue<int> anslist;
+
   for(int i = 0; i < q; i++){
     int t, x, y; cin >> t >> x >> y;
     x--;
     if(t == 1){
-      seg.set(x, y);
+      seg.set(x, seg.get(x) ^ y);
     }else{
-      cout << seg.prod(x, y);
+      anslist.push(seg.prod(x, y));
     }
+  }
+
+  while(!anslist.empty()){
+    cout << anslist.front() << endl;
+    anslist.pop();
   }
 }
