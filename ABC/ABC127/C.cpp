@@ -1,12 +1,20 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
- 
+using namespace atcoder;
+
+#define fs(n) fixed << setprecision(n)
+#define mp(i, j) make_pair(i, j);
+using ll = long long;
+using ld = long double;
+
 int main(){
   int n, m; cin >> n >> m;
-  int s = 0, u = n + 1;
+  int lmax = -1, rmin = INT_MAX;
   for(int i = 0; i < m; i++){
     int l, r; cin >> l >> r;
-    s = max(s, l); u = min(u, r);
+    lmax = max(lmax, l);
+    rmin = min(rmin, r);
   }
-  if(s > u){cout << 0 << endl;}else{cout << u - s + 1 << endl;}
+  cout << max(rmin - lmax + 1, 0) << endl;
 }

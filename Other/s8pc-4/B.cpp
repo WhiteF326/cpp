@@ -13,7 +13,7 @@ int main(){
   // 最初の建物はどうあがいても見える
   vector<ll> a(n);
   for(int i = 0; i < n; i++) cin >> a[i];
-  ll ans = INT_MAX;
+  ll ans = LLONG_MAX;
   for(int i = 0; i < (1 << n); i++){
     if(i % 2) continue;
     vector<ll> b(a);

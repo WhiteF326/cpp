@@ -1,17 +1,35 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
+using namespace atcoder;
+
+#define fs(n) fixed << setprecision(n)
+#define mp(i, j) make_pair(i, j);
+using ll = long long;
+using ld = long double;
+
+int gcd(int i, int j){
+  if(i % j){
+    return gcd(j, i % j);
+  }else return j;
+}
 
 int main(){
-  int k, n; scanf("%d%d", &k, &n);
-  vector<int> po(n);
-  for(int i = 0; i < n; i++){scanf("%d", &po[i]);}
-  vector<int> dist(n);
-  for(int i = 0; i < n; i++){
-    dist[i] = po[(i + 1) % n] - po[i];
-    if(dist[i] < 0){dist[i] += k;}
+  int k, n; cin >> k >> n;
+  priority_queue<int> q;
+  int first; cin >> first;
+  int back = first;
+  for(int i = 1; i < n; i++){
+    int a; cin >> a;
+    q.push(a - back);
+    back = a;
   }
-  sort(dist.begin(), dist.end());
+  q.push(first + (k - back));
+  q.pop();
   int ans = 0;
-  for(int i = 0; i < n - 1; i++){ans += dist[i];}
-  printf("%d", ans);
+  while(!q.empty()){
+    ans += q.top();
+    q.pop();
+  }
+  cout << ans << endl;
 }
