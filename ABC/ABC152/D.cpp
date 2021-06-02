@@ -9,5 +9,7 @@ using ll = long long;
 using ld = long double;
 
 int main(){
+  // 先頭と末尾を1~9のループ
+  int n; cin >> n;
   
 }

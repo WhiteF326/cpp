@@ -9,17 +9,16 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  int n; cin >> n;
-  vector<int> a(n);
-  for(int i = 0; i < n; i++) cin >> a[i];
-  vector<int> b(a);
-
-  sort(a.begin(), a.end());
-  int med = a[n / 2];
-
+  ll n, x; cin >> n >> x;
+  x *= 100;
   for(int i = 0; i < n; i++){
-    if(b[i] >= med){
-      cout << a[n / 2 - 1] << endl;
-    }else cout << med << endl;
+    ll v, p; cin >> v >> p;
+    ll alc = v * p;
+    x -= alc;
+    if(x < 0){
+      cout << i + 1 << endl;
+      return 0;
+    }
   }
+  cout << -1 << endl;
 }

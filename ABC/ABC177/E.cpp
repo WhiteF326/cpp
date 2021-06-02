@@ -43,7 +43,7 @@ int main(){
     set<int> divs;
     while(true){
       divs.insert(ert[a[i]]);
-      
+
     }
   }
   if(gcd(a[0], a[n - 1]) != 1) isPairwise = false;
