@@ -8,7 +8,18 @@ using namespace atcoder;
 using ll = long long;
 using ld = long double;
 
+ll modv = 1000000007;
+
+ll modpow(ll x, ll n){
+  ll ans = 1;
+  while(n > 0){
+    if(n & 1) ans = ans * x % modv;
+    x = x * x % modv;
+    n >>= 1;
+  }
+  return ans;
+}
+
 int main(){
-  ll n; cin >> n;
   
 }
