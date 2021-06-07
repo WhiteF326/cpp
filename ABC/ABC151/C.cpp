@@ -1,16 +1,28 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
+using namespace atcoder;
+
+#define fs(n) fixed << setprecision(n)
+#define mp(i, j) make_pair(i, j)
+using ll = long long;
+using ld = long double;
 
 int main(){
-  int n, m; cin >> n >> m; vector<vector<int>> sp(n, vector<int>(2, 0));
-  int ac = 0, wa = 0;
+  int n, m; cin >> n >> m;
+  map<int, int> rest;
+  vector<bool> q(n, true);
+  int ans = 0, res = 0;
   for(int i = 0; i < m; i++){
-    int p; cin >> p; string s; cin >> s;
-    if(s == "AC"){sp[p - 1][0] = 1;}
-    else if(s == "WA" && sp[p - 1][0] == 0){sp[p - 1][1]++;}
+    int p; string s; cin >> p >> s;
+    if(s == "WA" && q[p]){
+      rest[p]++;
+    }else{
+      ans += rest[p];
+      rest[p] = 0;
+      res += q[p];
+      q[p] = false;
+    }
   }
-  for(int i = 0; i < n; i++){
-    if(sp[i][0] == 1){wa += sp[i][1]; ac++;}
-  }
-  cout << ac << " " << wa << endl;
+  cout << res << " " << ans << endl;
 }

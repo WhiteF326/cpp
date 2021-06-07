@@ -9,11 +9,14 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  ll h; cin >> h;
-  ll ans = 0, ac = 0;
-  while(h / pow(2, ac) >= 1){
-    ans += pow(2, ac);
-    ac++;
+  int x, y; cin >> x >> y;
+  int t = x, k = 0;
+  while(t >= 0){
+    if(t * 2 + k * 4 == y){
+      cout << "Yes" << endl;
+      return 0;
+    }
+    t--, k++;
   }
-  cout << ans << endl;
+  cout << "No" << endl;
 }

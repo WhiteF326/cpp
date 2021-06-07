@@ -9,11 +9,11 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  ll h; cin >> h;
-  ll ans = 0, ac = 0;
-  while(h / pow(2, ac) >= 1){
-    ans += pow(2, ac);
-    ac++;
+  int n; cin >> n;
+  for(int i = 1; i <= 100000; i++){
+    if(pow(i, 2) > n){
+      cout << fs(0) << (int)pow(i - 1, 2) << endl;
+      break;
+    }
   }
-  cout << ans << endl;
 }

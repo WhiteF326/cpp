@@ -9,11 +9,6 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  ll h; cin >> h;
-  ll ans = 0, ac = 0;
-  while(h / pow(2, ac) >= 1){
-    ans += pow(2, ac);
-    ac++;
-  }
-  cout << ans << endl;
+  int a, b, c; cin >> a >> b >> c;
+  cout << a + b + c - max(a, max(b, c)) << endl;
 }
