@@ -11,9 +11,6 @@ using ld = long double;
 const ll modv = 1000000007;
 
 int main(){
-  int n, k; cin >> n >> k;
-  vector<int> a(n);
-  for(int i = 0; i < n; i++) cin >> a[i];
-
-  
+  string s; cin >> s;
+  cout << s.substr(0, 4) << " " << s.substr(4) << endl;
 }

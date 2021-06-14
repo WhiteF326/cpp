@@ -11,9 +11,11 @@ using ld = long double;
 const ll modv = 1000000007;
 
 int main(){
-  int n, k; cin >> n >> k;
-  vector<int> a(n);
-  for(int i = 0; i < n; i++) cin >> a[i];
-
-  
+  int n; cin >> n;
+  priority_queue<pair<int, int>> q;
+  for(int i = 0; i < n; i++){
+    int a, b; cin >> a >> b;
+    q.push(make_pair(a, b));
+  }
+  cout << q.top().first + q.top().second << endl;
 }

@@ -11,9 +11,12 @@ using ld = long double;
 const ll modv = 1000000007;
 
 int main(){
-  int n, k; cin >> n >> k;
-  vector<int> a(n);
-  for(int i = 0; i < n; i++) cin >> a[i];
-
-  
+  int x, a, b; cin >> x >> a >> b;
+  if(a >= b){
+    cout << "delicious" << endl;
+  }else if(x >= b - a){
+    cout << "safe" << endl;
+  }else{
+    cout << "dangerous" << endl;
+  }
 }

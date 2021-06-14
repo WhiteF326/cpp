@@ -11,9 +11,15 @@ using ld = long double;
 const ll modv = 1000000007;
 
 int main(){
-  int n, k; cin >> n >> k;
-  vector<int> a(n);
-  for(int i = 0; i < n; i++) cin >> a[i];
+  int k, t; cin >> k >> t;
+  vector<int> a(t, 0);
+  for(int i = 0; i < t; i++) cin >> a[i];
 
-  
+  sort(a.begin(), a.end(), greater<int>());
+  int ans = a[0];
+  for(int i = 1; i < t; i++){
+    ans -= a[i];
+  }
+  ans--;
+  cout << max(ans, 0) << endl;
 }

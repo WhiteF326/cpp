@@ -11,9 +11,10 @@ using ld = long double;
 const ll modv = 1000000007;
 
 int main(){
-  int n, k; cin >> n >> k;
-  vector<int> a(n);
-  for(int i = 0; i < n; i++) cin >> a[i];
-
-  
+  ll r, d, x;
+  cin >> r >> d >> x;
+  for(int i = 0; i < 10; i++){
+    cout << r * x - d << endl;
+    x = r * x - d;
+  }
 }

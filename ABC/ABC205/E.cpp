@@ -3,13 +3,11 @@
 using namespace std;
 using namespace atcoder;
 
-#define fs(n) fixed << setprecision(n)
-#define mp(i, j) make_pair(i, j);
+#define fs(n) fixed << setprecision(n);
+#define mp(a, b) make_pair(a, b);
 using ll = long long;
 using ld = long double;
 
-const ll modv = 1000000007;
-
 int main(){
-  // カス
+  
 }

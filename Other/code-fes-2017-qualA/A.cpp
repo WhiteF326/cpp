@@ -1,10 +1,14 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
+using namespace atcoder;
 
-int fact(int x) { return x <= 1 ? 1 : x * fact(x - 1); }
-void manyIntInput(vector<int> s){
-  for(int i = 0; i < s.size(); i++) cin >> s[i];
-}
+#define fs(n) fixed << setprecision(n)
+#define mp(i, j) make_pair(i, j);
+using ll = long long;
+using ld = long double;
+
+const ll modv = 1000000007;
 
 int main(){
   string s; cin >> s;

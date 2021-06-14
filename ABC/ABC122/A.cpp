@@ -11,9 +11,11 @@ using ld = long double;
 const ll modv = 1000000007;
 
 int main(){
-  int n, k; cin >> n >> k;
-  vector<int> a(n);
-  for(int i = 0; i < n; i++) cin >> a[i];
-
-  
+  string b; cin >> b;
+  map<string, string> ans;
+  ans["A"] = "T";
+  ans["C"] = "G";
+  ans["G"] = "C";
+  ans["T"] = "A";
+  cout << ans[b] << endl;
 }
