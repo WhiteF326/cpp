@@ -11,8 +11,12 @@ using ld = long double;
 const ll modv = 1000000007;
 
 int main(){
-  int n; cin >> n;
-  vector<int> a(n);
-  for(int i = 0; i < n; i++) cin >> a[i];
-  
+  int k; cin >> k;
+  ll ans = 0;
+  for(int a = 1; a <= k; a++){
+    for(int b = 1; b <= k / a; b++){
+      ans += k / (a * b);
+    }
+  }
+  cout << ans << endl;
 }
