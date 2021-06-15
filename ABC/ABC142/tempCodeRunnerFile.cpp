@@ -1,0 +1,1 @@
+odd / (double)n
