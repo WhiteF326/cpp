@@ -11,8 +11,10 @@ using ld = long double;
 const ll modv = 1000000007;
 
 int main(){
-  int n; cin >> n;
-  vector<int> a(n);
-  for(int i = 0; i < n; i++) cin >> a[i];
-  
+  int n, ma, mb; cin >> ma >> mb;
+  vector<vector<int>> y(n, vector<int>(3, 0));
+  for(int i = 0; i < n; i++){
+    for(int j = 0; j < 3; j++) cin >> y[i][j];
+  }
+  // knapzack
 }

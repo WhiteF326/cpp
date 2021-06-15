@@ -1,3 +1,5 @@
+// this problem sucks I'll never do this again
+
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
@@ -11,8 +13,11 @@ using ld = long double;
 const ll modv = 1000000007;
 
 int main(){
-  int n; cin >> n;
-  vector<int> a(n);
-  for(int i = 0; i < n; i++) cin >> a[i];
-  
+  ll n; cin >> n;
+  // 素因数分解
+  int ans = 0;
+  map<ll, int> x;
+  while(n >= 2){
+    //
+  }
 }
