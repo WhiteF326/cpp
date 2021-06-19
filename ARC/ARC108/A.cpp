@@ -9,11 +9,13 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  int t; cin >> t;
-  for(int i = 0; i < t; i++){
-    ll n; cin >> n;
-    if(n % 4 == 0) cout << "Even" << endl;
-    else if(n % 2 == 0) cout << "Same" << endl;
-    else cout << "Odd" << endl;
+  ll s, p; cin >> s >> p;
+  for(ll i = 1; i <= ceil(sqrt(p)); i++){
+    if(p % i) continue;
+    if(s == i + (p / i)){
+      cout << "Yes" << endl;
+      return 0;
+    }
   }
+  cout << "No" << endl;
 }

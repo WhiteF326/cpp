@@ -8,12 +8,13 @@ using namespace atcoder;
 using ll = long long;
 using ld = long double;
 
+ll modssum(ll d){
+  ll x = (ll)d;
+  ll y = x * (x + 1) / 2;
+  return (y % 998244353);
+}
+
 int main(){
-  int t; cin >> t;
-  for(int i = 0; i < t; i++){
-    ll n; cin >> n;
-    if(n % 4 == 0) cout << "Even" << endl;
-    else if(n % 2 == 0) cout << "Same" << endl;
-    else cout << "Odd" << endl;
-  }
+  ll a, b, c; cin >> a >> b >> c;
+  cout << (((modssum(a) * modssum(b)) % 998244353LL) * modssum(c)) % 998244353LL << endl;
 }

@@ -9,11 +9,15 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  int t; cin >> t;
-  for(int i = 0; i < t; i++){
-    ll n; cin >> n;
-    if(n % 4 == 0) cout << "Even" << endl;
-    else if(n % 2 == 0) cout << "Same" << endl;
-    else cout << "Odd" << endl;
+  int n; cin >> n;
+  string a, b, c; cin >> a >> b >> c;
+  int ans = 0;
+  for(int i = 0; i < n; i++){
+    set<char> s;
+    s.insert(a[i]);
+    s.insert(b[i]);
+    s.insert(c[i]);
+    ans += s.size() - 1;
   }
+  cout << ans << endl;
 }

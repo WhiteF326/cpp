@@ -9,7 +9,9 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  int n, d; cin >> n >> d;
-  d = d * 2 + 1;
-  cout << ceil(n / (double)d) << endl;
+  int n; cin >> n;
+  vector<int> p(n);
+  for(int i = 0; i < n; i++) cin >> p[i];
+  sort(p.begin(), p.end());
+  cout << accumulate(p.begin(), p.end(), 0) - p[n - 1] / 2 << endl;
 }

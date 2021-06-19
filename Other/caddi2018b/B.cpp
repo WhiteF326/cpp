@@ -9,7 +9,12 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  int n, d; cin >> n >> d;
-  d = d * 2 + 1;
-  cout << ceil(n / (double)d) << endl;
+  int n; cin >> n;
+  int h, w; cin >> h >> w;
+  int ans = 0;
+  for(int i = 0; i < n; i++){
+    int a, b; cin >> a >> b;
+    ans += (a >= h) && (b >= w);
+  }
+  cout << ans << endl;
 }

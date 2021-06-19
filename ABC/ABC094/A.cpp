@@ -9,7 +9,6 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  int n, d; cin >> n >> d;
-  d = d * 2 + 1;
-  cout << ceil(n / (double)d) << endl;
+  int a, b, x; cin >> a >> b >> x;
+  cout << ((x - a <= b) && (x >= a) ? "YES" : "NO") << endl;
 }

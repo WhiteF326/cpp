@@ -9,11 +9,9 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  int t; cin >> t;
-  for(int i = 0; i < t; i++){
-    ll n; cin >> n;
-    if(n % 4 == 0) cout << "Even" << endl;
-    else if(n % 2 == 0) cout << "Same" << endl;
-    else cout << "Odd" << endl;
-  }
+  int n; cin >> n;
+  vector<int> a(n);
+  for(int i = 0; i < n; i++) cin >> a[i];
+
+  cout << *max_element(a.begin(), a.end()) - *min_element(a.begin(), a.end()) << endl;
 }

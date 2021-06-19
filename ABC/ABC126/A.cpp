@@ -9,7 +9,10 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  int n, d; cin >> n >> d;
-  d = d * 2 + 1;
-  cout << ceil(n / (double)d) << endl;
+  int n, k; cin >> n >> k;
+  string s; cin >> s;
+  for(int i = 0; i < n; i++){
+    if(i == k - 1) cout << (char)(s[i] + 32);
+    else cout << s[i];
+  }cout << endl;
 }

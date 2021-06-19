@@ -9,13 +9,14 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  int m; int d; cin >> m >> d;
-  int ans = 0;
-  for(int i = 4; i <= m; i++){
-    for(int j = 22; j <= d; j++){
-      int d1 = j % 10;
-      if(d1 >= 2 && (floor(j / 10) * d1 == i)) ans++;
-    }
+  int n; cin >> n;
+  vector<int> v(n);
+  for(int i = 0; i < n; i++) cin >> v[i];
+  for(int i = 0; i < n; i++){
+    int c; cin >> c;
+    v[i] -= c;
   }
+  int ans = 0;
+  for(int i = 0; i < n; i++) if(v[i] > 0) ans += v[i];
   cout << ans << endl;
 }

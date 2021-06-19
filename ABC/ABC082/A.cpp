@@ -9,7 +9,8 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  int n, d; cin >> n >> d;
-  d = d * 2 + 1;
-  cout << ceil(n / (double)d) << endl;
+  int a, b; cin >> a >> b;
+  int ans = a + b;
+  ans += ans % 2;
+  cout << ans / 2 << endl;
 }

@@ -9,7 +9,8 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  int n, d; cin >> n >> d;
-  d = d * 2 + 1;
-  cout << ceil(n / (double)d) << endl;
+  ll a, b, c, d; cin >> a >> b >> c >> d;
+  if(max(a, c) <= min(b, d)){
+    cout << "Yes" << endl;
+  }else cout << "No" << endl;
 }

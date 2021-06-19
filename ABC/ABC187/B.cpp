@@ -9,22 +9,16 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  ll n, k; cin >> n >> k;
-  map<int, ll> a;
+  int n; cin >> n;
+  vector<pair<double, double>> pt(n);
   for(int i = 0; i < n; i++){
-    int x; cin >> x;
-    a[x]++;
+    double x, y; cin >> x >> y;
+    pt[i] = mp(x, y);
   }
-
-  ll ans = 0;
-  for(int x = 0; x < k; x++){
-    for(int i = 0; i <= 300001; i++){
-      if(a[i] > 0){
-        a[i]--;
-      }else{
-        ans += (ll)i;
-        break;
-      }
+  int ans = 0;
+  for(int i = 0; i < n - 1; i++){
+    for(int j = i + 1; j < n; j++){
+      if(abs((pt[j].second - pt[i].second) / (pt[j].first - pt[i].first)) <= 1) ans++;
     }
   }
   cout << ans << endl;

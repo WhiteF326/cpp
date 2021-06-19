@@ -9,7 +9,11 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  int n, d; cin >> n >> d;
-  d = d * 2 + 1;
-  cout << ceil(n / (double)d) << endl;
+  int n; cin >> n;
+  for(int i = 1; i <= 9; i++){
+    if(n <= i * 111){
+      cout << i * 111 << endl;
+      return 0;
+    }
+  }
 }

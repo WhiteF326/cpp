@@ -9,7 +9,10 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  int n, d; cin >> n >> d;
-  d = d * 2 + 1;
-  cout << ceil(n / (double)d) << endl;
+  string s; cin >> s;
+  bool ans = true;
+  for(int i = 0; i < s.length(); i++){
+    if((s[i] == 'R' && i % 2) || (s[i] == 'L' && i % 2 == 0)) ans = false;
+  }
+  cout << (ans ? "Yes" : "No") << endl;
 }

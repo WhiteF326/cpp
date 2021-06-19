@@ -9,11 +9,12 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  int t; cin >> t;
-  for(int i = 0; i < t; i++){
-    ll n; cin >> n;
-    if(n % 4 == 0) cout << "Even" << endl;
-    else if(n % 2 == 0) cout << "Same" << endl;
-    else cout << "Odd" << endl;
-  }
+  int n, k; cin >> n >> k;
+  vector<int> l(n);
+  for(int i = 0; i < n; i++) cin >> l[i];
+  sort(l.begin(), l.end(), greater<int>());
+
+  int ans = 0;
+  for(int i = 0; i < k; i++) ans += l[i];
+  cout << ans << endl;
 }

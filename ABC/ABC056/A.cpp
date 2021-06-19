@@ -9,7 +9,7 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  int n, d; cin >> n >> d;
-  d = d * 2 + 1;
-  cout << ceil(n / (double)d) << endl;
+  string a, b; cin >> a >> b;
+  bool al = a == "H", bl = b == "H";
+  cout << (!(al ^ bl) ? "H" : "D") << endl;
 }

@@ -9,11 +9,6 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  int t; cin >> t;
-  for(int i = 0; i < t; i++){
-    ll n; cin >> n;
-    if(n % 4 == 0) cout << "Even" << endl;
-    else if(n % 2 == 0) cout << "Same" << endl;
-    else cout << "Odd" << endl;
-  }
+  int a, b, c; cin >> a >> b >> c;
+  cout << a * b * 2 + b * c * 2 + a * c * 2 << endl;
 }

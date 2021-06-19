@@ -9,11 +9,7 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  int t; cin >> t;
-  for(int i = 0; i < t; i++){
-    ll n; cin >> n;
-    if(n % 4 == 0) cout << "Even" << endl;
-    else if(n % 2 == 0) cout << "Same" << endl;
-    else cout << "Odd" << endl;
-  }
+  int w, a, b; cin >> w >> a >> b;
+  if(a <= b && b <= a + w && a + w <= b + w) cout << 0 << endl;
+  else cout << min(abs(a - b - w), abs(b - a - w)) << endl;
 }
