@@ -11,11 +11,11 @@ using ld = long double;
 const ll modv = 1000000007;
 
 int main(){
-  int n; cin >> n;
-  // cには何でも入る
-  ll ans = 0;
-  for(int a = 1; a < n; a++){
-    ans += (n - 1) / a;
+  int x; cin >> x;
+  for(int i = 1; i <= 360; i++){
+    if((x * i) % 360 == 0){
+      cout << i << endl;
+      return 0;
+    }
   }
-  cout << ans << endl;
 }

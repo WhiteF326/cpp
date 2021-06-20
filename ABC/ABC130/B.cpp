@@ -4,18 +4,19 @@ using namespace std;
 using namespace atcoder;
 
 #define fs(n) fixed << setprecision(n)
-#define mp(i, j) make_pair(i, j);
+#define mp(a, b) make_pair(a, b);
 using ll = long long;
 using ld = long double;
 
-const ll modv = 1000000007;
-
 int main(){
-  int n; cin >> n;
-  // cには何でも入る
-  ll ans = 0;
-  for(int a = 1; a < n; a++){
-    ans += (n - 1) / a;
+  int n, x; cin >> n >> x;
+  int p = 0;
+  int ans = 1;
+  for(int i = 0; i < n; i++){
+    int d; cin >> d;
+    p += d;
+    if(p <= x) ans++;
+    else break;
   }
   cout << ans << endl;
 }
