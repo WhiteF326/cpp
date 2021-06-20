@@ -10,16 +10,14 @@ using ld = long double;
 
 int main(){
   int n; cin >> n;
-  // 尺取り出来る？
-  vector<int> a(n);
-  for(int i = 0; i < n; i++) cin >> a[i];
-  
+  string s; cin >> s;
   int ans = 0;
-  for(int l = 0; l < n; l++){
-    int areamin = a[l];
-    for(int r = l; r < n; r++){
-      areamin = min(areamin, a[r]);
-      ans = max(ans, areamin * (r - l + 1));
+  for(int i = 0; i < n - 1; i++){
+    map<char, int> app;
+    app[s[i]]++;
+    for(int j = i + 1; j < n; j++){
+      app[s[j]]++;
+      if(app['A'] == app['T'] && app['C'] == app['G']) ans++;
     }
   }
   cout << ans << endl;

@@ -28,17 +28,15 @@ ll modpow(ll x, ll n, int mod){
 
 int main(){
   int n; cin >> n;
-  // リーダーより左でWおよびリーダーより右でEは変更する
-  string s; cin >> s;
-  int lw = 0, re = 0;
+  map<string, ll> a;
   for(int i = 0; i < n; i++){
-    if(s[i] == 'E') re++;
+    string s; cin >> s;
+    sort(s.begin(), s.end());
+    a[s]++;
   }
-  int ans = re;
-  for(int i = 0; i < n; i++){
-    if(s[i] == 'W') lw++;
-    else re--;
-    ans = min(ans, lw + re);
+  ll ans = 0;
+  for(auto itr = a.begin(); itr != a.end(); itr++){
+    ans += itr->second * (itr->second - 1) / 2;
   }
   cout << ans << endl;
 }

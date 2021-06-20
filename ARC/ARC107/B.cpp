@@ -26,19 +26,19 @@ ll modpow(ll x, ll n, int mod){
   return ret;
 }
 
+ll ct(ll target, ll mx){
+  if(target - 1 < mx * 2 + 1 - target) return target - 1;
+  else return mx * 2 + 1 - target;
+}
+
 int main(){
-  int n; cin >> n;
-  // リーダーより左でWおよびリーダーより右でEは変更する
-  string s; cin >> s;
-  int lw = 0, re = 0;
-  for(int i = 0; i < n; i++){
-    if(s[i] == 'E') re++;
-  }
-  int ans = re;
-  for(int i = 0; i < n; i++){
-    if(s[i] == 'W') lw++;
-    else re--;
-    ans = min(ans, lw + re);
+  ll n, k; cin >> n >> k;
+  k = abs(k);
+  // e - f = kとなるe
+  ll ans = 0;
+  for(ll e = k + 2; e <= n * 2; e++){
+    // a + b = eであるa, bの組み合わせ * 同様にf
+    ans += ct(e, n) * ct(e - k, n);
   }
   cout << ans << endl;
 }
