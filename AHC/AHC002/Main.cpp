@@ -30,10 +30,9 @@ int main(){
   }
   // 通貨済みかどうか
   vector<vector<bool>> passed(50, vector<bool>(50, false));
-  for(auto itr = tile_inspect[tiles[y][x]].begin(); itr != tile_inspect[tiles[y][x]].end(); itr++) passed[itr->first][itr->second] = true;
   
   // 全ての移動パターンを保持
-  vector<pair<int, deque<char>>> anslist;
+  vector<pair<int, vector<char>>> anslist;
   // 今の移動パターン
   vector<char> res;
   // 選択肢の一覧
@@ -46,16 +45,19 @@ int main(){
   priority_queue<pair<pair<int, int>, char>> move;
   // 移動ベクトル
   vector<vector<int>> vct = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
-  map<char, vector<int, int>> vct_char;
+  map<char, pair<int, int>> vct_char;
   vct_char['L'] = {-1, 0}, vct_char['U'] = {0, -1}, vct_char['D'] = {0, 1}, vct_char['R'] = {1, 0};
-  while(clock() - ti < 17 * CLOCKS_PER_SEC / 10){
+  while(clock() - ti < 18 * CLOCKS_PER_SEC / 10){
     // 最初に継承したresの経路を通る
+    for(auto itr = tile_inspect[tiles[fy][fx]].begin(); itr != tile_inspect[tiles[fy][fx]].end(); itr++) passed[itr->first][itr->second] = true;
     for(int i = 0; i < res.size(); i++){
-      x += vct_char[res[i]][0], y += vct_char[res[i]][1];
+      x += vct_char[res[i]].first, y += vct_char[res[i]].second;
       score += values[y][x];
+      auto dest = tile_inspect[tiles[y][x]];
+      for(auto itr = dest.begin(); itr != dest.end(); itr++) passed[itr->first][itr->second] = true;
     }
 
-    while(true){
+    while(clock() - ti < 18 * CLOCKS_PER_SEC / 10){
       bool flg = false;
       // クリーンアップ
       priority_queue<pair<pair<int, int>, char>>().swap(move);
@@ -84,11 +86,12 @@ int main(){
     // 結果の保存
     anslist.emplace_back(score, res);
     // 経路に選択肢があった場所まで戻る
-    while(true){
+    while(!selects.empty()){
       res.pop_back();
       if(selects[selects.size() - 1].size() > 1){
         selects[selects.size() - 1].pop();
         res.push_back(selects[selects.size() - 1].top().second);
+        break;
       }else{
         selects.pop_back();
       }
@@ -97,11 +100,12 @@ int main(){
     else{
       x = fx, y = fy;
       score = values[y][x];
+      // vector<vector<bool>> passed(50, vector<bool>(50, false));
+      vector<vector<bool>>(50, vector<bool>(50, false)).swap(passed);
     }
   }
-  while(!res.empty()){
-    cout << res.front();
-    res.pop_back();
-  }cout << endl;
-  cerr << score << endl;
+  sort(anslist.begin(), anslist.end());
+  for(auto x : anslist[anslist.size() - 1].second) cout << x;
+  cout << endl;
+  cerr << anslist[anslist.size() - 1].first << endl;
 }
