@@ -3,15 +3,12 @@
 using namespace std;
 using namespace atcoder;
 
-#define fs(n) fixed << setprecision(n);
-#define mp(a, b) make_pair(a, b);
+#define fs(n) fixed << setprecision(n)
+#define mp(a, b) make_pair(a, b)
 using ll = long long;
 using ld = long double;
 
 int main(){
-  int n; cin >> n;
-  vector<ll> a(n, 0);
-  for(int i = 0; i < n; i++) cin >> a[i];
-
+  int n, t; cin >> n >> t;
   
 }

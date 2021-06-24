@@ -10,8 +10,12 @@ using ld = long double;
 
 int main(){
   int n; cin >> n;
-  vector<ll> a(n, 0);
-  for(int i = 0; i < n; i++) cin >> a[i];
-
-  
+  map<string, bool> res;
+  for(int i = 0; i < n; i++){
+    string s; cin >> s;
+    if(!res[s]){
+      res[s] = true;
+      cout << i + 1 << endl;
+    }
+  }
 }

@@ -8,10 +8,17 @@ using namespace atcoder;
 using ll = long long;
 using ld = long double;
 
-int main(){
-  int n; cin >> n;
-  vector<ll> a(n, 0);
-  for(int i = 0; i < n; i++) cin >> a[i];
+ll gcd(ll x, ll y){
+  while(y > 0){
+    ll r = x % y;
+    x = y;
+    y = r;
+  }
+  return x;
+}
 
-  
+int main(){
+  ll a, b, c; cin >> a >> b >> c;
+  ll x = gcd(a, gcd(b, c));
+  cout << a / x + b / x + c / x - 3 << endl;
 }
