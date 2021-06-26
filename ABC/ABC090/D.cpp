@@ -10,13 +10,17 @@ using ld = long double;
 
 int main(){
   ll n, k; cin >> n >> k;
-  if(k == 0) cout << n * n << endl;
-  else{
-    ll ans = 0;
-    for(int b = k + 1; b <= n; b++){
-      ll c = n / b;
-      
-    }
-    cout << ans << endl;
+  if(k == 0){
+    cout << n * n << endl;
+    return 0;
   }
+
+  ll ans = 0;
+  for(int i = k + 1; i <= n; i++){
+    ll x = (n + 1) / i, d = 1LL * (i - k) * x;
+    ll l = k + i * x;
+    if(l <= n) d += n - l + 1;
+    ans += d;
+  }
+  cout << ans << endl;
 }

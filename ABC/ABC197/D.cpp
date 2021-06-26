@@ -9,17 +9,7 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  ll n; cin >> n;
-  if(n % 2){
-    cout << 0 << endl;
-  }else{
-    n /= 10;
-    ll ans = n;
-    ll p = 5;
-    while(p <= n){
-      ans += n / p;
-      p *= 5;
-    }
-    cout << ans << endl;
-  }
+  int n; cin >> n;
+  ld x0, y0, x1, y1; cin >> x0 >> y0 >> x1 >> y1;
+  
 }
