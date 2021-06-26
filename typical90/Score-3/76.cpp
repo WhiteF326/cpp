@@ -10,6 +10,7 @@ using ld = long double;
 
 int main(){
   int n; cin >> n;
+  // {A1～An} + {A1～An} from the beginning
   vector<ll> a(n * 2);
   ll sum = 0;
   for(int i = 0; i < n; i++){
@@ -17,6 +18,7 @@ int main(){
     sum += a[i];
     a[i + n] = a[i];
   }
+  // Two-Pointer Technique
   int l = 0, r = 0;
   ll t = a[0];
   while(true){
