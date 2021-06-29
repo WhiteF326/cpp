@@ -85,10 +85,10 @@ int main()
 {
   ll a = 1, b = 1;
   ofstream ofs("primes.txt");
-  while(a < 100000){
+  while(a < 55555){
     a = NextPrime(a);
     b = 1;
-    while(b < 100000){
+    while(b < 55555){
       b = NextPrime(b);
       if(IsPrime(a + b)){
         ofs << a + b << " = " << a << " + " << b << endl;

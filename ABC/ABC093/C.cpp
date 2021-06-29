@@ -1,11 +1,26 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
+using namespace atcoder;
+
+#define fs(n) fixed << setprecision(n)
+#define mp(i, j) make_pair(i, j);
+using ll = long long;
+using ld = long double;
 
 int main(){
-  vector<int> d(3); for(int i = 0; i < 3; i++) cin >> d[i];
-  sort(d.begin(), d.end());
-  int ans = d[2] - d[1];
-  if((d[2] - d[0] - ans) % 2 == 0) ans += (d[2] - d[0] - ans) / 2;
-  else ans += (int)ceil((d[2] - d[0] - ans) / 2.0) + 1;
-  cout << ans << endl;
+  vector<int> v(3);
+  cin >> v[0] >> v[1] >> v[2];
+
+  int step = 0;
+  while(true){
+    if(v[0] == v[1] && v[1] == v[2]){
+      cout << step << endl;
+      return 0;
+    }
+    sort(v.begin(), v.end());
+    if(v[1] == v[2]) v[0] += 2;
+    else v[0]++, v[1]++;
+    step++;
+  }
 }
