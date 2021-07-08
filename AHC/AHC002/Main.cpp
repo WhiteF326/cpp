@@ -28,7 +28,7 @@ int main(){
   for(int i = 0; i < 50; i++){
     for(int j = 0; j < 50; j++) cin >> values[i][j];
   }
-  // 通貨済みかどうか
+  // 通過済みかどうか
   vector<vector<bool>> passed(50, vector<bool>(50, false));
   
   // 全ての移動パターンを保持
