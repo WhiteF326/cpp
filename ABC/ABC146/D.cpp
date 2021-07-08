@@ -9,11 +9,7 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  ll n; cin >> n;
-  vector<ll> a(5);
-  for(int i = 0; i < 5; i++) cin >> a[i];
+  int n; cin >> n;
+  vector<vector<int>> g(n, vector<int>(0));
 
-  ll el = *min_element(a.begin(), a.end());
-
-  cout << 4 + (n + el - 1) / el << endl;
 }

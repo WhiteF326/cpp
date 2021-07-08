@@ -10,17 +10,15 @@ using ld = long double;
 
 int main(){
   int n, m; cin >> n >> m;
-  vector<int> a(n, 0);
-  for(int i = 0; i < n; i++){
-    string s; cin >> s;
-    for(int j = 0; j < m; j++){
-      a[i] += (s[j] == '1');
-    }
+  vector<int> ans(n, 0);
+  for(int i = 0; i < m; i++){
+    int a, b; cin >> a >> b;
+    a--, b--;
+    ans[max(a, b)]++;
   }
-  ll odd = 0, even = 0;
+  int res = 0;
   for(int i = 0; i < n; i++){
-    if(a[i] % 2) odd++;
-    else even++;
+    if(ans[i] == 1) res++;
   }
-  cout << odd * even << endl;
+  cout << res << endl;
 }
