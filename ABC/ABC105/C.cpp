@@ -8,8 +8,8 @@ using namespace atcoder;
 using ll = long long;
 using ld = long double;
 
-int expow(int x, int n){
-  int ans = 1;
+ll expow(ll x, ll n){
+  ll ans = 1;
   while(n > 0){
     if(n & 1) ans = ans * x;
     x = x * x;
@@ -19,21 +19,7 @@ int expow(int x, int n){
 }
 
 int main(){
-  int n; cin >> n;
-  stack<int> ans;
-  // 絶対値が0に近づくかで判定
-  for(int i = 0; i <= 30; i++){
-    int d = expow(-2, i);
-    // cout << d << endl;
-    if(abs(n - d) <= abs(n)){
-      ans.push(1);
-      n -= d;
-    }else{
-      if(!ans.empty()) ans.push(0);
-    }
-  }
-  while(!ans.empty()){
-    cout << ans.top();
-    ans.pop();
-  }cout << endl;
+  ll n; cin >> n;
+  bool mf = (n < 0);
+  n = llabs(n);
 }

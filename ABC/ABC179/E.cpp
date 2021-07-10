@@ -10,5 +10,6 @@ using ld = long double;
 using pli = pair<ll, int>;
 
 int main(){
-  
+  ll n; cin >> n;
+  ll x, m; cin >> x >> m;
 }
