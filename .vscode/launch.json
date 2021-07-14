@@ -8,6 +8,13 @@
         "type": "java",
         "name": "Launch Main",
         "request": "launch",
+        "mainClass": "JavaLib.Main",
+        "projectName": "cpp_fcae95cc"
+      },
+      {
+        "type": "java",
+        "name": "Launch Main",
+        "request": "launch",
         "mainClass": "Main",
         "projectName": "cpp_fcae95cc"
       },

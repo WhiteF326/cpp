@@ -1,32 +1,36 @@
+// refactoring for blog
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
+using namespace atcoder;
 
-int fact(int x) { return x <= 1 ? 1 : x * fact(x - 1); }
+#define fs(n) fixed << setprecision(n);
+#define mp(a, b) make_pair(a, b);
+using ll = long long;
+using ld = long double;
 
 int main(){
   int n, m; cin >> n >> m;
-  vector<int> k(m);
-  vector<vector<int>> s(m, vector<int>(0));
+  vector<vector<int>> sl(m, vector<int>(0));
   for(int i = 0; i < m; i++){
-    cin >> k[i];
-    for(int j = 0; j < k[i]; j++){
-      int x; cin >> x;
-      s[i].push_back(x);
+    int k; cin >> k;
+    for(int j = 0; j < k; j++){
+      int s; cin >> s;
+      sl[i].emplace_back(s - 1);
     }
   }
   vector<int> p(m);
   for(int i = 0; i < m; i++) cin >> p[i];
+
   int ans = 0;
-  for(int i = 0; i < (int)pow(2, n); i++){
-    bool flg = true;
+  for(int i = 0; i < (1 << n); i++){
+    int light = 0;
     for(int j = 0; j < m; j++){
       int res = 0;
-      for(int l = 0; l < k[j]; l++){
-        res += (i / (int)pow(2, s[j][l] - 1)) % 2;
-      }
-      if(res % 2 != p[j]) flg = false;
+      for(int k : sl[j]) if(i & (1 << k)) res++;
+      if(res % 2 == p[j]) light++;
     }
-    ans += (int)flg;
+    if(light == m) ans++;
   }
   cout << ans << endl;
 }

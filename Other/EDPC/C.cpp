@@ -1,19 +1,31 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
+using namespace atcoder;
+
+#define fs(n) fixed << setprecision(n);
+#define mp(a, b) make_pair(a, b);
+#define all(arr) arr.begin(), arr.end()
+using ll = long long;
+using ld = long double;
 
 int main(){
-  int n; cin >> n; vector<vector<long long>> dp(n, vector<long long>(3, 0));
+  int n; cin >> n;
   vector<vector<int>> h(n, vector<int>(3));
-  for(int i = 0; i < n; i++){for(int j = 0; j < 3; j++){cin >> h[i][j];}}
-  for(int i = 0; i < 3; i++){dp[0][i] = h[0][i];}
-  for(int i = 1; i < n; i++){
+  for(int i = 0; i < n; i++) for(int j = 0; j < 3; j++) cin >> h[i][j];
+
+  vector<vector<int>> dp(n + 1, vector<int>(3, 0));
+  dp[0] = {0, 0, 0}, dp[1] = h[0];
+
+  for(int i = 2; i <= n; i++){
     for(int j = 0; j < 3; j++){
       for(int k = 0; k < 3; k++){
-        if(j != k || i == 0){
-          dp[i][j] = max(dp[i][j], dp[i - 1][k] + h[i][j]);
-        }
+        if(j == k) continue;
+        // 前日jで当日kへ配る
+        dp[i][k] = max(dp[i][k], dp[i - 1][j] + h[i - 1][k]);
       }
     }
   }
-  cout << max(dp[n - 1][0], max(dp[n - 1][1], dp[n - 1][2])) << endl;
+
+  cout << *max_element(all(dp[n])) << endl;
 }
