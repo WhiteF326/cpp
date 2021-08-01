@@ -13,9 +13,18 @@ constexpr int modv = 1000000007;
 int main(){
   int n; cin >> n;
   string s; cin >> s;
-  ll ans = 0;
+
+  string mk = "atcoder";
+  vector<vector<ll>> dp(n + 1, vector<ll>(8, 0));
+  dp[0][0] = 1;
   for(int i = 0; i < n; i++){
-    //
+    for(int j = 0; j <= 7; j++){
+      dp[i + 1][j] += dp[i][j];
+      for(int k = 0; k < 7; k++){
+        if(s[i] == mk[k] && j == k) dp[i + 1][j + 1] += dp[i][j];
+      }
+    }
+    for(int j = 0; j <= 7; j++) dp[i + 1][j] %= modv;
   }
-  cout << ans << endl;
+  cout << dp[n][7] << endl;
 }
