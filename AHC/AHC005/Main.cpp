@@ -54,6 +54,11 @@ int main(){
     yd[i].emplace_back(n);
     td[i].emplace_back(n);
   }
+  for(int i = 0; i < n; i++){
+    for(int j = 0; j < n; j++){
+      cout << yd[i][j] << " ";
+    }cout << endl;
+  }
   // score, si, sj, time, way
   priority_queue<tuple<int, int, int, int, string>> q;
   priority_queue<tuple<int, int, int, int, string>> e;
@@ -69,12 +74,13 @@ int main(){
       if(v % 2){
         // yd[mi]をmjで検索
         int pos = lower_bound(all(yd[mi]), mj) - yd[mi].begin();
-        res += yd[mi][pos + 1] - yd[mi][pos] - 1;
+        res = yd[mi][pos + 1] - yd[mi][pos] - 1;
       }else{
         // td[mj]をmiで検索
         int pos = lower_bound(all(td[mj]), mi) - td[mj].begin();
-        res += td[mi][pos + 1] - td[mi][pos] - 1;
+        res = td[mi][pos + 1] - td[mi][pos] - 1;
       }
+      cout << res << endl;
       while(true){
         bool flg = false;
         for(int hoge = 0; hoge < 2; hoge++){
@@ -96,5 +102,8 @@ int main(){
     }
   }
   cout << q.size() << endl;
-  cout << tg(4, q.top()) << endl;
+  for(int i = 0; i < 5; i++){
+    cout << tg(0, q.top()) << endl;
+    q.pop();
+  }
 }
