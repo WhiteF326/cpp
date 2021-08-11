@@ -8,6 +8,13 @@
         "type": "java",
         "name": "Launch Main",
         "request": "launch",
+        "mainClass": "yukicoder.p6855.Main",
+        "projectName": "cpp_fcae95cc"
+      },
+      {
+        "type": "java",
+        "name": "Launch Main",
+        "request": "launch",
         "mainClass": "JavaLib.Main",
         "projectName": "cpp_fcae95cc"
       },

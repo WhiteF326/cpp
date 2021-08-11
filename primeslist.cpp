@@ -44,7 +44,7 @@ int NextPrime(int d)
 int main(){
   int a = 2;
   ofstream ofs("primes.txt");
-  while(a < 55555){
+  while(a < 1000000){
     ofs << a << endl;
     a = NextPrime(a);
   }

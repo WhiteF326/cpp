@@ -7,36 +7,44 @@ using namespace atcoder;
 #define mp(a, b) make_pair(a, b)
 #define all(x) x.begin(), x.end()
 #define const constexpr
+#define pdesc(t) t, vector<t>, greater<t>
 using ll = long long;
 using ld = long double;
+
+ll modpow(ll x, ll n, ll mod){
+  ll ret = 1;
+  if(mod == 0){
+    while(n > 0){
+      if(n & 1) ret *= x;
+      x *= x;
+      n >>= 1;
+    }
+  }else{
+    while(n > 0){
+      if(n & 1) ret = ret * x % mod;
+      x = x * x % mod;
+      n >>= 1;
+    }
+  }
+  return ret;
+}
 
 const ll modv = 1000000007;
 
 int main(){
   int n; cin >> n;
-  vector<vector<int>> h(n), l(n);
+  vector<ll> a(n);
+  for(int i = 0; i < n; i++) cin >> a[i];
 
-  for(int i = 0; i < n; i++){
-    int a; cin >> a;
-    for(int j = 0; j < a; j++){
-      int x, y; cin >> x >> y;
-      if(y == 0) l[i].push_back(x - 1);
-      else h[i].push_back(x - 1);
+  ll ans = 0;
+  for(int i = 0; i <= 63; i++){
+    ll p = 0, q = 0;
+    for(int j = 0; j < n; j++){
+      if(a[j] & (1LL << i)) p++;
+      else q++;
     }
-  }
-
-  int ans = 0;
-  for(int m = 0; m < (1 << n); m++){
-    bool flg = true;
-    int t = 0;
-    for(int i = 0; i < n; i++){
-      if(m & (1 << i)){
-        t++;
-        for(auto hs : h[i]) if(!(m & (1 << hs))) flg = false;
-        for(auto ls : l[i]) if(m & (1 << ls)) flg = false;
-      }
-    }
-    if(flg) ans = max(ans, t);
+    ans += ((p * q) % modv) * modpow(2LL, (ll)i, modv);
+    ans = ans % modv;
   }
   cout << ans << endl;
 }

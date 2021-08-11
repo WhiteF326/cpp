@@ -37,27 +37,23 @@ int main(){
   int si, sj; cin >> si >> sj;
 
   vector<vector<int>> stage(n, vector<int>(n));
+  vector<vector<int>> f(n, vector<int>(n, 0));
   vector<vector<int>> yd(n, vector<int>(1, -1)), td(n, vector<int>(1, -1));
   for(int i = 0; i < n; i++){
     string c; cin >> c;
     for(int j = 0; j < n; j++){
-      if(stage[i][j] == '#'){
+      if(c[j] == '#'){
         stage[i][j] = -1;
-        yd[i].emplace_back(j);
-        td[j].emplace_back(i);
+        yd[i].push_back(j);
+        td[j].push_back(i);
       }else{
         stage[i][j] = c[j] - '0';
       }
     }
   }
   for(int i = 0; i < n; i++){
-    yd[i].emplace_back(n);
-    td[i].emplace_back(n);
-  }
-  for(int i = 0; i < n; i++){
-    for(int j = 0; j < n; j++){
-      cout << yd[i][j] << " ";
-    }cout << endl;
+    yd[i].push_back(n);
+    td[i].push_back(n);
   }
   // score, si, sj, time, way
   priority_queue<tuple<int, int, int, int, string>> q;
@@ -80,30 +76,28 @@ int main(){
         int pos = lower_bound(all(td[mj]), mi) - td[mj].begin();
         res = td[mi][pos + 1] - td[mi][pos] - 1;
       }
-      cout << res << endl;
+      int ft = 0;
       while(true){
         bool flg = false;
         for(int hoge = 0; hoge < 2; hoge++){
           mi += way[v][0], mj += way[v][1];
-          if(stage[mi][mj] < 0){
+          if(stage[mi][mj] < 0 || mi < 0 || mi >= n || mj < 0 || mj >= n){
             mi -= way[v][0], mj -= way[v][1];
             flg = true;
             break;
           }
           mt += stage[mi][mj];
+          ft += stage[mi][mj];
           mw.push_back(wayst[v]);
         }
         if(flg){
           e.push(make_tuple(tg(0, pos) + res, mi, mj, mt, mw));
           break;
         }
-        q.push(make_tuple(tg(0, pos) + res, mi, mj, mt, mw));
+        q.push(make_tuple(tg(0, pos) / ft, mi, mj, mt, mw));
       }
     }
   }
-  cout << q.size() << endl;
-  for(int i = 0; i < 5; i++){
-    cout << tg(0, q.top()) << endl;
-    q.pop();
-  }
+  cout << tg(4, q.top()) << endl;
+  return 0;
 }
