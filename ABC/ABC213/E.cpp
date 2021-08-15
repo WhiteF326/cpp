@@ -11,75 +11,54 @@ using namespace atcoder;
 using ll = long long;
 using ld = long double;
 
-int h, w;
-vector<vector<int>> stage(500, vector<int>(500, 0));
-vector<vector<bool>> visited(500, vector<bool>(500, false));
-int ans = INT_MAX;
-vector<vector<int>> way = { {-1, 0}, {0, -1}, {0, 1}, {1, 0} };
-vector<vector<vector<int>>> dpos = {
-  { {-1, -1}, {-1, 0}, {0, -1} },
-  { {-1, 0}, {-1, 1}, {0, 1} },
-  { {0, -1}, {1, -1}, {1, 0} },
-  { {0, 1}, {1, 0}, {1, 1} }
-};
+vector<vector<int>> way = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
 
-void dfs(int y, int x, int dest){
-  visited[y][x] = true;
-  if(y == h - 1 && x == w - 1){
-    ans = min(ans, dest);
-    return;
+int main(){
+  int h, w; cin >> h >> w;
+  vector<vector<int>> stage(h, vector<int>(w, 0));
+  for(int i = 0; i < h; i++){
+    string s; cin >> s;
+    for(int j = 0; j < w; j++) stage[i][j] = s[j] == '#';
   }
-  bool stop = true;
-  for(int i = 0; i < 4; i++){
-    int dy = y + way[i][0], dx = x + way[i][1];
-    if(dy >= h || dy < 0 || dx >= w || dx < 0) continue;
-    if(stage[dy][dx] == 0 && !visited[dy][dx]){
-      stop = false;
-      dfs(dy, dx, dest);
-    }
-  }
-  if(stop){
+  
+  // (y, x)
+  deque<pair<int, int>> deq;
+  deq.push_front(mp(0, 0));
+  vector<vector<int>> depth(h, vector<int>(w, INT_MAX));
+  depth[0][0] = 0;
+
+  while(!deq.empty()){
+    auto dest = deq.front();
+    deq.pop_front();
+    int cy = dest.first, cx = dest.second;
+
     for(int i = 0; i < 4; i++){
-      int dy = y + way[i][0], dx = x + way[i][1];
-      if(dy >= h || dy < 0 || dx >= w || dx < 0) continue;
-      if(stage[dy][dx] == 1){
-        for(int j = 0; j < 4; j++){
-          vector<int> def(4);
-          bool ok = true;
-          for(int k = 0; k < 3; k++){
-            int ty = dy + dpos[j][k][0], tx = dy + dpos[j][k][1];
-            if(ty >= h || ty < 0 || tx >= w || tx < 0){
-              ok = false;
-              break;
-            }
-            def[k] = stage[ty][tx];
-          }
-          if(ok){
-            def[3] = stage[dx][dy];
-            stage[dx][dy] = 0;
-            for(int k = 0; k < 3; k++){
-              stage[dy + dpos[j][k][0]][dy + dpos[j][k][1]] = 0;
-            }
-            dfs(y, x, dest + 1);
-            for(int k = 0; k < 3; k++){
-              stage[dy + dpos[j][k][0]][dy + dpos[j][k][1]] = def[k];
-            }
-            stage[dx][dy] = def[3];
-          }
+      int dy = way[i][0], dx = way[i][1];
+
+      int ty = cy + dy, tx = cx + dx;
+      if(ty < 0 || ty >= h || tx < 0 || tx >= w) continue;
+      if(stage[ty][tx]) continue;
+
+      if(depth[ty][tx] > depth[cy][cx]){
+        depth[ty][tx] = depth[cy][cx];
+        deq.push_front(mp(ty, tx));
+      }
+    }
+
+    for(int dy = -2; dy <= 2; dy++){
+      for(int dx = -2; dx <= 2; dx++){
+        if((abs(dy) == 2 && abs(dx) == 2) || (dy == 0 && dx == 0)) continue;
+
+        int ty = cy + dy, tx = cx + dx;
+        if(ty < 0 || ty >= h || tx < 0 || tx >= w) continue;
+
+        if(depth[ty][tx] > depth[cy][cx] + 1){
+          depth[ty][tx] = depth[cy][cx] + 1;
+          deq.push_back(mp(ty, tx));
         }
       }
     }
   }
-}
 
-int main(){
-  cin >> h >> w;
-  for(int i = 0; i < h; i++){
-    string s; cin >> s;
-    for(int j = 0; j < w; j++){
-      stage[i][j] = s[j] == '#';
-    }
-  }
-  dfs(0, 0, 0);
-  cout << ans << endl;
+  cout << depth[h - 1][w - 1] << endl;
 }

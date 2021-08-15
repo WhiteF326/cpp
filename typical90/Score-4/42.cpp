@@ -11,12 +11,20 @@ using namespace atcoder;
 using ll = long long;
 using ld = long double;
 
+const ll modv = (1e+9)+7;
+
 int main(){
   int k; cin >> k;
-  
-  // k % 9 == 0の場合だけを考える
-  if(k % 9) cout << 0 << endl;
-  else{
-    //
+  if(k % 9){
+    cout << 0 << endl;
+    return 0;
   }
+  
+  // dp[i] = 桁総和 i である場合の答え
+  vector<ll> dp(k + 1, 0);
+  dp[0] = 1;
+  for(int i = 1; i <= k; i++){
+    for(int j = 1; j <= min(i, 9); j++) dp[i] = (dp[i - j] + dp[i]) % modv;
+  }
+  cout << dp[k] << endl;
 }
