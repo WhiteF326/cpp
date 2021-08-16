@@ -1,4 +1,3 @@
-package ABC.ABC196.C_Java;
 import java.util.*;
 
 class Main {

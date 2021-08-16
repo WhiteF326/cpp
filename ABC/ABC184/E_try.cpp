@@ -36,58 +36,13 @@ int main(){
   }
   auto pos = [&](int y, int x) {return y * w + x;};
   
-  // first bfs
   queue<int> q;
   q.push(pos(gy, gx));
   vector<vector<int>> depth(h, vector<int>(w, INT_MAX));
   depth[sy][sx] = 0;
   vector<vector<bool>> visited(h, vector<bool>(w, false));
   visited[sy][sx] = true;
-  vector<bool> reachlist(27, false);
-  while(!q.empty()){
-    int dest = q.front();
-    int cy = dest / w, cx = dest % w;
-    q.pop();
-    for(int i = 0; i < 4; i++){
-      int dy = cy + way[i][0], dx = cx + way[i][1];
-      if(dy >= h || dy < 0 || dx >= w || dx < 0) continue;
-      if(stage[dy][dx] < 0) continue;
-      if(stage[dy][dx] > 0){
-        reachlist[stage[dy][dx]] = true;
-      }
-      if(!visited[dy][dx]){
-        depth[dy][dx] = depth[cy][cx] + 1;
-        visited[dy][dx] = true;
-        q.push(pos(dy, dx));
-      }
-    }
-  }
-
-  // fix teleporter
-  vector<pair<int, int>> dtp(27);
-  for(int i = 1; i <= 26; i++){
-    if(!reachlist[i]) continue;
-    auto tplist = tp[i];
-    int nearest = INT_MAX;
-    for(auto stp : tplist){
-      int tpy = stp.first, tpx = stp.second;
-      if(depth[tpy][tpx] < nearest){
-        nearest = depth[tpy][tpx];
-        dtp[i] = mp(tpy, tpx);
-      }
-    }
-  }
-
-  // second bfs
-  q.push(pos(sy, sx));
-  for(int i = 0; i < h; i++){
-    for(int j = 0; j < w; j++){
-      depth[i][j] = INT_MAX;
-      visited[i][j] = false;
-    }
-  }
-  depth[sy][sx] = 0;
-  visited[sy][sx] = true;
+  
   while(!q.empty()){
     int dest = q.front();
     int cy = dest / w, cx = dest % w;
@@ -95,9 +50,10 @@ int main(){
     if(stage[cy][cx] > 0){
       // tp
       int tpn = stage[cy][cx];
-      int dy = dtp[tpn].first, dx = dtp[tpn].second;
-      if(!visited[dy][dx]){
-        depth[dy][dx] = depth[cy][cx] + 1;
+      for(auto tpl : tp[tpn]){
+        int dy = tpl.first, dx = tpl.second;
+        if(dy == cy && dx == cx) continue;
+        depth[dy][dx] = min(depth[dy][dx], depth[cy][cx] + 1);
         visited[dy][dx] = true;
         q.push(pos(dy, dx));
       }
@@ -107,7 +63,7 @@ int main(){
       if(dy >= h || dy < 0 || dx >= w || dx < 0) continue;
       if(stage[dy][dx] < 0) continue;
       if(!visited[dy][dx]){
-        depth[dy][dx] = depth[cy][cx] + 1;
+        depth[dy][dx] = min(depth[dy][dx], depth[cy][cx] + 1);
         visited[dy][dx] = true;
         q.push(pos(dy, dx));
       }

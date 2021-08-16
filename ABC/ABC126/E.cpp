@@ -13,6 +13,12 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  string s; cin >> s;
-  // 1, 3, 673, 2019
+  int n, m; cin >> n >> m;
+  vector<tuple<int, int, int>> c(m);
+  for(int i = 0; i < m; i++){
+    int x, y, z; cin >> x >> y >> z;
+    c[i] = {x, y, z};
+  }
+  
+  // dp[i][j] = i個目
 }
