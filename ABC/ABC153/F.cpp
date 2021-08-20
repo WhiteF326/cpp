@@ -12,10 +12,30 @@ using namespace atcoder;
 using ll = long long;
 using ld = long double;
 
+ll op(ll a, ll b){return a ^ b;}
+ll e(){return 0;}
+
 int main(){
   int n, d, a; cin >> n >> d >> a;
-  vector<pair<int, int>> mst(n);
-  for(int i = 0; i < n; i++) cin >> mst[i].first >> mst[i].second;
+  vector<ll> pt(n), h(n);
+  for(int i = 0; i < n; i++) cin >> pt[i] >> h[i];
 
-  
+  segtree<ll, op, e> seg(h);
+
+  ll ans = 0;
+
+  for(int i = 0; i < n; i++){
+    if(!seg.get(i)) continue;
+    ll pos = pt[i];
+    ll end = upper_bound(all(pt), pos + 2 * d) - pt.begin();
+
+    ll c = ceil(seg.get(i) / (ld)a);
+    ans += c;
+
+    for(int j = i; j <= end; j++){
+      seg.set(j, max(seg.get(i) - c * a, 0LL));
+    }
+  }
+
+  cout << ans << endl;
 }
