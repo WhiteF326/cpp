@@ -15,106 +15,64 @@ using ld = long double;
 vector<vector<int>> way = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
 
 int main(){
-  // initialize
   int h, w; cin >> h >> w;
-  vector<vector<int>> stage(h, vector<int>(w, -1));
-  vector<vector<pair<int, int>>> tp(27, vector<pair<int, int>>(0));
+  vector<vector<int>> stage(h, vector<int>(w, 0));
+  map<int, vector<int>> tp;
+  auto pos = [&](int y, int x){return y * w + x;};
   int sy, sx, gy, gx;
   for(int i = 0; i < h; i++){
     string s; cin >> s;
     for(int j = 0; j < w; j++){
-      if(s[j] == '#') continue;
-      else if(s[j] >= 'a' && s[j] <= 'z'){
-        tp[s[j] - 'a' + 1].push_back(mp(i, j));
-        stage[i][j] = s[j] - 'a' + 1;
-      }else{
-        stage[i][j] = 0;
-        if(s[j] == 'S') sy = i, sx = j;
-        if(s[j] == 'G') gy = i, gx = j;
+      if(s[j] == '#') stage[i][j] = -1;
+      else if(s[j] == 'S') sy = i, sx = j;
+      else if(s[j] == 'G') gy = i, gx = j;
+      else if(s[j] >= 'a'){
+        stage[i][j] = s[j];
+        tp[s[j]].push_back(pos(i, j));
       }
     }
   }
-  auto pos = [&](int y, int x) {return y * w + x;};
-  
-  // first bfs
+
+  map<int, int> tpused;
   queue<int> q;
-  q.push(pos(gy, gx));
+  q.push(pos(sy, sx));
   vector<vector<int>> depth(h, vector<int>(w, INT_MAX));
   depth[sy][sx] = 0;
   vector<vector<bool>> visited(h, vector<bool>(w, false));
   visited[sy][sx] = true;
-  vector<bool> reachlist(27, false);
+  vector<vector<bool>> see(h, vector<bool>(w, false));
+
   while(!q.empty()){
     int dest = q.front();
-    int cy = dest / w, cx = dest % w;
     q.pop();
-    for(int i = 0; i < 4; i++){
-      int dy = cy + way[i][0], dx = cx + way[i][1];
-      if(dy >= h || dy < 0 || dx >= w || dx < 0) continue;
-      if(stage[dy][dx] < 0) continue;
-      if(stage[dy][dx] > 0){
-        reachlist[stage[dy][dx]] = true;
-      }
-      if(!visited[dy][dx]){
-        depth[dy][dx] = depth[cy][cx] + 1;
-        visited[dy][dx] = true;
-        q.push(pos(dy, dx));
-      }
-    }
-  }
-
-  // fix teleporter
-  vector<pair<int, int>> dtp(27);
-  for(int i = 1; i <= 26; i++){
-    if(!reachlist[i]) continue;
-    auto tplist = tp[i];
-    int nearest = INT_MAX;
-    for(auto stp : tplist){
-      int tpy = stp.first, tpx = stp.second;
-      if(depth[tpy][tpx] < nearest){
-        nearest = depth[tpy][tpx];
-        dtp[i] = mp(tpy, tpx);
-      }
-    }
-  }
-
-  // second bfs
-  q.push(pos(sy, sx));
-  for(int i = 0; i < h; i++){
-    for(int j = 0; j < w; j++){
-      depth[i][j] = INT_MAX;
-      visited[i][j] = false;
-    }
-  }
-  depth[sy][sx] = 0;
-  visited[sy][sx] = true;
-  while(!q.empty()){
-    int dest = q.front();
     int cy = dest / w, cx = dest % w;
-    q.pop();
-    if(stage[cy][cx] > 0){
-      // tp
+    see[cy][cx] = true;
+
+    if(stage[cy][cx] >= 1 && !tpused[stage[cy][cx]]){
       int tpn = stage[cy][cx];
-      int dy = dtp[tpn].first, dx = dtp[tpn].second;
-      if(!visited[dy][dx]){
-        depth[dy][dx] = depth[cy][cx] + 1;
-        visited[dy][dx] = true;
-        q.push(pos(dy, dx));
+      for(int tpd : tp[tpn]){
+        int ty = tpd / w, tx = tpd % w;
+        if(!visited[ty][tx]){
+          chmin(depth[ty][tx], depth[cy][cx] + 1);
+          visited[ty][tx] = true;
+          q.push(tpd);
+        }
       }
+      tpused[tpn] = true;
     }
+
     for(int i = 0; i < 4; i++){
       int dy = cy + way[i][0], dx = cx + way[i][1];
-      if(dy >= h || dy < 0 || dx >= w || dx < 0) continue;
-      if(stage[dy][dx] < 0) continue;
-      if(!visited[dy][dx]){
-        depth[dy][dx] = depth[cy][cx] + 1;
+      if(dy < 0 || dy >= h || dx < 0 || dx >= w) continue;
+
+      if(!visited[dy][dx] && stage[dy][dx] >= 0){
+        chmin(depth[dy][dx], depth[cy][cx] + 1);
         visited[dy][dx] = true;
         q.push(pos(dy, dx));
       }
     }
   }
 
-  if(depth[gy][gx] == INT_MAX){
-    cout << "-1" << endl;
-  }else cout << depth[gy][gx] << endl;
+  if(depth[gy][gx] == INT_MAX) cout << -1 << endl;
+  else cout << depth[gy][gx] << endl;
 }
