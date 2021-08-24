@@ -43,9 +43,10 @@ struct BIT {
 };
 
 int main(){
-  int n, d, a; cin >> n >> d >> a;
+  ifstream ifs("in.txt");
+  int n, d, a; ifs >> n >> d >> a;
   vector<pair<ll, ll>> vset(n);
-  for(int i = 0; i < n; i++) cin >> vset[i].first >> vset[i].second;
+  for(int i = 0; i < n; i++) ifs >> vset[i].first >> vset[i].second;
 
   sort(all(vset));
 

@@ -14,5 +14,18 @@ using ld = long double;
 
 int main(){
   string s; cin >> s;
-  // 1, 3, 673, 2019
+  int n = (int)s.size();
+
+  ll ans = 0;
+  vector<ll> c(2020, 0);
+  c[0] = 1;
+  int t = 0, p = 1;
+  for(int i = n - 1; i >= 0; i--){
+    t = (t + (s[i] - '0') * p) % 2019;
+    ans += c[t];
+
+    p = (p * 10) % 2019;
+    c[t]++;
+  }
+  cout << ans << endl;
 }
