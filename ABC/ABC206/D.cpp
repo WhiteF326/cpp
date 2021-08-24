@@ -10,10 +10,20 @@ using ld = long double;
 
 int main(){
   int n; cin >> n;
-  deque<int> a;
+  vector<int> a(n);
   for(int i = 0; i < n; i++){
-    int x; cin >> x;
-    a.push_back(x);
+    cin >> a[i];
+    a[i]--;
   }
-  
+
+  dsu d(200000);
+  for(int i = 0; i < n / 2; i++){
+    d.merge(a[i], a[n - 1 - i]);
+  }
+
+  ll ans = 0;
+  for(auto ld : d.groups()){
+    ans += ld.size() - 1;
+  }
+  cout << ans << endl;
 }

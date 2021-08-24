@@ -15,5 +15,7 @@ using ld = long double;
 ll modv = 1000000007;
 
 int main(){
+  int n; cin >> n;
+  ll k; cin >> k;
   
 }
