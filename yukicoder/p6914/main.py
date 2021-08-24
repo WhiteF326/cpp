@@ -4,9 +4,11 @@ a = list(map(int, input().split()))
 ans = 0
 
 while(len(a)):
-    dp = [[[0, 0, 0] for _ in range(2048)] for _ in range(n + 1)]
-    dp[0][0][0] = 1
-    for i in range(1, n + 1):
+    dp = [[[0, 0, 0] for _ in range(2048)] for _ in range(len(a) + 1)]
+    dp[1][a[0]][0] = 1
+    dp[1][a[0]][1] = 0
+    dp[1][a[0]][2] = 1
+    for i in range(2, len(a) + 1):
         for j in range(2048):
             if dp[i - 1][j][0]:
                 # use a[i - 1]
@@ -31,3 +33,5 @@ while(len(a)):
             break
     for v in route:
         a.remove(v)
+
+print(ans)
