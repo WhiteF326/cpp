@@ -1,3 +1,5 @@
+package ABC.ABC150.C_Java;
+
 import java.util.*;
 
 class Main{

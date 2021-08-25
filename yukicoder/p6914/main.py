@@ -8,6 +8,9 @@ while(len(a)):
     dp[1][a[0]][0] = 1
     dp[1][a[0]][1] = 0
     dp[1][a[0]][2] = 1
+    dp[1][0][0] = 1
+    dp[1][0][1] = 0
+    dp[1][0][2] = 0
     for i in range(2, len(a) + 1):
         for j in range(2048):
             if dp[i - 1][j][0]:
@@ -19,7 +22,7 @@ while(len(a)):
                 dp[i][j][0] += dp[i - 1][j][0]
                 dp[i][j][1] = j
                 dp[i][j][2] = 0
-        if dp[i][0][0]:
+        if dp[i][0][2]:
             # restore
             ans += 1
             ptr = i
