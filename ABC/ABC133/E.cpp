@@ -13,13 +13,6 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  ll n; cin >> n;
-
-  string ans = "";
-  while(n > 0){
-    if(n % 2) ans = "A" + ans;
-    ans = "B" + ans;
-    n /= 2;
-  }
-  cout << ans << endl;
+  int n, k; cin >> n >> k;
+  
 }
