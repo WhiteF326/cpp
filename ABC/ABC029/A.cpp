@@ -8,9 +8,11 @@ using namespace atcoder;
 #define all(x) x.begin(), x.end()
 #define const constexpr
 #define pdesc(t) t, vector<t>, greater<t>
+#define chmin(a, b) a = min(a, b)
 using ll = long long;
 using ld = long double;
 
 int main(){
-  string x, y; cin >> x >> y;
+  string w; cin >> w;
+  cout << w << "s" << endl;
 }

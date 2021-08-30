@@ -8,9 +8,15 @@ using namespace atcoder;
 #define all(x) x.begin(), x.end()
 #define const constexpr
 #define pdesc(t) t, vector<t>, greater<t>
+#define chmin(a, b) a = min(a, b)
 using ll = long long;
 using ld = long double;
 
 int main(){
-  string x, y; cin >> x >> y;
+  int y; cin >> y;
+  bool flg = false;
+  if(y % 4 == 0) flg = true;
+  if(y % 100 == 0) flg = false;
+  if(y % 400 == 0) flg = true;
+  cout << (flg ? "YES" : "NO") << endl;
 }

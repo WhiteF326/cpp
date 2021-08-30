@@ -8,9 +8,16 @@ using namespace atcoder;
 #define all(x) x.begin(), x.end()
 #define const constexpr
 #define pdesc(t) t, vector<t>, greater<t>
+#define chmin(a, b) a = min(a, b)
 using ll = long long;
 using ld = long double;
 
 int main(){
-  string x, y; cin >> x >> y;
+  int n, m; cin >> n >> m;
+  dsu d(n);
+  for(int i = 0; i < m; i++){
+    int a, b; cin >> a >> b;
+    d.merge(a - 1, b - 1);
+  }
+  cout << d.groups().size() - 1 << endl;
 }
