@@ -12,12 +12,14 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  int h, w, m; cin >> h >> w >> m;
+  cout << "OK" << endl;
+  ifstream ifs("test.txt");
+  int h, w, m; ifs >> h >> w >> m;
   vector<pair<int, int>> pos(m);
   
   map<int, int> hl, wl;
   for(int i = 0; i < m; i++){
-    int hx, wx; cin >> hx >> wx;
+    int hx, wx; ifs >> hx >> wx;
     hx--, wx--;
     pos[i] = mp(hx, wx);
     hl[hx]++, wl[wx]++;
@@ -37,6 +39,8 @@ int main(){
   for(auto wx : wl){
     if(wx.second == wmax) wkeys.emplace_back(wx.first);
   }
+
+  cout << "OK" << endl;
 
   for(int i : hkeys){
     for(int j : wkeys){

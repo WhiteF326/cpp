@@ -12,24 +12,25 @@ using namespace atcoder;
 using ll = long long;
 using ld = long double;
 
-int op(int a, int b){
-  return max(a, b);
-}
-int e(){
-  return 0;
-}
-
 int main(){
-  int n, k; cin >> n >> k;
+  ll n, k; cin >> n >> k;
   vector<int> a(n);
-  for(int i = 0; i < n; i++) cin >> a[i];
-  segtree<int, op, e> seg(300001);
-
   for(int i = 0; i < n; i++){
-    int l = max(0, a[i] - k);
-    int r = min(300001, a[i] + k + 1);
-    int v = seg.prod(l, r);
-    seg.set(a[i], v + 1);
+    cin >> a[i];
+    a[i]--;
   }
-  cout << seg.all_prod() << endl;
+
+  vector<vector<int>> dp(61, vector<int>(n + 1, 0));
+  for(int i = 0; i < n; i++) dp[0][i] = a[i];
+  for(int i = 1; i <= 60; i++){
+    for(int j = 0; j < n; j++){
+      dp[i][j] = dp[i - 1][dp[i - 1][j]];
+    }
+  }
+
+  int ans = 0;
+  for(int i = 60; i >= 0; i--){
+    if(k & (1LL << i)) ans = dp[i][ans];
+  }
+  cout << ans + 1 << endl;
 }

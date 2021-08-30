@@ -8,20 +8,25 @@ using namespace atcoder;
 #define all(x) x.begin(), x.end()
 #define const constexpr
 #define pdesc(t) t, vector<t>, greater<t>
-#define chmin(a, b) a = min(a, b)
 using ll = long long;
 using ld = long double;
 
 int main(){
-  int n; cin >> n;
-  vector<int> a(n);
-  for(int i = 0; i < n; i++) cin >> a[i];
-
-  ll ans = 0;
-  map<int, int> cnt;
+  int n, m; cin >> n >> m;
+  vector<vector<int>> qu(100001, vector<int>(0));
   for(int i = 0; i < n; i++){
-    ans += cnt[i - a[i]];
-    cnt[a[i] + i]++;
+    int a, b; cin >> a >> b;
+    qu[a].push_back(b);
+  }
+
+  priority_queue<int> q;
+  int ans = 0;
+  for(int i = 1; i <= m; i++){
+    for(int b : qu[i]) q.push(b);
+    if(!q.empty()){
+      ans += q.top();
+      q.pop();
+    }
   }
   cout << ans << endl;
 }

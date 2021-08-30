@@ -8,9 +8,19 @@ using namespace atcoder;
 #define all(x) x.begin(), x.end()
 #define const constexpr
 #define pdesc(t) t, vector<t>, greater<t>
+#define chmin(a, b) a = min(a, b)
 using ll = long long;
 using ld = long double;
 
 int main(){
-  string x, y; cin >> x >> y;
+  int n; cin >> n;
+  vector<pair<int, int>> a(n);
+  for(int i = 0; i < n; i++) cin >> a[i].first, a[i].second = i + 1;
+
+  sort(all(a));
+  reverse(all(a));
+
+  for(int i = 0; i < n; i++){
+    cout << a[i].second << endl;
+  }
 }
