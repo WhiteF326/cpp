@@ -10,5 +10,9 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  
+  for(int i = 0; i < 26; i++){
+    int p; cin >> p;
+    cout << (char)('a' + p - 1);
+  }
+  cout << endl;
 }

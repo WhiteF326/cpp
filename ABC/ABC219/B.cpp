@@ -10,5 +10,11 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  
+  string s[] = {"", "", ""};
+  for(int i = 0; i < 3; i++) cin >> s[i];
+  string t; cin >> t;
+
+  for(char x : t){
+    cout << s[x - '1'];
+  }cout << endl;
 }

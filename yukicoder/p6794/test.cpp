@@ -22,10 +22,13 @@ int main(){
     ll ans = LLONG_MAX;
     for(ll j = 2; j <= log2(n); j++){
       ll i = pow(n, 1.0 / j);
-      ll k = n - mpow(i, j);
+      // fix error of i
+      while(pow(i + 1, j) <= n) i++;
+      ll k = n - pow(i, j);
       ans = min(ans, i + j + k);
-
-      cout << i << " " << j << " " << k << endl;
+      if (i+j+k == 580517341){
+      cout << i << "/" << j << "/" << k << endl;
+      }
     }
     cout << ans << endl;
   }

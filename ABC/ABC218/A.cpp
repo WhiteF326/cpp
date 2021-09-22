@@ -10,5 +10,7 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  
+  int n; cin >> n;
+  string s; cin >> s;
+  cout << (s[n - 1] == 'o' ? "Yes" : "No") << endl;
 }

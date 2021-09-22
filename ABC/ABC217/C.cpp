@@ -10,5 +10,13 @@ using ll = long long;
 using ld = long double;
 
 int main(){
+  int n; cin >> n;
+  vector<int> ans(n);
+
+  for(int i = 0; i < n; i++){
+    int p; cin >> p;
+    ans[p - 1] = i + 1;
+  }
+
   
 }

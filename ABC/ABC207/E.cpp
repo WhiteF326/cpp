@@ -22,9 +22,13 @@ int main(){
   vector<ll> xsum(n, a[0]);
   for(int i = 1; i < n; i++) xsum[i] = xsum[i - 1] + a[i];
 
+  // 除数の累積積
+  vector<ml> dprd(n, 1);
+  for(int i = 1; i < n; i++) dprd[i] = dprd[i - 1] * (i + 1);
+
   // dp[l][r] = 区間l~r(rを含む)の解
   vector<vector<ml>> dp(n, vector<ml>(n, 0));
   for(int i = 0; i < n; i++){
-    //
+    if(a[i] % (i + 1) == 0) dp[i][i] = 1;
   }
 }

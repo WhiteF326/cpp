@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
-#include <atcoder/all>
 using namespace std;
-using namespace atcoder;
 
 #define fs(n) fixed << setprecision(n)
 #define mp(a, b) make_pair(a, b)
@@ -10,10 +8,16 @@ using namespace atcoder;
 #define pdesc(t) t, vector<t>, greater<t>
 using ll = long long;
 using ld = long double;
+#define query(t) for(int _ = 0; _ < t; _++)
 
-#define ml modint998244353
 
 int main(){
-  string s; cin >> s;
-  int n = s.size();
+  int n; cin >> n;
+  
+  for(int i = 0; i < n; i++){
+    //
+  }
+  
+  int m; cin >> m;
+  
 }

@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
-#include <atcoder/all>
 using namespace std;
-using namespace atcoder;
 
 #define fs(n) fixed << setprecision(n)
 #define mp(a, b) make_pair(a, b)
@@ -11,9 +9,19 @@ using namespace atcoder;
 using ll = long long;
 using ld = long double;
 
-#define ml modint998244353
 
 int main(){
-  string s; cin >> s;
-  int n = s.size();
+  int t; cin >> t;
+  for(int i = 0; i < t; i++){
+    int n; cin >> n;
+    
+    string s = "";
+    for(int i = 0; i < n; i++) s += "()";
+    
+    cout << s << endl;
+    for(int j = 0; j < n - 1; j++){
+      swap(s[j * 2 + 1], s[j * 2 + 2]);
+      cout << s << endl;
+    }
+  }
 }

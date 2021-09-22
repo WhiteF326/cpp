@@ -10,5 +10,14 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  
+  set<string> ans;
+  ans.insert("ABC");
+  ans.insert("ARC");
+  ans.insert("AGC");
+  ans.insert("AHC");
+  for(int i = 0; i < 3; i++){
+    string s; cin >> s;
+    ans.erase(s);
+  }
+  cout << *ans.begin() << endl;
 }

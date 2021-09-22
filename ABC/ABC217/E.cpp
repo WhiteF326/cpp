@@ -10,5 +10,8 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  
+  int q; cin >> q;
+  for(int i = 0; i < q; i++){
+    
+  }
 }
