@@ -10,25 +10,15 @@ using namespace atcoder;
 #define pdesc(t) t, vector<t>, greater<t>
 using ll = long long;
 using ld = long double;
+#define query(t) for(int _ = 0; _ < t; _++)
+#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
 
-#define ml modint1000000007
+const ll modv = 1000000007;
+
 
 int main(){
   int n; cin >> n;
-  vector<ll> a(n);
-  for(int i = 0; i < n; i++) cin >> a[i];
+  vector<int> a(n); aryin(a, n);
 
-  // 累積和
-  vector<ll> xsum(n, a[0]);
-  for(int i = 1; i < n; i++) xsum[i] = xsum[i - 1] + a[i];
 
-  // 除数の累積積
-  vector<ml> dprd(n, 1);
-  for(int i = 1; i < n; i++) dprd[i] = dprd[i - 1] * (i + 1);
-
-  // dp[l][r] = 区間l~r(rを含む)の解
-  vector<vector<ml>> dp(n, vector<ml>(n, 0));
-  for(int i = 0; i < n; i++){
-    if(a[i] % (i + 1) == 0) dp[i][i] = 1;
-  }
 }

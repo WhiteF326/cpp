@@ -10,14 +10,14 @@ using namespace atcoder;
 #define pdesc(t) t, vector<t>, greater<t>
 using ll = long long;
 using ld = long double;
+#define query(t) for(int _ = 0; _ < t; _++)
+
 
 int main(){
   int n; cin >> n;
-  vector<vector<int>> g(n, vector<int>(0));
-  for(int i = 0; i < n - 1; i++){
+  vector<vector<int>> g(n);
+  query(n - 1){
     int a, b; cin >> a >> b;
-    a--, b--;
-    g[a].push_back(b);
-    g[b].push_back(a);
+    
   }
 }

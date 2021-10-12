@@ -14,5 +14,6 @@ using ld = long double;
 
 
 int main(){
-  //
+  int n, m; cin >> n >> m;
+  
 }

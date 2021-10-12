@@ -13,10 +13,10 @@ using ll = long long;
 using ld = long double;
 
 template <typename T>
-struct BIT {
+struct  {
   int n;
   vector<T> bit[2];
-  BIT(int n_) { init(n_); }
+  (int n_) { init(n_); }
   void init(int n_) {
     n = n_ + 1;
     for (int p = 0; p < 2; p++) bit[p].assign(n, 0);
@@ -50,7 +50,7 @@ int main(){
   sort(all(vset));
 
   vector<ll> x(n), h(n);
-  BIT<ll> bit(n);
+  <ll> bit(n);
 
   for(int i = 0; i < n; i++){
     x[i] = vset[i].first;
