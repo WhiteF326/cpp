@@ -11,7 +11,6 @@ using namespace atcoder;
 using ll = long long;
 using ld = long double;
 #define query(t) for(int _ = 0; _ < t; _++)
-<<<<<<< HEAD
 #define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
 
 
@@ -40,11 +39,4 @@ int main(){
   }
 
   cout << ans << endl;
-=======
-#define aryin(a, n) vector<int> a(n); for(int i = 0; i < n; i++) cin >> a[i];
-
-int main(){
-  int n; cin >> n;
-  
->>>>>>> 2ca353c5b1c6c87daa0f6f29f38297a82f57b4a9
 }
