@@ -1,70 +1,43 @@
-#pragma GCC target("avx2")
-#pragma GCC optimize("O3")
-#pragma GCC optimize("unroll-loops")
-
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
-
+using namespace atcoder;
+ 
+#define fs(n) fixed << setprecision(n)
+#define mp(a, b) make_pair(a, b)
+#define all(x) x.begin(), x.end()
+#define const constexpr
+#define pdesc(t) t, vector<t>, greater<t>
 using ll = long long;
+using ld = long double;
+#define query(t) for(int _ = 0; _ < t; _++)
+#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
+#define chmin(a, b) a = min(a, b)
+
+const ll infl = LLONG_MAX / 2LL;
 
 int main(){
   int n, m; cin >> n >> m;
-  vector<vector<pair<ll, int>>> g(n, vector<pair<ll, int>>(0));
+  vector<vector<ll>> wsl(n, vector<ll>(n, infl));
   for(int i = 0; i < m; i++){
-    int a, b; cin >> a >> b;
-    a--, b--;
-    ll c; cin >> c;
-    g[a].push_back(make_pair(c, b));
+    int a, b, c; cin >> a >> b >> c;
+    wsl[a - 1][b - 1] = c;
   }
-
-  for(int s = 0; s < n; s++){
-    priority_queue<pair<ll, int>> q;
-    q.push(make_pair(0, s));
-    vector<ll> fdist(n, LLONG_MAX);
-    fdist[s] = 0;
-    while(!q.empty()){
-      auto dest = q.top();
-      q.pop();
-      for(int j = 0; j < g[dest.second].size(); j++){
-        int ndest = g[dest.second][j].second;
-        if(fdist[ndest] > dest.first + g[dest.second][j].first){
-          fdist[ndest] = dest.first + g[dest.second][j].first;
-          q.push(make_pair(fdist[ndest], ndest));
-        }
-      }
-    }
-    
-  }
+  for(int i = 0; i < n; i++) wsl[i][i] = 0;
 
   ll ans = 0;
   for(int k = 0; k < n; k++){
-    for(int s = 0; s < n; s++){
-      priority_queue<pair<ll, int>> q;
-      q.push(make_pair(0, s));
-      vector<ll> fdist(n, LLONG_MAX);
-      fdist[s] = 0;
-      while(!q.empty()){
-        auto dest = q.top();
-        q.pop();
-        for(int j = 0; j < g[dest.second].size(); j++){
-          int ndest = g[dest.second][j].second;
-          if(fdist[ndest] > dest.first + g[dest.second][j].first){
-            fdist[ndest] = dest.first + g[dest.second][j].first;
-            if(ndest <= k){
-              q.push(make_pair(fdist[ndest], ndest));
-            }
-          }
-        }
+    for(int i = 0; i < n; i++){
+      for(int j = 0; j < n; j++){
+        chmin(wsl[i][j], wsl[i][k] + wsl[k][j]);
       }
-      ll res = 0;
-      for(int i = 0; i < n; i++){
-        // cout << fdist[i] << " ";
-        if(fdist[i] != LLONG_MAX){
-          res += fdist[i];
-        }
-      }
-      ans += res;
     }
+    for(int i = 0; i < n; i++){
+      for(int j = 0; j < n; j++){
+        if(wsl[i][j] < infl) ans += wsl[i][j];
+      }
+    }
+    // cout << ans << endl;
   }
   cout << ans << endl;
 }

@@ -2,30 +2,33 @@
 #include <atcoder/all>
 using namespace std;
 using namespace atcoder;
-
-#define fs(n) fixed << setprecision(n);
-#define mp(a, b) make_pair(a, b);
+ 
+#define fs(n) fixed << setprecision(n)
+#define mp(a, b) make_pair(a, b)
 #define all(x) x.begin(), x.end()
+#define const constexpr
+#define pdesc(t) t, vector<t>, greater<t>
 using ll = long long;
 using ld = long double;
+#define query(t) for(int _ = 0; _ < t; _++)
+#define aryin(a, n) vector<int> a(n); for(int i = 0; i < n; i++) cin >> a[i];
 
 int main(){
   int l, q; cin >> l >> q;
-  vector<pair<int, int>> queries(q);
-  vector<int> cutted;
-  map<int, pair<int, int>> searchs;
-  for(int i = 0; i < q; i++){
-    int c, x; cin >> c >> x;
-    if(c == 1) cutted.push_back(x);
-    else searchs[x] = mp(0, 0);
-  }
-  sort(all(cutted));
-  sort(all(searchs));
+  set<int> s;
+  s.insert(0);
+  s.insert(l);
 
-  for(auto v : searchs){
-    int val = v.first;
-    searchs[v] = mp(
-      cutted[lower_bound(all(cutted), x) - cutted.begin() - 1];
-    )
+  query(q){
+    int c, x; cin >> c >> x;
+    if(c == 1){
+      s.insert(x);
+    }else{
+      auto itr = s.lower_bound(x);
+      int h = *itr;
+      itr--;
+      int l = *itr;
+      cout << h - l << endl;
+    }
   }
 }
