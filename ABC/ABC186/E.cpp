@@ -8,16 +8,45 @@ using namespace atcoder;
 #define all(x) x.begin(), x.end()
 #define const constexpr
 #define pdesc(t) t, vector<t>, greater<t>
-#define chmin(a, b) a = min(a, b)
 using ll = long long;
 using ld = long double;
+#define query(t) for(int _ = 0; _ < t; _++)
+#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
+
+ll gcd(ll x, ll y){
+  while(y > 0){
+    ll r = x % y;
+    x = y;
+    y = r;
+  }
+  return x;
+}
+
+ll modinv(ll x, ll modv){
+  ll b = modv, u = 1, v = 0;
+  while(b){
+    ll t = x / b;
+    x -= t * b;
+    swap(x, b);
+    u -= t *v;
+    swap(u, v);
+  }
+  u %= modv;
+  if(u < 0) u += modv;
+  return u;
+}
 
 int main(){
-  int n, m; cin >> n >> m;
-  dsu d(n);
-  for(int i = 0; i < m; i++){
-    int a, b; cin >> a >> b;
-    d.merge(a - 1, b - 1);
+  int t; cin >> t;
+  query(t){
+    ll n, s, k; cin >> n >> s >> k;
+    ll g = gcd(n, k);
+    if(g == 1 || s % g == 0){
+      n /= g, s /= g, k /= g;
+      ll ans = (n - s) * modinv(k, n);
+      cout << ans % n << endl;
+    }else{
+      cout << -1 << endl;
+    }
   }
-  cout << d.groups().size() - 1 << endl;
 }
