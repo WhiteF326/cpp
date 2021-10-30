@@ -3,29 +3,46 @@
 using namespace std;
 using namespace atcoder;
 
-#define fs(n) fixed << setprecision(n);
-#define mp(a, b) make_pair(a, b);
+#define fs(n) fixed << setprecision(n)
+#define mp(a, b) make_pair(a, b)
+#define all(x) x.begin(), x.end()
+#define const constexpr
+#define pdesc(t) t, vector<t>, greater<t>
 using ll = long long;
 using ld = long double;
+#define query(t) for(int _ = 0; _ < t; _++)
+#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
+
 
 int main(){
   int n, h; cin >> n >> h;
-  vector<int> a(n), b(n);
-  for(int i = 0; i < n; i++) cin >> a[i] >> b[i];
-  int mx = *max_element(a.begin(), a.end());
-  
-  sort(b.begin(), b.end(), greater<int>());
-  int v = n;
+  vector<pair<int, int>> sw(n);
+
+  int smax = 0;
+
   for(int i = 0; i < n; i++){
-    if(b[i] < mx){
-      v = i;
+    cin >> sw[i].first >> sw[i].second;
+    smax = max(smax, sw[i].first);
+  }
+
+  sort(all(sw), [&](pair<int, int> a, pair<int, int> b){
+    return b.second < a.second;
+  });
+  int ans = 0;
+  for(int i = 0; i < n; i++){
+    if(sw[i].second > smax){
+      h -= sw[i].second;
+      ans++;
+      if(h <= 0){
+        cout << ans << endl;
+        return 0;
+      }
+    }else{
       break;
     }
-    h -= b[i];
-    if(h <= 0){
-      cout << i + 1 << endl;
-      return 0;
-    }
   }
-  cout << (int)(v + ceil((double)h / mx)) << endl;
+
+  ans += ceil(h / (double)smax);
+
+  cout << ans << endl;
 }

@@ -11,51 +11,59 @@ using namespace atcoder;
 using ll = long long;
 using ld = long double;
 #define query(t) for(int _ = 0; _ < t; _++)
+#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
 
 
 int main(){
-  int x, y, z; cin >> x >> y >> z;
-  vector<int> mx = {x, y, z};
-  int k; cin >> k;
-
+  int x, y, z, k; cin >> x >> y >> z >> k;
   vector<ll> a(x), b(y), c(z);
-  for(int i = 0; i < x; i++) cin >> a[i];
-  for(int i = 0; i < y; i++) cin >> b[i];
-  for(int i = 0; i < z; i++) cin >> c[i];
-  
-  sort(all(a), greater<ll>());
-  sort(all(b), greater<ll>());
+  aryin(a, x); aryin(b, y); aryin(c, z);
   sort(all(c), greater<ll>());
 
-  vector<vector<ll>> cl = {a, b, c};
-
-  map<ll, ll> anslist;
-
-  priority_queue<pair<ll, vector<int>>> q;
-  q.push({a[0] + b[0] + c[0], {0, 0, 0}});
-
-  auto hash = [](vector<int> h){
-    return (ll)h[0] * 1000000L + (ll)h[1] * 1000L + (ll)h[2];
-  };
-  while(anslist.size() < k){
-    auto p = q.top();
-    q.pop();
-
-    anslist[hash(p.second)] = p.first;
-    for(int i = 0; i < 3; i++){
-      if(p.second[i] + 1 < mx[i]){
-        auto np = p.second;
-        np[i]++;
-        ll cost = cl[0][np[0]] + cl[1][np[1]] + cl[2][np[2]];
-        q.push({cost, np});
+  if(x * y <= k){
+    vector<ll> anslist(0);
+    for(int i = 0; i < x; i++){
+      for(int j = 0; j < y; j++){
+        for(int k = 0; k < z; k++){
+          anslist.push_back(a[i] + b[j] + c[k]);
+        }
       }
     }
+    sort(all(anslist), greater<ll>());
+    for(int i = 0; i < k; i++){
+      cout << anslist[i] << endl;
+    }
+    return 0;
   }
 
-  priority_queue<ll> ansq;
-  for(auto p : anslist) ansq.push(p.second);
-  while(!ansq.empty()){
-    cout << ansq.top() << endl;
-    ansq.pop();
+  vector<ll> muls(x * y);
+  for(int i = 0; i < x; i++){
+    for(int j = 0; j < y; j++){
+      muls[i * y + j] = a[i] + b[j];
+    }
+  }
+  sort(all(muls), greater<ll>());
+
+  vector<ll> anslist(k, 0);
+  for(int i = 0; i < k; i++){
+    anslist[i] = c[0] + muls[i];
+  }
+
+  sort(all(anslist), greater<ll>());
+  ll m = anslist[k - 1];
+
+  reverse(all(muls));
+
+  // m - c[i] より大きい muls の要素だけを調べる
+  for(int i = 1; i < z; i++){
+    ll ls = m - c[i];
+    auto itr = lower_bound(all(muls), ls);
+    for(; itr != muls.end(); itr++){
+      anslist.push_back(*itr + c[i]);
+    }
+  }
+  sort(all(anslist), greater<ll>());
+  for(int i = 0; i < k; i++){
+    cout << anslist[i] << endl;
   }
 }

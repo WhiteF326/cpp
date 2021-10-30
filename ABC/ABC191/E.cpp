@@ -12,45 +12,49 @@ using ll = long long;
 using ld = long double;
 #define query(t) for(int _ = 0; _ < t; _++)
 #define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
-#define chmin(a, b) a = min(a, b)
 #define pll pair<ll, ll>
+
 
 int main(){
   int n, m; cin >> n >> m;
   vector<vector<pll>> g(n);
-  vector<vector<pll>> h(n);
-
   for(int i = 0; i < m; i++){
-    ll a, b, c; cin >> a >> b >> c;
-    g[a - 1].push_back(mp(b - 1, c));
-    h[b - 1].push_back(mp(a - 1, c));
+    int a, b, c; cin >> a >> b >> c;
+    a--, b--;
+    g[a].push_back(mp(b, c));
   }
 
   for(int i = 0; i < n; i++){
-    priority_queue<pll, vector<pll>, greater<pll>> q;
-    q.push(mp(0, i));
-    vector<bool> visited(n, false);
-    vector<ll> depth(n, INT_MAX);
-    depth[i] = 0;
-    while(!q.empty()){
-      auto dest = q.top();
-      q.pop();
- 
-      for(auto v : g[dest.second]){
-        ll dist = dest.first + v.second;
-        ll targ = v.first;
-        if(!visited[targ] || depth[targ] >= dist){
-          visited[targ] = true;
-          depth[targ] = dist;
-          q.push(mp(dist, targ));
+    // distance, vertex
+    pll start = {0, i};
+    priority_queue<pll, vector<pll>, greater<pll>> pq;
+    pq.push(start);
+    vector<ll> depth(n, LLONG_MAX);
+    depth[i] = LLONG_MAX;
+
+    while(!pq.empty()){
+      pll dest = pq.top();
+      pq.pop();
+
+      for(pll v : g[dest.second]){
+        ll dist = 0;
+        if(dest.second == i){
+          dist = v.second;
+        }else{
+          dist = v.second + depth[dest.second];
+        }
+        // cout << dest.second << " " << v.first << " " << dist << endl;
+        if(depth[v.first] > dist){
+          depth[v.first] = dist;
+          pq.push({dist, v.first});
         }
       }
- 
-      if(visited[i]){
-        cout << depth[i] << endl;
-        break;
-      }
     }
-    if(!visited[i]) cout << -1 << endl;
+    
+    if(depth[i] != LLONG_MAX){
+      cout << depth[i] << endl;
+    }else{
+      cout << -1 << endl;
+    }
   }
 }

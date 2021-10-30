@@ -1,96 +1,30 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
- 
+using namespace atcoder;
+
 #define fs(n) fixed << setprecision(n)
+#define mp(a, b) make_pair(a, b)
+#define all(x) x.begin(), x.end()
+#define const constexpr
+#define pdesc(t) t, vector<t>, greater<t>
 using ll = long long;
+using ld = long double;
+#define query(t) for(int _ = 0; _ < t; _++)
+#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
 
-int fact(int x) { return x <= 1 ? 1 : x * fact(x - 1); }
-
-int sign(int x){
-  return (x > 0) - (x < 0);
-}
-
-bool isLeapYear(int y, int m){
-  return (y % 400 == 0 || (y % 4 == 0 && y % 100)) && m == 2;
-}
- 
-vector<int> AllDivs(int d){
-	vector<int> resDivs(0);
-	for(int i = 1; i < (int)sqrt(d); i++){
-		if(d % i == 0){
-			resDivs.push_back(i);
-			resDivs.push_back(d / i);
-		}
-	}
-	sort(resDivs.begin(), resDivs.end());
-	return resDivs;
-}
- 
-bool IsPrime(int num){
-	bool ans = true;
-	if(num < 2) return false;
-	else if (num == 2) return true;
-	else{
-		for(int i = 2; i <= (int)sqrt(num); i++){
-			if(num % i == 0){
-					ans = false;
-			}
-		}
-	}
-	return ans;
-}
- 
-int NextPrime(int d){
-	int ans = d;
-	while(true){
-		ans++;
-		if(IsPrime(ans)) break;
-	}
-	return ans;
-}
- 
-vector<int> Dec2Bin(int x, int len){
-	vector<int> res(len, 0);
-	int d = 1, pt = len - 1;
-	while(d <= x){
-		res[pt] = (x & d ? 1 : 0);
-		d *= 2; pt--;
-	}
-	return res;
-}
- 
-int avg(int a, int b){
-  return (a + b) / 2;
-}
 
 int main(){
   int h, w; cin >> h >> w;
-  vector<vector<bool>> maps(h + 2, vector<bool>(w + 2, false));
+  int ans = 0;
   for(int i = 0; i < h; i++){
     string s; cin >> s;
     for(int j = 0; j < w; j++){
-      maps[i + 1][j + 1] = s.substr(j, 1) == "#";
+      ans += s[j] == '#';
     }
   }
-  int x = 1, y = 1;
-  while(x < h || y < w){
-    //上や左がtrueなら排除
-    if(maps[x - 1][y] || maps[x][y - 1]){
-      cout << "Impossible" << endl;
-      return 0;
-    }
-    //右と下のどちらか一方がtrue
-    int roots = maps[x][y + 1] + maps[x + 1][y];
-    if(roots != 1){
-      cout << "Impossible" << endl;
-      return 0;
-    }else{
-      maps[x][y] = false;
-      if(maps[x][y + 1]) y++;
-      else x++;
-    }
-  }
-  if(x == h && y == w && !maps[x - 1][y] && !maps[x][y - 1]) cout << "Possible" << endl;
-  else cout << "Impossible" << endl;
-  return 0;
+
+  if(ans == h + w - 1) cout << "Possible";
+  else cout << "Impossible";
+  cout << endl;
 }
