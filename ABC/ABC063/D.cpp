@@ -10,16 +10,13 @@ using namespace atcoder;
 #define pdesc(t) t, vector<t>, greater<t>
 using ll = long long;
 using ld = long double;
+#define query(t) for(int _ = 0; _ < t; _++)
+#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
+
 
 int main(){
   int n, a, b; cin >> n >> a >> b;
-  vector<ll> h(n);
-  for(int i = 0; i < n; i++) cin >> h[i];
+  vector<int> h(n); aryin(h, n);
 
-  sort(all(h), greater<ll>());
-
-  ll ans = 0, dim = 0;
-  for(int i = 0; i < n - 1; i++){
-    ll diff = h[i] - h[i - 1];
-  }
+  
 }

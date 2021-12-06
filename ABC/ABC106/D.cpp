@@ -12,23 +12,7 @@ using namespace atcoder;
 using ll = long long;
 using ld = long double;
 
-int op(int a, int b){
-  return max(a, b);
-}
-int e(){
-  return 0;
-}
 
 int main(){
-  int n, m, q; cin >> n >> m >> q;
-  for(int i = 0; i < m; i++){
-    int l, r; cin >> l >> r;
-    l--, r--;
-
-  }
-  
-  for(int i = 0; i < q; i++){
-    int p, q; cin >> p >> q;
-    p--, q--;
-  }
+  //
 }

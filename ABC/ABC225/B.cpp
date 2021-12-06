@@ -10,5 +10,17 @@ using ll = long long;
 using ld = long double;
 
 int main(){
-  
+  int n; cin >> n;
+  map<int, int> mc;
+  for(int i = 0; i < n - 1; i++){
+    int a, b; cin >> a >> b;
+    mc[a]++, mc[b]++;
+  }
+  for(int i = 1; i <= n; i++){
+    if(mc[i] == n - 1){
+      cout << "Yes" << endl;
+      return 0;
+    }
+  }
+  cout << "No" << endl;
 }

@@ -3,12 +3,43 @@
 using namespace std;
 using namespace atcoder;
 
-#define fs(n) fixed << setprecision(n);
-#define mp(a, b) make_pair(a, b);
+#define fs(n) fixed << setprecision(n)
+#define mp(a, b) make_pair(a, b)
 #define all(x) x.begin(), x.end()
+#define const constexpr
+#define pdesc(t) t, vector<t>, greater<t>
 using ll = long long;
 using ld = long double;
+#define query(t) for(int _ = 0; _ < t; _++)
+#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
+
+const ll modv = 998244353;
+
+ll modpow(ll x, ll n, int mod){
+  ll ret = 1;
+  if(mod == 0){
+    while(n > 0){
+      if(n & 1) ret *= x;
+      x *= x;
+      n >>= 1;
+    }
+  }else{
+    while(n > 0){
+      if(n & 1) ret = ret * x % mod;
+      x = x * x % mod;
+      n >>= 1;
+    }
+  }
+  return ret;
+}
+
 
 int main(){
-  
+  ll n, k, m; cin >> n >> k >> m;
+  if(m % modv == 0) cout << 0 << endl;
+  else{
+    ll ans = modpow(k, n, modv - 1);
+    ans = modpow(m, ans, modv);
+    cout << ans << endl;
+  }
 }

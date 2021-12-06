@@ -1,14 +1,25 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
+using namespace atcoder;
 
-int fact(int x) { return x <= 1 ? 1 : x * fact(x - 1); }
-int sign(int x){
-    return (x > 0) - (x < 0);
-}
+#define fs(n) fixed << setprecision(n)
+#define mp(a, b) make_pair(a, b)
+#define all(x) x.begin(), x.end()
+#define const constexpr
+#define pdesc(t) t, vector<t>, greater<t>
+using ll = long long;
+using ld = long double;
+#define query(t) for(int _ = 0; _ < t; _++)
+#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
 
-int main() {
-    int a, b; cin >> a >> b;
-    if(abs(a - b) < 3) cout << "Yes";
-    else cout << "No";
-    cout << endl;
+
+int main(){
+  int x, y; cin >> x >> y;
+  if(x < y) swap(x, y);
+  if(x - y < 3){
+    cout << "Yes" << endl;
+  }else{
+    cout << "No" << endl;
+  }
 }
