@@ -12,21 +12,21 @@ using ll = long long;
 using ld = long double;
 #define query(t) for(int _ = 0; _ < t; _++)
 #define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
+#define chmin(a, b) a = min(a, b)
 
 
 int main(){
   int n; cin >> n;
-  vector<int> a(n); aryin(a, n);
-  vector<ll> apr(n + 1, 0);
-  for(int v : a) apr[v]++;
+  ll x; cin >> x;
+  vector<ll> a(n); aryin(a, n);
 
-  ll ans = 0;
-  for(ll x : apr) ans += (x * (x - 1)) / 2;
-
+  vector<vector<vector<ll>>> dp(n + 1, vector<vector<ll>>(n + 1, vector<ll>(2, x)));
   for(int i = 0; i < n; i++){
-    ll res = ans;
-    res -= apr[a[i]] * (apr[a[i]] - 1) / 2;
-    res += (apr[a[i]] - 1) * (apr[a[i]] - 2) / 2;
-    cout << res << endl;
+    for(int j = 0; j < n; j++){
+      for(int k = 0; k < 2; k++){
+        if(dp[i][j][k] == x) continue;
+        
+      }
+    }
   }
 }

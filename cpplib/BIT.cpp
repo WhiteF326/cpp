@@ -18,6 +18,18 @@ struct BIT {
     add_sub(1, l, x);
     add_sub(1, r, -x);
   }
+  void xor_sub(int p, int i, T x) {
+    for (int idx = i; idx < n; idx += (idx & -idx)) {
+      bit[p][idx] ^= x;
+    }
+  }
+  void xor(int l, int r, T x) {
+    xor_sub(0, l, -x * (l - 1));
+    xor_sub(0, r, x * (r - 1));
+    xor_sub(1, l, x);
+    xor_sub(1, r, -x);
+  }
+  
   T sum_sub(int p, int i) {
     T s(0);
     for (int idx = i; idx > 0; idx -= (idx & -idx)) {

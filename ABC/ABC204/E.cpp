@@ -3,49 +3,63 @@
 using namespace std;
 using namespace atcoder;
 
-#define fs(n) fixed << setprecision(n);
-#define mp(a, b) make_pair(a, b);
+#define fs(n) fixed << setprecision(n)
+#define mp(a, b) make_pair(a, b)
+#define all(x) x.begin(), x.end()
+#define const constexpr
+#define pdesc(t) t, vector<t>, greater<t>
 using ll = long long;
 using ld = long double;
+#define query(t) for(int _ = 0; _ < t; _++)
+#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
+#define chmin(a, b) a = min(a, b)
 
-int timecal(int c, int d, int t){
-  return c + t + floor(d / (double)(t + 1.0));
-}
+#define pli pair<ll, int>
 
 int main(){
   int n, m; cin >> n >> m;
-  vector<vector<pair<int, pair<int, int>>>> g(n, vector<pair<int, pair<int, int>>>(0));
+  vector<vector<vector<int>>> g(n, vector<vector<int>>(0, vector<int>(3, 0)));
   for(int i = 0; i < m; i++){
     int a, b, c, d; cin >> a >> b >> c >> d;
     a--, b--;
-    g[a].push_back(make_pair(b, make_pair(c, d)));
+    g[a].push_back({b, c, d});
+    g[b].push_back({a, c, d});
   }
 
-  priority_queue<pair<int, int>> q;
-  q.push(make_pair(0, 0));
-  vector<int> fulldist(n, INT_MAX);
-  fulldist[0] = 0;
-  bool visitlast = false;
-  while(!q.empty()){
-    auto dest = q.top();
-    q.pop();
-    for(int i = 0; i < g[dest.second].size(); i++){
-      int nextd = g[dest.second][i].first;
-      if(nextd == n - 1) visitlast = true;
-      // waittime 未証明……
-      int waittime = max(g[dest.second][i].second.second * 2 - g[dest.second][i].second.first, 0);
-      int est = timecal(g[dest.second][i].second.first, g[dest.second][i].second.second, dest.first + waittime);
-      int ftime = est + dest.first;
-      if(fulldist[nextd] > ftime){
-        fulldist[nextd] = ftime;
-        q.push(make_pair(ftime, i));
+  priority_queue<pli, vector<pli>, greater<pli>> pq;
+  pq.push({0, 0});
+  vector<ll> dist(n, LLONG_MAX);
+  dist[0] = 0;
+
+  while(!pq.empty()){
+    auto dest = pq.top();
+    pq.pop();
+
+    for(auto p : g[dest.second]){
+      // sqrt(d) 付近が最適
+      ll wait = (ll)floor(sqrt(p[2]));
+      ll arrive = LLONG_MAX;
+      if(dest.first <= wait){
+        arrive = dest.first + p[1] + floor(p[2] / (dest.first + 1));
+      }else{
+        for(ll i = max(0LL, wait - 2); i <= wait + 4LL; i++){
+          // i を wait time として計算してみる
+          ll test = floor(p[2] / (i + 1)) + i + p[1];
+          arrive = min(arrive, test);
+        }
+      }
+      
+      
+      if(dist[p[0]] > arrive){
+        dist[p[0]] = arrive;
+        pq.push({arrive, p[0]});
       }
     }
   }
-  for(int i = 0; i < n; i++){
-    cout << fulldist[i] << endl;
+
+  if(dist[n - 1] == LLONG_MAX){
+    cout << -1 << endl;
+  }else{
+    cout << dist[n - 1] << endl;
   }
-  if(visitlast){
-    cout << fulldist[n - 1] << endl;
-  }else cout << "-1" << endl;
 }

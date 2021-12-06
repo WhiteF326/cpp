@@ -1,5 +1,3 @@
-package JavaLib;
-
 public class modint {
   long modv = 0;
   long val = 0;

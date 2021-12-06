@@ -1,5 +1,3 @@
-package JavaLib;
-
 class Main{
   public static void main(String[] args){
     modint x = new modint(423343);

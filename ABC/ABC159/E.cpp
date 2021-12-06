@@ -24,67 +24,46 @@ int main(){
     }
   }
 
-  int l = 0, r = h * w, m;
-  while(r >= l){
-    m = l + (r - l) / 2;
-    // m 回で分けられるか？
-    bool divide = false;
-    for(int i = 0; i < (1 << (h - 1)); i++){
-      vector<vector<int>> pls(1, vector<int>(1, 0));
-      for(int j = 0; j < h - 1; j++){
-        if(i & (1 << j)){
-          pls.emplace_back(vector<int>(1, j + 1));
-        }else{
-          pls[pls.size() - 1].emplace_back(j + 1);
-        }
-      }
-      // 超過
-      if(m - pls.size() + 1 < 0) continue;
-      // 区間の計算
-      bool flg = false;
-      vector<pair<int, int>> ranges;
-      for(auto px : pls){
-        int left = 0, sum = 0;
-        for(int j = 0; j < w; j++){
-          for(int v : px) sum += sr[v][j];
-          if(sum == 0){
-            left++;
-          }
-          if(sum >= k){
-            if(left == j){
-              flg = true;
-              break;
-            }else{
-              ranges.push_back(mp(left, j));
-              left = j + 1;
-              sum %= k;
-            }
-          }
-          if(flg) break;
-        }
-        if(flg) break;
-      }
-      if(!flg){
-        // 区間スケジューリング
-        sort(all(ranges), greater<pair<int, int>>());
-        int res = 0, pt = INT_MAX;
-        for(int j = 0; j < ranges.size(); j++){
-          if(pt >= ranges[j].second){
-            res++;
-            pt = ranges[j].first;
-          }
-        }
-        if(pls.size() - 1 + res <= m){
-          divide = true;
-          break;
-        }
+  int ans = INT_MAX;
+
+  for(int i = 0; i < (1 << (h - 1)); i++){
+    vector<vector<int>> pls(1, vector<int>(1, 0));
+    for(int j = 0; j < h - 1; j++){
+      if(i & (1 << j)){
+        pls.emplace_back(vector<int>(1, j + 1));
+      }else{
+        pls[pls.size() - 1].emplace_back(j + 1);
       }
     }
-    if(divide){
-      r = m - 1;
-    }else{
-      l = m + 1;
+    int ps = pls.size();
+    // 貪欲
+    bool flg = true;
+    int res = 0;
+    vector<int> psuml(ps, 0);
+    for(int j = 0; j < w; j++){
+      vector<int> aps(ps, 0);
+      for(int x = 0; x < ps; x++){
+        for(int v : pls[x]) aps[x] += sr[v][j];
+      }
+      // 一列で超えてしまう
+      if(*max_element(all(aps)) > k){
+        flg = false;
+        break;
+      }
+      bool cut = false;
+      for(int x = 0; x < ps; x++){
+        if(aps[x] + psuml[x] > k) cut = true;
+      }
+      if(!cut){
+        for(int x = 0; x < ps; x++) psuml[x] += aps[x];
+      }else{
+        res++;
+        for(int x = 0; x < ps; x++) psuml[x] = aps[x];
+      }
+    }
+    if(flg){
+      ans = min(ans, res + ps - 1);
     }
   }
-  cout << m << endl;
+  cout << ans << endl;
 }
