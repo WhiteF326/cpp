@@ -1,31 +1,28 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
+using namespace atcoder;
 
+#define fs(n) fixed << setprecision(n)
+#define mp(a, b) make_pair(a, b)
+#define all(x) x.begin(), x.end()
+#define const constexpr
+#define pdesc(t) t, vector<t>, greater<t>
 using ll = long long;
+using ld = long double;
+#define query(t) for(int _ = 0; _ < t; _++)
+#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
+
 
 int main(){
-  //
   ll n, k; cin >> n >> k;
-  vector<ll> a(n);
-  for(int i = 0; i < n; i++) cin >> a[i];
+  vector<ll> a(n); aryin(a, n);
+  for(int i = 1; i < n; i++) a[i] += a[i - 1];
 
-  ll ans = 0;
-  ll sum = 0;
-  int j = 0;
-
+  ll dif = 0, ans = 0;
   for(int i = 0; i < n; i++){
-    while(sum < k){
-      if(j == n) break;
-      else {
-        sum += a[j];
-        j++;
-      }
-    }
-    if(sum < k)break;
-    ans += n - j + 1;
-    sum -= a[i];
+    ans += a.end() - lower_bound(all(a), dif + k);
+    dif = a[i];
   }
-
   cout << ans << endl;
-
 }

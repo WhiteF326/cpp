@@ -14,11 +14,11 @@ using ld = long double;
 
 int main(){
   int n, m; cin >> n >> m;
-  vector<tuple<int, int, int>> c(m);
+  dsu d(n);
   for(int i = 0; i < m; i++){
-    int x, y, z; cin >> x >> y >> z;
-    c[i] = {x, y, z};
+    int x, y; cin >> x >> y;
+    d.merge(x - 1, y - 1);
+    cin >> y;
   }
-  
-  // dp[i][j] = i個目
+  cout << d.groups().size() << endl;
 }

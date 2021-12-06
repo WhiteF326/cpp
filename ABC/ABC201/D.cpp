@@ -1,91 +1,66 @@
-/*
-未証明の
-Greedyは
-だめですか
-*/
-
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
- 
+using namespace atcoder;
+
 #define fs(n) fixed << setprecision(n)
+#define mp(a, b) make_pair(a, b)
+#define all(x) x.begin(), x.end()
+#define const constexpr
+#define pdesc(t) t, vector<t>, greater<t>
 using ll = long long;
+using ld = long double;
+#define query(t) for(int _ = 0; _ < t; _++)
+#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
+#define pii pair<int, int>
+#define minf -100000000
+#define chmax(a, b) a = max(a, b)
+
 
 int main(){
-  // 出来るのは右か下を選ぶことだけ
   int h, w; cin >> h >> w;
-  int x = 0, y = 0;
-  vector<string> stage(h, "");
-  for(int i = 0; i < h; i++) cin >> stage[i];
-
-  vector<int> scores(2, 0);
-  int time = 0;
-
-  while(true){
-    // cout << x << " " << y << " " << time << endl;
-    if(time == (h - 1) * (w - 1)) break;
-    bool moved = false;
-    int direction = 0;
-    if(x < w - 1){
-      // 右に進める
-      x++;
-      int tmp = 0, dir = 0;
-      if(y + 1 < h){
-        dir++;
-        if(stage[y + 1][x] == '-') tmp++;
-      }
-      if(x + 1 < w){
-        dir++;
-        if(stage[y][x + 1] == '-') tmp++;
-      }
-      if(tmp == dir){
-        moved = !moved;
-        direction = 1;
-      }
-      x--;
+  vector<vector<int>> stg(h, vector<int>(w, 0));
+  for(int i = 0; i < h; i++){
+    string s; cin >> s;
+    for(int j = 0; j < w; j++){
+      stg[i][j] = s[j] == '-' ? -1 : 1;
     }
-    if(y < h - 1){
-      // 下に進める
-      y++;
-      int tmp = 0, dir = 0;
-      if(y + 1 < h){
-        dir++;
-        if(stage[y + 1][x] == '-') tmp++;
-      }
-      if(x + 1 < w){
-        dir++;
-        if(stage[y][x + 1] == '-') tmp++;
-      }
-      if(tmp == dir){
-        moved = !moved;
-        direction = 2;
-      }
-      y--;
-    }
-    if(moved){
-      if(direction == 1){
-        x++;
-      }else{
-        y++;
-      }
-    }else{
-      if(x == w - 1){
-        y++;
-      }else if(y == h - 1){
-        x++;
-      }else if(y + 1 < h){
-        if(stage[y + 1][x] == '+'){
-          y++;
-        }else{
-          x++;
+  }
+
+  vector<vector<pii>> sc(h, vector<pii>(w, {minf, minf}));
+  sc[0][0] = {0, 0};
+  for(int i = 0; i < h; i++){
+    for(int j = 0; j < w; j++){
+      // 下へ更新
+      if((i + j) % 2){
+        // Aoki
+        if(i + 1 < h){
+          chmax(sc[i + 1][j].first, sc[i][j].first);
+          chmax(sc[i + 1][j].second, sc[i][j].second + stg[i + 1][j]);
+        }
+        if(j + 1 < w){
+          chmax(sc[i][j + 1].first, sc[i][j].first);
+          chmax(sc[i][j + 1].second, sc[i][j].second + stg[i][j + 1]);
         }
       }else{
-        x++;
+        // Takahashi
+        if(i + 1 < h){
+          chmax(sc[i + 1][j].first, sc[i][j].first + stg[i + 1][j]);
+          chmax(sc[i + 1][j].second, sc[i][j].second);
+        }
+        if(j + 1 < w){
+          chmax(sc[i][j + 1].first, sc[i][j].first + stg[i][j + 1]);
+          chmax(sc[i][j + 1].second, sc[i][j].second);
+        }
       }
     }
-    scores[time % 2] += (stage[y][x] == '+' ? 1 : -1);
-    time++;
   }
-  if(scores[0] > scores[1]) cout << "Takahashi" << endl;
-  else if(scores[0] < scores[1]) cout << "Aoki" << endl;
-  else cout << "Draw" << endl;
+
+  if(sc[h - 1][w - 1].first > sc[h - 1][w - 1].second){
+    cout << "Takahashi" << endl;
+  }else if(sc[h - 1][w - 1].first < sc[h - 1][w - 1].second){
+    cout << "Aoki" << endl;
+  }else{
+    cout << "Draw" << endl;
+  }
 }
