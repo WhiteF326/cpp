@@ -10,7 +10,11 @@ using namespace atcoder;
 #define pdesc(t) t, vector<t>, greater<t>
 using ll = long long;
 using ld = long double;
+#define query(t) for(int _ = 0; _ < t; _++)
+#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
+
 
 int main(){
+  int n, m; cin >> n >> m;
   
 }
