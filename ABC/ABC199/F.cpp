@@ -1,68 +1,82 @@
+#ifdef _DEBUG
+#define _GLIBCXX_DEBUG
+#endif
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
- 
+using namespace atcoder;
+
 #define fs(n) fixed << setprecision(n)
+#define mp(a, b) make_pair(a, b)
+#define all(x) x.begin(), x.end()
+#define pdesc(t) t, vector<t>, greater<t>
 using ll = long long;
+using ld = long double;
+#define query(t) for(int _ = 0; _ < t; _++)
+#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
 
-int fact(int x) { return x <= 1 ? 1 : x * fact(x - 1); }
 
-int sign(int x){
-  return (x > 0) - (x < 0);
-}
+const ll modv = 1000000007;
+#define mint modint1000000007
 
-bool isLeapYear(int y, int m){
-  return (y % 400 == 0 || (y % 4 == 0 && y % 100)) && m == 2;
+#define mtrx vector<vector<mint>>
+mtrx mtrxMul(mtrx &a, mtrx &b) {
+  mtrx res(a.size(), vector<mint>(b[0].size()));
+  for(int i = 0; i < a.size(); i++){
+    for(int j = 0; j < b[0].size(); j++){
+      for(int k = 0; k < b.size(); k++){
+        res[i][j] += a[i][k] * b[k][j];
+      }
+    }
+  }
+  return res;
 }
- 
-vector<int> AllDivs(int d){
-	vector<int> resDivs(0);
-	for(int i = 1; i < (int)sqrt(d); i++){
-		if(d % i == 0){
-			resDivs.push_back(i);
-			resDivs.push_back(d / i);
-		}
-	}
-	sort(resDivs.begin(), resDivs.end());
-	return resDivs;
-}
- 
-bool IsPrime(int num){
-	bool ans = true;
-	if(num < 2) return false;
-	else if (num == 2) return true;
-	else{
-		for(int i = 2; i <= (int)sqrt(num); i++){
-			if(num % i == 0){
-					ans = false;
-			}
-		}
-	}
-	return ans;
-}
- 
-int NextPrime(int d){
-	int ans = d;
-	while(true){
-		ans++;
-		if(IsPrime(ans)) break;
-	}
-	return ans;
-}
- 
-vector<int> Dec2Bin(int x, int len){
-	vector<int> res(len, 0);
-	int d = 1, pt = len - 1;
-	while(d <= x){
-		res[pt] = (x & d ? 1 : 0);
-		d *= 2; pt--;
-	}
-	return res;
-}
- 
-int avg(int a, int b){
-  return (a + b) / 2;
+mtrx mtrxPow(mtrx a, ll n){
+  mtrx res(a.size(), vector<mint>(a.size()));
+  for(int i = 0; i < a.size(); i++){
+    res[i][i] = 1;
+  }
+  while(n > 0){
+    if(n & 1) res = mtrxMul(a, res);
+    a = mtrxMul(a, a);
+    n >>= 1;
+  }
+  return res;
 }
 
 int main(){
-  //
+  cin.tie(nullptr);
+  ios_base::sync_with_stdio(false);
+  
+  int n, m, k; cin >> n >> m >> k;
+  vector<vector<mint>> al(n, vector<mint>(1));
+  for(int i = 0; i < n; i++){
+    int d; cin >> d;
+    al[i][0] = d;
+  }
+
+  mtrx x(n, vector<mint>(n, 0));
+  for(int i = 0; i < n; i++){
+    x[i][i] = m * 2;
+  }
+  for(int i = 0; i < m; i++){
+    int a, b; cin >> a >> b;
+    a--, b--;
+    x[a][b]++;
+    x[b][a]++;
+    x[a][a]--;
+    x[b][b]--;
+  }
+  for(int i = 0; i < n; i++){
+    for(int j = 0; j < n; j++){
+      x[i][j] /= (m * 2);
+    }
+  }
+
+  mtrx xp = mtrxPow(x, k);
+  mtrx anslist = mtrxMul(xp, al);
+
+  for(int i = 0; i < n; i++){
+    cout << anslist[i][0].val() << endl;
+  }
 }

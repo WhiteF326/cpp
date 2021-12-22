@@ -3,12 +3,25 @@
 using namespace std;
 using namespace atcoder;
 
-#define fs(n) fixed << setprecision(n);
-#define mp(a, b) make_pair(a, b);
+#define fs(n) fixed << setprecision(n)
+#define mp(a, b) make_pair(a, b)
 #define all(x) x.begin(), x.end()
+#define const constexpr
+#define pdesc(t) t, vector<t>, greater<t>
 using ll = long long;
 using ld = long double;
+#define query(t) for(int _ = 0; _ < t; _++)
+#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
+
 
 int main(){
-  
+  int n, q; cin >> n >> q;
+  vector<int> a(n); aryin(a, n);
+
+  sort(all(a));
+
+  query(q){
+    int x; cin >> x;
+    cout << a.end() - lower_bound(all(a), x) << endl;
+  }
 }
