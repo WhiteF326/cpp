@@ -16,13 +16,36 @@ using ld = long double;
 #define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
 
 
+vector<vector<int>> g(100000);
+vector<ll> grundy(100000, 0);
+vector<bool> visited(100000, false);
+
+ll dfs(int p){
+  visited[p] = true; 
+  ll r = 0;
+
+  for(int v : g[p]){
+    if(visited[v]) continue;
+    r ^= (dfs(v) + 1);
+  }
+
+  grundy[p] = r;
+  return r;
+}
+
 int main(){
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
-  int l, r; cin >> l >> r;
-  string s; cin >> s;
-  string t = s.substr(l - 1, r - l + 1);
-  reverse(all(t));
+  
+  int n; cin >> n;
+  for(int i = 0; i < n - 1; i++){
+    int x, y; cin >> x >> y;
+    g[x - 1].push_back(y - 1);
+    g[y - 1].push_back(x - 1);
+  }
 
-  cout << s.substr(0, l - 1) + t + s.substr(r) << endl;
+  dfs(0);
+
+  if(grundy[0]) cout << "Alice" << endl;
+  else cout << "Bob" << endl;
 }

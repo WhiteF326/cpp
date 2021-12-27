@@ -19,10 +19,12 @@ using ld = long double;
 int main(){
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
-  int l, r; cin >> l >> r;
-  string s; cin >> s;
-  string t = s.substr(l - 1, r - l + 1);
-  reverse(all(t));
+  
+  ld n, m, d; cin >> n >> m >> d;
 
-  cout << s.substr(0, l - 1) + t + s.substr(r) << endl;
+  if(d == 0){
+    cout << fs(12) << (1 / n) * (m - 1) << endl;
+  }else{
+    cout << fs(12) << (2 * (n - d)) / (n * n) * (m - 1) << endl;
+  }
 }

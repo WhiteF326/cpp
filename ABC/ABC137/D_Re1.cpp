@@ -20,29 +20,21 @@ int main(){
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
   
-  string x; cin >> x;
-  int n = x.length();
-  vector<int> digit(n, 0);
-  for(int i = 0; i < n; i++) digit[i] = x[i] - '0';
-
-  int cur = accumulate(all(digit), 0);
-  int curry = 0;
-  deque<int> d;
-
+  int n, m; cin >> n >> m;
+  vector<vector<int>> v(100001, vector<int>(0));
   for(int i = 0; i < n; i++){
-    // cout << cur << " " << curry << endl;
-    d.push_back((cur + curry) % 10);
-    curry = (cur + curry) / 10;
-    cur -= digit[n - 1 - i];
-  }
-  while(curry != 0){
-    d.push_back(curry % 10);
-    curry /= 10;
+    int a, b; cin >> a >> b;
+    v[a].push_back(b);
   }
 
-  while(!d.empty()){
-    cout << d.back();
-    d.pop_back();
+  priority_queue<int> q;
+  int ans = 0;
+  for(int i = 1; i <= m; i++){
+    for(int b : v[i]) q.push(b);
+    if(!q.empty()){
+      ans += q.top();
+      q.pop();
+    }
   }
-  cout << endl;
+  cout << ans << endl; 
 }

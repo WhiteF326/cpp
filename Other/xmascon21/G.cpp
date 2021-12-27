@@ -19,10 +19,27 @@ using ld = long double;
 int main(){
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
-  int l, r; cin >> l >> r;
-  string s; cin >> s;
-  string t = s.substr(l - 1, r - l + 1);
-  reverse(all(t));
+  
+  int t; cin >> t;
+  query(t){
+    int n; cin >> n;
+    ll ans = 0;
+    
+    vector<bool> ctr(n);
+    for(int i = 0; i < n; i++){
+      ll a; cin >> a;
+      if(a < n){
+        if(!ctr[a]){
+          ctr[a] = true;
+        }else{
+          ans ^= (a - i);
+        }
+      }else{
+        ans ^= (a - i);
+      }
+    }
 
-  cout << s.substr(0, l - 1) + t + s.substr(r) << endl;
+    if(ans) cout << "Black" << endl;
+    else cout << "White" << endl;
+  }
 }

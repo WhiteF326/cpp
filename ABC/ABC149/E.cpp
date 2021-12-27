@@ -19,10 +19,13 @@ using ld = long double;
 int main(){
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
-  int l, r; cin >> l >> r;
-  string s; cin >> s;
-  string t = s.substr(l - 1, r - l + 1);
-  reverse(all(t));
+  
+  int n; cin >> n;
+  int m; cin >> m;
 
-  cout << s.substr(0, l - 1) + t + s.substr(r) << endl;
+  vector<ll> a(n);
+  aryin(a, n);
+  sort(all(a), greater<int>());
+
+  //
 }
