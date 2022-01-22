@@ -1,4 +1,4 @@
-# This is the repositry contains my programs I wrote on competitive programming!
+# This is the repositry contains my programs I wrote on competitive programming practices!
 
 These programs are all published under WTFPL license.
 Of course I welcome refering. ~~If your pride allows, you can copy and submit~~
