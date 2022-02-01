@@ -33,13 +33,22 @@ void dfs(ll cur, int depth){
 int main(){
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
-  
-  cin >> a >> n;
-  dfs(n, 0);
+  int n, q; cin >> n >> q;
 
-  if(visited[1]){
-    cout << ans << endl;
-  }else{
-    cout << -1 << endl;
+  unordered_map<int, vector<int>> m;
+  vector<int> a(n);
+  aryin(a, n);
+
+  for(int i = 0; i < n; i++){
+    m[a[i]].push_back(i + 1);
+  }
+
+  query(q){
+    int x, k; cin >> x >> k;
+    if(m[x].size() < k){
+      cout << -1 << endl;
+    }else{
+      cout << m[x][k - 1] << endl;
+    }
   }
 }

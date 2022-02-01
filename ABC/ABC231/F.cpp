@@ -14,6 +14,7 @@ using ld = long double;
 #define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
 
 
+// segtree func
 int op(int a, int b){
   return a + b;
 }
@@ -24,8 +25,10 @@ int e(){
 int main(){
   int n; cin >> n;
   vector<int> a(n), b(n);
-  aryin(a, n); aryin(b, n);
+  aryin(a, n);
+  aryin(b, n);
 
+  // compression
   vector<int> ax(all(a)), bx(all(b));
   sort(all(ax));
   sort(all(bx));
