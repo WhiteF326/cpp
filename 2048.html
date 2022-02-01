@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>2048</title>
+  <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
+</head>
+
+<style>
+  td{
+    height: 100px;
+    width: 100px;
+    text-align: center;
+    font-size: 3em;
+  }
+
+  table *{
+    border: black 2px solid;
+  }
+</style>
+
+<script>
+  window.onload = () => {
+    stage = [
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0]
+    ];
+    for(let i = 0; i < 2; i++){
+      const a = Math.floor(Math.random() * 16);
+      if(stage[Math.floor(a / 4)][a % 4]){
+        i--;
+        continue;
+      }
+      stage[Math.floor(a / 4)][a % 4] = 2;
+    }
+    render(stage);
+
+    document.onkeypress = (e) => {
+      if(e.key == "w"){
+        for(let x = 0; x < 4; x++){
+          for(let i = 0; i < 4 - 1; i++){
+            for(let j = 0; j < 4; j++){
+              if(stage[i][j] == stage[i + 1][j]){
+                stage[i][j] *= 2;
+                stage[i + 1][j] = 0;
+              }else if(!stage[i][j]){
+                stage[i][j] = stage[i + 1][j];
+                stage[i + 1][j] = 0;
+              }
+            }
+          }
+        }
+        for(let i = 0; i < 1; i++){
+          const a = Math.floor(Math.random() * 16);
+          if(stage[Math.floor(a / 4)][a % 4]){
+            i--;
+            continue;
+          }
+          stage[Math.floor(a / 4)][a % 4] = 2;
+        }
+      }
+      if(e.key == "a"){
+        for(let x = 0; x < 4; x++){
+          for(let i = 0; i < 4; i++){
+            for(let j = 0; j < 4 - 1; j++){
+              if(stage[i][j] == stage[i][j + 1]){
+                stage[i][j] *= 2;
+                stage[i][j + 1] = 0;
+              }else if(!stage[i][j]){
+                stage[i][j] = stage[i][j + 1];
+                stage[i][j + 1] = 0;
+              }
+            }
+          }
+        }
+        for(let i = 0; i < 1; i++){
+          const a = Math.floor(Math.random() * 16);
+          if(stage[Math.floor(a / 4)][a % 4]){
+            i--;
+            continue;
+          }
+          stage[Math.floor(a / 4)][a % 4] = 2;
+        }
+      }
+      if(e.key == "s"){
+        for(let x = 0; x < 4; x++){
+          for(let i = 0; i < 4 - 1; i++){
+            for(let j = 0; j < 4; j++){
+              if(stage[i][j] == stage[i + 1][j]){
+                stage[i + 1][j] *= 2;
+                stage[i][j] = 0;
+              }else if(!stage[i + 1][j]){
+                stage[i + 1][j] = stage[i][j];
+                stage[i][j] = 0;
+              }
+            }
+          }
+        }
+        for(let i = 0; i < 1; i++){
+          const a = Math.floor(Math.random() * 16);
+          if(stage[Math.floor(a / 4)][a % 4]){
+            i--;
+            continue;
+          }
+          stage[Math.floor(a / 4)][a % 4] = 2;
+        }
+      }
+      if(e.key == "d"){
+        for(let x = 0; x < 4; x++){
+          for(let i = 0; i < 4; i++){
+            for(let j = 0; j < 4 - 1; j++){
+              if(stage[i][j] == stage[i][j + 1]){
+                stage[i][j + 1] *= 2;
+                stage[i][j] = 0;
+              }else if(!stage[i][j + 1]){
+                stage[i][j + 1] = stage[i][j];
+                stage[i][j] = 0;
+              }
+            }
+          }
+        }
+        for(let i = 0; i < 1; i++){
+          const a = Math.floor(Math.random() * 16);
+          if(stage[Math.floor(a / 4)][a % 4]){
+            i--;
+            continue;
+          }
+          stage[Math.floor(a / 4)][a % 4] = 2;
+        }
+      }
+      render(stage);
+    }
+  }
+
+  render = (stage) => {
+    for(let i = 0; i < 4; i++){
+      for(let j = 0; j < 4; j++){
+        if(!stage[i][j]){
+          document.getElementById(String(i) + String(j)).innerText = "";
+        }else{
+          document.getElementById(String(i) + String(j)).innerText = stage[i][j];
+        }
+      }
+    }
+  }
+</script>
+
+<body>
+  <table>
+    <tr>
+      <td id="00"></td>
+      <td id="01"></td>
+      <td id="02"></td>
+      <td id="03"></td>
+    </tr>
+    <tr>
+      <td id="10"></td>
+      <td id="11"></td>
+      <td id="12"></td>
+      <td id="13"></td>
+    </tr>
+    <tr>
+      <td id="20"></td>
+      <td id="21"></td>
+      <td id="22"></td>
+      <td id="23"></td>
+    </tr>
+    <tr>
+      <td id="30"></td>
+      <td id="31"></td>
+      <td id="32"></td>
+      <td id="33"></td>
+    </tr>
+  </table>
+</body>
+
+</html>
