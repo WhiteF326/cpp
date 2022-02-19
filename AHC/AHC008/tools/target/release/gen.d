@@ -1,0 +1,1 @@
+/mnt/c/Users/lume1/Documents/GitHub/cpp/ahc/ahc008/tools/target/release/gen: /mnt/c/Users/lume1/Documents/GitHub/cpp/ahc/ahc008/tools/src/bin/gen.rs /mnt/c/Users/lume1/Documents/GitHub/cpp/ahc/ahc008/tools/src/lib.rs

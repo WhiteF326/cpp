@@ -1,0 +1,1 @@
+/mnt/c/Users/lume1/Documents/GitHub/cpp/ahc/ahc008/tools/target/release/tester: /mnt/c/Users/lume1/Documents/GitHub/cpp/ahc/ahc008/tools/src/bin/tester.rs /mnt/c/Users/lume1/Documents/GitHub/cpp/ahc/ahc008/tools/src/lib.rs
