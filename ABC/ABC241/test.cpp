@@ -17,27 +17,16 @@ using ld = long double;
 #define chmax(a, b) a = max(a, b)
 
 
-int main(){
-  cin.tie(nullptr);
-  ios_base::sync_with_stdio(false);
+#define SIZE(buff) (sizeof(buff)/sizeof(buff[0]))  
+int main() {  
+    // The original sequence is: {10,8,8,7,5,5,5,3,1}  
+    int x[] = {-10,-8,-8,-7,-5,-5,-5,-3,-1};  
   
-  int n, m; cin >> n >> m;
-
-  map<int, int> a, b;
-  for(int i = 0; i < n; i++){
-    int v; cin >> v;
-    a[v]++;
-  }
-  for(int i = 0; i < m; i++){
-    int v; cin >> v;
-    b[v]++;
-  }
+    int p1 = lower_bound(x, x+SIZE(x), -5) - x;  
+    int p2 = upper_bound(x, x+SIZE(x), -5) - x;  
   
-  for(auto p : b){
-    if(a[p.first] < p.second){
-      cout << "No" << endl;
-      return 0;
-    }
-  }
-  cout << "Yes" << endl;
+    printf("x[%d] (=%d) <= %d\n", p1, -x[p1], 5);  
+    printf("x[%d] (=%d) < %d\n", p2, -x[p2], 5);  
+  
+    return 0;  
 }

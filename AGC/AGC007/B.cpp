@@ -21,23 +21,6 @@ int main(){
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
   
-  int n, m; cin >> n >> m;
-
-  map<int, int> a, b;
-  for(int i = 0; i < n; i++){
-    int v; cin >> v;
-    a[v]++;
-  }
-  for(int i = 0; i < m; i++){
-    int v; cin >> v;
-    b[v]++;
-  }
+  int n; cin >> n;
   
-  for(auto p : b){
-    if(a[p.first] < p.second){
-      cout << "No" << endl;
-      return 0;
-    }
-  }
-  cout << "Yes" << endl;
 }

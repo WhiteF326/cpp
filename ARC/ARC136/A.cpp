@@ -21,23 +21,30 @@ int main(){
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
   
-  int n, m; cin >> n >> m;
+  int n; cin >> n;
+  string s; cin >> s;
 
-  map<int, int> a, b;
-  for(int i = 0; i < n; i++){
-    int v; cin >> v;
-    a[v]++;
+  queue<char> q;
+  for(int c : s){
+    if(c == 'A'){
+      q.push('B');
+      q.push('B');
+    }else q.push(c);
   }
-  for(int i = 0; i < m; i++){
-    int v; cin >> v;
-    b[v]++;
-  }
-  
-  for(auto p : b){
-    if(a[p.first] < p.second){
-      cout << "No" << endl;
-      return 0;
+  string ans = "";
+  while(!q.empty()){
+    char p = q.front();
+    q.pop();
+
+    if(q.empty()){
+      ans += p;
+    }else if(q.front() == 'B' && p == 'B'){
+      q.pop();
+      ans += 'A';
+    }else{
+      ans += p;
     }
   }
-  cout << "Yes" << endl;
+
+  cout << ans << endl;
 }
