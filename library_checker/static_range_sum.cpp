@@ -17,27 +17,39 @@ using ld = long double;
 #define chmax(a, b) a = max(a, b)
 
 
+template<class T>
+struct CumulativeSum{
+public:
+  CumulativeSum(const vector<T>& v) : n(int(v.size())){
+    cv = vector<T>(n + 1, 0);
+
+    for(int i = 0; i < n; i++){
+      cv[i + 1] += cv[i];
+      cv[i + 1] += v[i];
+    }
+  }
+
+  T sum(int l, int r){
+    return cv[r] - cv[l - 1];
+  }
+
+private:
+  int n;
+  vector<T> cv;
+};
 int main(){
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
   
-  int n, m; cin >> n >> m;
+  int n, q; cin >> n >> q;
+  vector<ll> a(n);
+  aryin(a, n);
 
-  map<int, int> a, b;
-  for(int i = 0; i < n; i++){
-    int v; cin >> v;
-    a[v]++;
+  CumulativeSum<ll> cm(a);
+
+  query(q){
+    int l, r; cin >> l >> r;
+    cout << cm.sum(l + 1, r) << "\n";
   }
-  for(int i = 0; i < m; i++){
-    int v; cin >> v;
-    b[v]++;
-  }
-  
-  for(auto p : b){
-    if(a[p.first] < p.second){
-      cout << "No" << endl;
-      return 0;
-    }
-  }
-  cout << "Yes" << endl;
+  fflush(stdout);
 }
