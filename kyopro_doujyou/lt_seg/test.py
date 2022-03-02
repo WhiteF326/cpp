@@ -10,4 +10,8 @@ for file in files:
         stdin=open("./testcases/in/" + os.path.basename(file), "r"),
         stdout=open("./testcases/out/" + os.path.basename(file), "w")
     )
-    
+    subprocess.run(
+        ["./slow.exe"],
+        stdin=open("./testcases/in/" + os.path.basename(file), "r"),
+        stdout=open("./testcases/out/slow_" + os.path.basename(file), "w")
+    )

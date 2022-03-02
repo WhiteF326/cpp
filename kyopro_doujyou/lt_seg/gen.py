@@ -1,7 +1,7 @@
 import random
 
 for id in range(0, 3):
-    f = open("./testcases/in/05_addfull_0" + str(id) + ".txt", "w")
+    f = open("./testcases/in/01_test_0" + str(id) + ".txt", "w")
     n = 100000
     q = 100000
 

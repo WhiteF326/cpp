@@ -200,7 +200,6 @@ private:
 struct S{
     int pos;
     ll value;
-    int size;
 };
 S op(S a, S b){
     if(a.value == b.value){
@@ -216,10 +215,10 @@ S op(S a, S b){
     }
 }
 S e(){
-    return {INT_MAX, 0, 0};
+    return {INT_MAX, 0};
 }
 S mapping(ll f, S x){
-    return {x.pos, x.value + f * x.size, x.size};
+    return {x.pos, x.value + f};
 }
 ll composition(ll f, ll g){
     return f + g;
@@ -235,7 +234,7 @@ int main(){
     int n, q; cin >> n >> q;
     lazy_segtree<S, op, e, ll, mapping, composition, id> seg(n);
     for(int i = 0; i < n; i++){
-        seg.set(i, {i + 1, 1, 1});
+        seg.set(i, {i + 1, 1});
     }
 
     query(q){
