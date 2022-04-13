@@ -19,6 +19,11 @@ using ld = long double;
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(false);
-    string s; cin >> s;
-    cout << 0 << s.substr(0, 3) << endl;
+    
+    int n; cin >> n;
+    double ans = 0;
+    for(int i = 1; i <= n; i++){
+        ans += 10000.0 * i / n;
+    }
+    cout << ans << endl;
 }

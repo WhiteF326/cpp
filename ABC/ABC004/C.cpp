@@ -19,6 +19,14 @@ using ld = long double;
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(false);
-    string s; cin >> s;
-    cout << 0 << s.substr(0, 3) << endl;
+    
+    int n; cin >> n;
+    n %= 30;
+    vector<int> p(6, 0);
+    iota(all(p), 1);
+    for(int i = 0; i < n; i++){
+        swap(p[(i % 5)], p[(i % 5) + 1]);
+    }
+    for(int v : p) cout << v;
+    cout << endl;
 }

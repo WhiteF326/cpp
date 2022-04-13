@@ -19,6 +19,15 @@ using ld = long double;
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(false);
-    string s; cin >> s;
-    cout << 0 << s.substr(0, 3) << endl;
+    
+    int n, k; cin >> n >> k;
+    vector<int> r(n);
+    aryin(r, n);
+
+    sort(all(r));
+    double ans = 0;
+    for(int i = 0; i < k; i++){
+        ans = (ans + r[n - k + i]) / 2;
+    }
+    cout << fs(12) << ans << endl;
 }

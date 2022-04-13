@@ -19,6 +19,9 @@ using ld = long double;
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(false);
-    string s; cin >> s;
-    cout << 0 << s.substr(0, 3) << endl;
+    vector<string> s(4);
+    for(int i = 0; i < 4; i++) getline(cin, s[i]);
+    reverse(all(s));
+    for(int i = 0; i < 4; i++) reverse(all(s[i]));
+    for(string v : s) cout << v << endl;
 }
