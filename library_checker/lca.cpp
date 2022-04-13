@@ -1,14 +1,20 @@
-#include <vector>
-#include <queue>
-#include <utility>
-#include <functional>
-#include <algorithm>
-#include <limits>
-#include <stack>
-#include <climits>
+#ifdef _DEBUG
+#define _GLIBCXX_DEBUG
+#endif
+#include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
+using namespace atcoder;
 
-#define ll long long
+#define all(x) x.begin(), x.end()
+#define fs(n) fixed << setprecision(n)
+using ll = long long;
+using ld = long double;
+#define query(t) while(t--)
+#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
+#define chmin(a, b) a = min(a, b)
+#define chmax(a, b) a = max(a, b)
+
 
 // dependency
 namespace shiroha {
@@ -94,7 +100,6 @@ namespace shiroha {
             }
         }
     }
-
     namespace tree {
         struct BFS {
             vector<bool> visited;
@@ -307,24 +312,27 @@ namespace shiroha {
             DFS dfs;
             shiroha::datastructure::AnySparseTable<internal::Node, internal::op> st;
         };
-        
-        /**
-         * ワーシャルフロイド法によって、全長点組間の距離を求める。
-         * Complexity : Ο(N^3)
-         * 
-         * 直接辺で結ばれた頂点 a -> b について、その辺の重みを d[a][b] に格納し、
-         * 直接結ばれてはいない頂点組には全て inf を格納した配列を渡す。
-        */
-        template<typename T>
-        void warshallFloyd(vector<vector<T>> &d){
-            int n = d.size();
-            for (int k = 0; k < n; k++){
-                for (int i = 0; i < n; i++) {
-                    for (int j = 0; j < n; j++) {
-                        d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
-                    }
-                }
-            }
-        }
     }
+}
+
+
+
+int main(){
+    cin.tie(0);
+    ios::sync_with_stdio(false);
+
+    int n, q; cin >> n >> q;
+    vector<vector<int>> g(n);
+    for(int i = 1; i < n; i++){
+        int p; cin >> p;
+        g[p].push_back(i);
+    }
+
+    shiroha::tree::LCA lca(g);
+
+    query(q){
+        int u, v; cin >> u >> v;
+        cout << lca.get(u, v) << "\n";
+    }
+    fflush(stdout);
 }

@@ -1,14 +1,25 @@
-#include <vector>
-#include <queue>
-#include <utility>
-#include <functional>
-#include <algorithm>
-#include <limits>
-#include <stack>
-#include <climits>
+#ifdef _DEBUG
+#define _GLIBCXX_DEBUG
+#define print(x) cout << x << endl;
+#define printarray(x) for(auto v : x) cout << v << " "; cout << endl;
+#endif
+#ifndef _DEBUG
+#define print(x)
+#endif
+#include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
+using namespace atcoder;
 
-#define ll long long
+#define all(x) x.begin(), x.end()
+#define fs(n) fixed << setprecision(n)
+using ll = long long;
+using ld = long double;
+// #define query(t) while(t--)
+#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
+#define chmin(a, b) a = min(a, b)
+#define chmax(a, b) a = max(a, b)
+
 
 // dependency
 namespace shiroha {
@@ -94,7 +105,6 @@ namespace shiroha {
             }
         }
     }
-
     namespace tree {
         struct BFS {
             vector<bool> visited;
@@ -307,24 +317,24 @@ namespace shiroha {
             DFS dfs;
             shiroha::datastructure::AnySparseTable<internal::Node, internal::op> st;
         };
-        
-        /**
-         * ワーシャルフロイド法によって、全長点組間の距離を求める。
-         * Complexity : Ο(N^3)
-         * 
-         * 直接辺で結ばれた頂点 a -> b について、その辺の重みを d[a][b] に格納し、
-         * 直接結ばれてはいない頂点組には全て inf を格納した配列を渡す。
-        */
-        template<typename T>
-        void warshallFloyd(vector<vector<T>> &d){
-            int n = d.size();
-            for (int k = 0; k < n; k++){
-                for (int i = 0; i < n; i++) {
-                    for (int j = 0; j < n; j++) {
-                        d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
-                    }
-                }
-            }
-        }
     }
+}
+
+
+int main(){
+    cin.tie(0);
+    ios::sync_with_stdio(false);
+
+    int n; cin >> n;
+    vector<vector<int>> g(n);
+    for(int i = 0; i < n - 1; i++){
+        int a, b; cin >> a >> b;
+        g[a - 1].push_back(b - 1);
+        g[b - 1].push_back(a - 1);
+    }
+
+    shiroha::tree::Diameter diam(g);
+    auto v = diam.path();
+
+    cout << (*v.begin()) + 1 << " " << (*v.rbegin()) + 1 << endl;
 }

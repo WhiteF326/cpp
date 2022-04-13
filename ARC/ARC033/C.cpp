@@ -21,39 +21,34 @@ using ld = long double;
 #define chmax(a, b) a = max(a, b)
 
 
-int n;
-vector<vector<int>> g(100000);
-vector<bool> visited(100000, 0);
-#define mint modint1000000007
-vector<vector<mint>> dp(100000, vector<mint>(2, 1));
+int op(int a, int b){
+    return a + b;
+}
+int e(){
+    return 0;
+}
+int ptr;
 
-void ddp(int p){
-    int c = 0;
-    for(int v : g[p]){
-        if(visited[v]) continue;
-        c++;
-        visited[v] = 1;
-        ddp(v);
-
-        // dp
-        dp[p][0] *= dp[v][0] + dp[v][1];
-        dp[p][1] *= dp[v][0];
-    }
+bool f(int x){
+    return x < ptr;
 }
 
 int main(){
     cin.tie(0);
     ios::sync_with_stdio(false);
 
-    cin >> n;
-    for(int i = 0; i < n - 1; i++){
-        int a, b; cin >> a >> b;
-        g[a - 1].push_back(b - 1);
-        g[b - 1].push_back(a - 1);
+    int q; cin >> q;
+    segtree<int, op, e> seg(200001);
+
+    query(q){
+        int t, x; cin >> t >> x;
+        if(t == 1){
+            seg.set(x, 1);
+        }else{
+            ptr = x;
+            int ans = seg.max_right<f>(0);
+            cout << ans << endl;
+            seg.set(ans, 0);
+        }
     }
-
-    visited[0] = 1;
-    ddp(0);
-
-    cout << (dp[0][0] + dp[0][1]).val() << endl;
 }

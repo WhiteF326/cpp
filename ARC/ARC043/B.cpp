@@ -21,30 +21,39 @@ using ld = long double;
 #define chmax(a, b) a = max(a, b)
 
 
-#define mint modint998244353
+#define mint modint1000000007
 int main(){
     cin.tie(0);
     ios::sync_with_stdio(false);
 
     int n; cin >> n;
-    vector<int> p(n), q(n);
-    aryin(p, n);
-    aryin(q, n);
+    vector<int> d(n);
+    aryin(d, n);
+    sort(all(d));
 
-    vector<mint> lucas(n + 3, 0);
-    lucas[0] = 2, lucas[1] = 1, lucas[2] = 3;
-    for(int i = 3; i <= n + 2; i++){
-        lucas[i] = lucas[i - 1] + lucas[i - 2];
-    }
-
-    dsu d(n);
+    vector<int> cd(n, 0);
     for(int i = 0; i < n; i++){
-        d.merge(p[i] - 1, q[i] - 1);
+        cd[i] = lower_bound(all(d), d[i] * 2) - d.begin();
+    }
+    cd.push_back(n);
+    
+    // dp[i][j] = i 問選択済みで、最後に選んだ問題が j 番めである
+    vector<vector<mint>> dp(4, vector<mint>(n + 5, 0));
+    for(int i = 0; i < n; i++) dp[0][i] = 1;
+
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j <= n; j++){
+            dp[i + 1][cd[j]] += dp[i][j];
+            dp[i + 1][n] -= dp[i][j];
+        }
+        for(int j = 1; j <= n; j++){
+            dp[i + 1][j] += dp[i + 1][j - 1];
+        }
     }
 
-    mint ans = 1;
-    for(auto g : d.groups()){
-        ans *= lucas[g.size()];
+    mint ans = 0;
+    for(int i = 1; i <= n; i++){
+        ans += dp[3][i];
     }
     cout << ans.val() << endl;
 }
