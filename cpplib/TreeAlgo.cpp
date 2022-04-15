@@ -10,7 +10,7 @@ using namespace std;
 
 #define ll long long
 
-// dependency
+/// dependency
 namespace shiroha {
     namespace datastructure {
         template<typename T>
@@ -293,14 +293,19 @@ namespace shiroha {
                 dfs = DFS(g, 0);
                 vector<internal::Node> v(g.size() * 2 - 1);
                 for(int i = 0; i < g.size() * 2 - 1; i++){
-                    v[i].value = dfs.eulerTour()[i];
+                    v[i].value = dfs.euler[i];
                     v[i].depth = dfs.depth[v[i].value];
                 }
                 st = shiroha::datastructure::AnySparseTable<internal::Node, internal::op>(v);
             }
 
             int get(int u, int v){
+                if(dfs.in[u] > dfs.out[v]) swap(u, v);
                 return st.prod(dfs.in[u], dfs.out[v]).value;
+            }
+
+            int dist(int u, int v){
+                return dfs.depth[u] + dfs.depth[v] - dfs.depth[get(u, v)] * 2;
             }
 
         private:
