@@ -1,5 +1,10 @@
 #ifdef _DEBUG
 #define _GLIBCXX_DEBUG
+#define print(x) cout << x << endl;
+#define printarray(x) for(auto v : x) cout << v << " "; cout << endl;
+#endif
+#ifndef _DEBUG
+#define print(x)
 #endif
 #include <bits/stdc++.h>
 #include <atcoder/all>
