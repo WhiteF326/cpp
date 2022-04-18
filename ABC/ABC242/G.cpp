@@ -36,7 +36,7 @@ int main() {
         defq[i] = {l, r};
     }
 
-    int m = sqrt(n);
+    int m = sqrt(3) * n / sqrt(2 * q);
     sort(all(qur), [&](const qtype& lhs, const qtype& rhs){
         if (lhs.first / m < rhs.first / m)return true;
         if (lhs.first / m == rhs.first / m && lhs.second < rhs.second) return true;

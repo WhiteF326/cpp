@@ -1,31 +1,39 @@
+#ifdef _DEBUG
+#define _GLIBCXX_DEBUG
+#endif
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
 using namespace atcoder;
 
-#define fs(n) fixed << setprecision(n);
-#define mp(a, b) make_pair(a, b);
-#define all(arr) arr.begin(), arr.end()
+#define fs(n) fixed << setprecision(n)
+#define all(x) x.begin(), x.end()
 using ll = long long;
 using ld = long double;
+#define query(t) while(t--)
+#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
+#define chmin(a, b) a = min(a, b)
+#define chmax(a, b) a = max(a, b)
 
-int main(){
-  int n; cin >> n;
-  vector<vector<int>> h(n, vector<int>(3));
-  for(int i = 0; i < n; i++) for(int j = 0; j < 3; j++) cin >> h[i][j];
 
-  vector<vector<int>> dp(n + 1, vector<int>(3, 0));
-  dp[0] = {0, 0, 0}, dp[1] = h[0];
+int main() {
+    cin.tie(0);
+    ios::sync_with_stdio(false);
+    
+    int n; cin >> n;
 
-  for(int i = 2; i <= n; i++){
-    for(int j = 0; j < 3; j++){
-      for(int k = 0; k < 3; k++){
-        if(j == k) continue;
-        // 前日jで当日kへ配る
-        dp[i][k] = max(dp[i][k], dp[i - 1][j] + h[i - 1][k]);
-      }
+    // i 日目で、直前の行動が j であるときの幸福度の最大値
+    vector<vector<int>> dp(n + 1, vector<int>(3, 0));
+    for(int i = 0; i < n; i++){
+        vector<int> h(3);
+        aryin(h, 3);
+        for(int j = 0; j < 3; j++){
+            for(int k = 0; k < 3; k++){
+                if(j == k) continue;
+                chmax(dp[i + 1][k], dp[i][j] + h[k]);
+            }
+        }
     }
-  }
 
-  cout << *max_element(all(dp[n])) << endl;
+    cout << *max_element(all(dp[n])) << endl;
 }

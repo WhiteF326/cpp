@@ -21,5 +21,6 @@ int main() {
     ios::sync_with_stdio(false);
     
     int n, k, q; cin >> n >> k >> q;
-    
+    vector<int> a(n);
+    aryin(a, n);
 }
