@@ -7,6 +7,7 @@ using namespace std;
 using namespace atcoder;
 
 #define fs(n) fixed << setprecision(n)
+#define mp(a, b) make_pair(a, b)
 #define all(x) x.begin(), x.end()
 using ll = long long;
 using ld = long double;
@@ -15,11 +16,11 @@ using ld = long double;
 #define chmin(a, b) a = min(a, b)
 #define chmax(a, b) a = max(a, b)
 
-
-int main() {
+int main(){
     cin.tie(0);
     ios::sync_with_stdio(false);
-    int a, b, c, d; cin >> a >> b >> c >> d;
-    int l = a * 60 + b, r = c * 60 + d;
-    cout << (l <= r ? "Takahashi" : "Aoki") << endl;
+
+    int n; cin >> n;
+    vector<int> p(n);
+    aryin(p, n);
 }

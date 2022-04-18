@@ -1,0 +1,95 @@
+- Graph
+    - Graph search
+        - BFS
+        - DFS
+        - Dijkstra
+            - Potential Dijkstra
+        - Floyd-Warshall
+        - Bellman-Ford
+    - Topological sort
+    - Tree
+        - Diameter
+        - HL Decomposition
+            - SCC
+        - Euler Tour
+        - MST
+            - Kruskal
+            - Prim
+    - Network Flow
+        - MaxFlow / Min Cut
+        - Bipartite Matching
+- Binary Search
+    - Binary Search Query
+        - for array
+        - for set
+    - Decisive
+- Data Structure
+    - Easy
+        - set
+            - multiset
+        - priority_queue
+        - queue / stack / deque
+    - ACL class
+        - Disjoint Set Union
+            - Merge Technique
+        - Fenwick Tree
+        - Segment Tree
+    - Hard
+        - Rolling Hash
+        - Trie
+        - Binary Trie
+        - Wavelet Matrix
+        - Convex Hull Trick
+- DP
+    - Normal DP
+        - Knapsack DP
+        - Subset Product DP
+    - famous DP
+        - LIS DP
+        - Longest path on DAG
+    - named DP
+        - bit DP
+        - digit DP
+        - substring DP
+        - insertion DP
+        - range DP
+        - Tree DP
+            - Rerooting
+    - fast DP
+        - Cumulative Sum acceleration
+        - inline DP
+        - matrix Power
+        - Kitamasa
+    - Other Algorithm
+        - Query Square Division
+            - Mo's algorithm
+        - Countup
+            - Cumulative Product Shift
+            - Two-pointer Technique
+        - Game Problem
+            - Nim / Grundy
+            - Backtrack
+            - MiniMax
+- Math
+    - Discrete Math
+        - Prime Judge
+        - Enumerate Divisors
+        - Prime Factorization
+            - SPF
+        - Euclid Algorithm
+            - Solving Diophantine Equations
+        - mod P
+            - mod P addition, subtraction, multiplication
+            - mod P division, inverse
+            - mod P power
+            - mod P combination
+                - Lucas's Theorem
+        - exp
+            - linearity
+            - exp = 1 / prob
+        - monoid
+        - geometry
+            - Convex hull
+            - Amplitude Sort
+        - differential, integral
+            - Ternary search
