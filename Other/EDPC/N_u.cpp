@@ -16,24 +16,31 @@ using ld = long double;
 #define chmax(a, b) a = max(a, b)
 
 
-ll f(ll a, ll b){
-    return a * a * a + a * a * b + a * b * b + b * b * b;
+int n;
+ll a[401];
+ll dp[401][401];
+
+ll rev(int l, int r){
+    if(l == r) return 0LL;
+    if(dp[l][r]) return dp[l][r];
+
+    ll res = 1LL<<60;
+    for(int i = l; i < r; i++){
+        chmin(res, rev(l, i) + rev(i + 1, r));
+    }
+
+    res += a[r];
+    if(l > 0) res -= a[l - 1];
+    return dp[l][r] = res;
 }
-
-
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(false);
     
-    ll n; cin >> n;
-    ll ans = LLONG_MAX;
+    cin >> n;
+    aryin(a, n);
 
-    ll b = 1000000;
-    for(ll a = 0; a <= 1000000; a++){
-        while(f(a, b) >= n && b >= 0) b--;
-        b++;
-        // cout << a << " " << b << endl;
-        chmin(ans, f(a, b));
-    }
-    cout << ans << endl;
+    for(int i = 1; i < n; i++) a[i] += a[i - 1];
+
+    cout << rev(0, n - 1) << endl;
 }
