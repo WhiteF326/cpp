@@ -42,7 +42,7 @@ int main() {
         }
     }
 
-    queue<int> q;
+    <int> q;
     q.push(0);
     q.push(1);
 

@@ -1,68 +1,51 @@
+#ifdef _DEBUG
+#define _GLIBCXX_DEBUG
+#define print(x) cout << x << endl;
+#define printarray(x) for(auto v : x) cout << v << " "; cout << endl;
+#endif
+#ifndef _DEBUG
+#define print(x)
+#endif
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
- 
+using namespace atcoder;
+
+#define all(x) x.begin(), x.end()
 #define fs(n) fixed << setprecision(n)
 using ll = long long;
+using ld = long double;
+#define query(t) while(t--)
+#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
+#define chmin(a, b) a = min(a, b)
+#define chmax(a, b) a = max(a, b)
 
-int fact(int x) { return x <= 1 ? 1 : x * fact(x - 1); }
 
-int sign(int x){
-  return (x > 0) - (x < 0);
-}
-
-bool isLeapYear(int y, int m){
-  return (y % 400 == 0 || (y % 4 == 0 && y % 100)) && m == 2;
-}
- 
-vector<int> AllDivs(int d){
-	vector<int> resDivs(0);
-	for(int i = 1; i < (int)sqrt(d); i++){
-		if(d % i == 0){
-			resDivs.push_back(i);
-			resDivs.push_back(d / i);
-		}
-	}
-	sort(resDivs.begin(), resDivs.end());
-	return resDivs;
-}
- 
-bool IsPrime(int num){
-	bool ans = true;
-	if(num < 2) return false;
-	else if (num == 2) return true;
-	else{
-		for(int i = 2; i <= (int)sqrt(num); i++){
-			if(num % i == 0){
-					ans = false;
-			}
-		}
-	}
-	return ans;
-}
- 
-int NextPrime(int d){
-	int ans = d;
-	while(true){
-		ans++;
-		if(IsPrime(ans)) break;
-	}
-	return ans;
-}
- 
-vector<int> Dec2Bin(int x, int len){
-	vector<int> res(len, 0);
-	int d = 1, pt = len - 1;
-	while(d <= x){
-		res[pt] = (x & d ? 1 : 0);
-		d *= 2; pt--;
-	}
-	return res;
-}
- 
-int avg(int a, int b){
-  return (a + b) / 2;
-}
-
+#define mint modint1000000007
 int main(){
-  
+	cin.tie(0);
+	ios::sync_with_stdio(false);
+
+	string s; cin >> s;
+	int n = int(s.length());
+	int k; cin >> k;
+	
+	// dp[i][j] = 末尾の元の文字が i で、全て j に揃える場合の最小 flip 回数
+	vector<vector<int>> dp(2, vector<int>(2, 0));
+	for(int i = 0; i <= 1; i++) dp[s[i] - '0'][i] = (s[i] - 0 == i);
+	for(int i = 1; i < n; i++){
+		vector<vector<int>> ndp(2, vector<int>(2, 0));
+		if(s[i] == '1'){
+			ndp[1][0] += dp[0][0];
+			ndp[0][0] += dp[0][0];
+			ndp[1][1] += dp[0][1];
+			ndp[0][1] += dp[0][1];
+		}
+		if(s[i] == '0'){
+			ndp[1][0] += dp[1][0];
+			ndp[0][0] += dp[1][0];
+			ndp[1][1] += dp[1][1];
+			ndp[0][1] += dp[1][1];
+		}
+	}
 }
