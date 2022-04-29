@@ -1,5 +1,11 @@
 #ifdef _DEBUG
 #define _GLIBCXX_DEBUG
+#define print(x) cout << x << endl;
+#define printarray(x) for(auto v : x) cout << v << " "; cout << endl;
+#endif
+#ifndef _DEBUG
+#define print(x) 42;
+#define printarray(x) 42;
 #endif
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -20,24 +26,24 @@ int main() {
     cin.tie(0);
     ios::sync_with_stdio(false);
     
-    int n; cin >> n;
-    vector<pair<string, string>> ns(n);
-    for(int i = 0; i < n; i++) cin >> ns[i].first >> ns[i].second;
-    map<string, int> mp;
-    for(int i = 0; i < n; i++){
-        mp[ns[i].first]++;
-        mp[ns[i].second]++;
-    }
+    string s; cin >> s;
+    bool large = false, small = false;
+    map<char, bool> ext;
 
-    for(int i = 0; i < n; i++){
-        bool ans = false;
-        if(mp[ns[i].first] == 1) ans = true;
-        if(mp[ns[i].second] == 1) ans = true;
-        if(ns[i].first == ns[i].second) ans = true;
-        if(!ans){
+    for(char c : s){
+        if(ext[c] == true){
             cout << "No" << endl;
             return 0;
+        }else{
+            ext[c] = true;
+            if(c <= 'Z') large = true;
+            else small = true;
         }
     }
-    cout << "Yes" << endl;
+    
+    if(large && small){
+        cout << "Yes" << endl;
+    }else{
+        cout << "No" << endl;
+    }
 }

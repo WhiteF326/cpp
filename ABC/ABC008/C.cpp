@@ -27,10 +27,8 @@ int main() {
     ios::sync_with_stdio(false);
     
     int n; cin >> n;
-    int k; cin >> k;
+    vector<ll> c(n);
+    aryin(c, n);
 
-    vector<int> a(n), b(n);
-    for(int i = 0; i < n; i++) cin >> a[i] >> b[i];
-
-    // dp[i][largest][j] = i 桁目が j となりえるか？
+    //
 }

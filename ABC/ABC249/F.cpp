@@ -1,5 +1,11 @@
 #ifdef _DEBUG
 #define _GLIBCXX_DEBUG
+#define print(x) cout << x << endl;
+#define printarray(x) for(auto v : x) cout << v << " "; cout << endl;
+#endif
+#ifndef _DEBUG
+#define print(x) 42;
+#define printarray(x) 42;
 #endif
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -16,32 +22,16 @@ using ld = long double;
 #define chmax(a, b) a = max(a, b)
 
 
-#define modv 998244353
-#define mint modint998244353
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(false);
     
-    int n; cin >> n;
-    vector<int> p(n), q(n);
-    aryin(p, n);
-    aryin(q, n);
-
-    vector<vector<int>> g(n);
+    int n, k; cin >> n >> k;
+    vector<int> tr(0);
+    vector<int> t(n), y(n);
     for(int i = 0; i < n; i++){
-        g[p[i] - 1].push_back(q[i] - 1);
-        g[q[i] - 1].push_back(p[i] - 1);
+        cin >> t[i] >> y[i];
+        if(t[i] == 1) tr.push_back(i);
     }
-
-    dsu d(n);
-    for(int i = 0; i < n; i++){
-        d.merge(p[i] - 1, q[i] - 1);
-    }
-
-    mint ans = 1;
-    // vector<bool> fd(n, false);
-    for(auto g : d.groups()){
-        if(g.size() != 1) ans *= (g.size() + 1);
-    }
-    cout << ans.val() << endl;
+    //
 }

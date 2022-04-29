@@ -1,5 +1,11 @@
 #ifdef _DEBUG
 #define _GLIBCXX_DEBUG
+#define print(x) cout << x << endl;
+#define printarray(x) for(auto v : x) cout << v << " "; cout << endl;
+#endif
+#ifndef _DEBUG
+#define print(x) 42;
+#define printarray(x) 42;
 #endif
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -19,29 +25,27 @@ using ld = long double;
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(false);
-    
-    queue<pair<int, int>> q;
-    int t; cin >> t;
-    query(t){
-        int type; cin >> type;
-        if(type == 1){
-            int x, c; cin >> x >> c;
-            q.push({x, c});
-        }else{
-            ll ans = 0;
-            int c; cin >> c;
-            while(c){
-                int p = min(c, q.front().second);
-                c -= p;
-                q.front().second -= p;
 
-                ans += (ll)q.front().first * p;
-                if(q.front().second == 0){
-                    q.pop();
-                }
+    int n; cin >> n;
+    vector<int> a(n);
+    aryin(a, n);
+
+    vector<ll> m(200001, 0);
+    for(int v : a) m[v]++;
+
+    ll ans = 0;
+
+    for(int i = 0; i < n; i++){
+        for(int j = 1; j * j <= a[i]; j++){
+            if(a[i] % j) continue;
+            if(j * j == a[i]){
+                // A_j = A_k
+                ans += m[j] * m[j];
+            }else{
+                ans += m[j] * m[a[i] / j] * 2;
             }
-            cout << ans << "\n";
         }
     }
-    fflush(stdout);
+
+    cout << ans << endl;
 }

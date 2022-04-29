@@ -17,7 +17,7 @@ using namespace atcoder;
 using ll = long long;
 using ld = long double;
 #define query(t) while(t--)
-#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
+#define aryin(a, n) for(int i = 0; i < n; i++) ifs >> a[i];
 #define chmin(a, b) a = min(a, b)
 #define chmax(a, b) a = max(a, b)
 
@@ -25,12 +25,29 @@ using ld = long double;
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(false);
-    
-    int n; cin >> n;
-    int k; cin >> k;
 
-    vector<int> a(n), b(n);
-    for(int i = 0; i < n; i++) cin >> a[i] >> b[i];
+    ifstream ifs("in.txt");
 
-    // dp[i][largest][j] = i 桁目が j となりえるか？
+    int n; ifs >> n;
+    vector<int> a(n);
+    aryin(a, n);
+
+    map<int, ll> m;
+    for(int v : a) m[v]++;
+
+    ll ans = 0;
+
+    for(int i = 0; i < n; i++){
+        for(int j = 1; j * j <= a[i]; j++){
+            if(a[i] % j) continue;
+            if(j * j == a[i]){
+                // A_j = A_k
+                ans += m[j] * m[j];
+            }else{
+                ans += m[j] * m[a[i] / j] * 2;
+            }
+        }
+    }
+
+    cout << ans << endl;
 }

@@ -1,11 +1,5 @@
 #ifdef _DEBUG
 #define _GLIBCXX_DEBUG
-#define print(x) cout << x << endl;
-#define printarray(x) for(auto v : x) cout << v << " "; cout << endl;
-#endif
-#ifndef _DEBUG
-#define print(x) 42;
-#define printarray(x) 42;
 #endif
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -27,10 +21,12 @@ int main() {
     ios::sync_with_stdio(false);
     
     int n; cin >> n;
-    int k; cin >> k;
+    vector<int> a(n);
+    aryin(a, n);
 
-    vector<int> a(n), b(n);
-    for(int i = 0; i < n; i++) cin >> a[i] >> b[i];
-
-    // dp[i][largest][j] = i 桁目が j となりえるか？
+    vector<int> dp(n, 1 << 30);
+    for(int i = 0; i < n; i++){
+        *lower_bound(all(dp), a[i]) = a[i];
+    }
+    cout << n - (lower_bound(all(dp), 1 << 30) - dp.begin()) << endl;
 }

@@ -22,26 +22,35 @@ using ld = long double;
 #define chmax(a, b) a = max(a, b)
 
 
-#define modv 998244353
-#define mint modint998244353
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(false);
     
-    int n, m; cin >> n >> m;
-    int k; cin >> k;
-    mint dp[n + 1][k + 1] = {mint(0)};
-    dp[0][0] = 1;
+    ll h, w; cin >> h >> w;
+    int n; cin >> n;
+
+    auto trp = [&](ll a, ll b){
+        return a * w + b;
+    };
+
+    unordered_map<ll, int> m;
     for(int i = 0; i < n; i++){
-        for(int j = 0; j <= k; j++){
-            for(int next = 1; next <= m; next++){
-                if(j + next > k) break;
-                dp[i + 1][j + next] += dp[i][j];
+        ll a, b; cin >> a >> b;
+        a--, b--;
+        for(int x = -1; x <= 1; x++){
+            for(int y = -1; y <= 1; y++){
+                if(a + x < 1 || a + x >= h - 1 || b + y < 1 || b + y >= w - 1) continue;
+                m[trp(a + x, b + y)]++;
             }
         }
     }
 
-    mint ans = 0;
-    for(int i = 0; i <= k; i++) ans += dp[n][i];
-    cout << ans.val() << endl;
+    ll trl = (h - 2) * (w - 2) - m.size();
+    vector<int> ctr(10, 0);
+    for(auto v : m){
+        // cout << v.first / w << " " << v.first % w << endl;
+        ctr[v.second]++;
+    }
+    cout << trl << endl;
+    for(int i = 0; i < 9; i++) cout << ctr[i + 1] << endl;
 }

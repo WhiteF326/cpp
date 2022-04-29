@@ -26,11 +26,25 @@ int main() {
     cin.tie(0);
     ios::sync_with_stdio(false);
     
-    int n; cin >> n;
-    int k; cin >> k;
+    string s, t; cin >> s >> t;
+    int n = s.length(), m = t.length();
+    ll ans = 0, cur = 0;
+    vector<vector<int>> espr(n + 1, vector<int>(26, n));
+    for(int i = n - 1; i >= 0; i--){
+        for(int j = 0; j < 26; j++) espr[i][j] = espr[i + 1][j];
+        espr[i][s[i] - 'a'] = i;
+    }
 
-    vector<int> a(n), b(n);
-    for(int i = 0; i < n; i++) cin >> a[i] >> b[i];
-
-    // dp[i][largest][j] = i 桁目が j となりえるか？
+    for(int i = 0; i < m; i++){
+        if(espr[0][t[i] - 'a'] == n){
+            cout << -1 << endl;
+            return 0;
+        }
+        if(espr[cur][t[i] - 'a'] == n){
+            cur = 0;
+            ans += n;
+        }
+        cur = espr[cur][t[i] - 'a'] + 1;
+    }
+    cout << ans + cur << endl;
 }

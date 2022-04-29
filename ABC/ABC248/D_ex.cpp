@@ -27,10 +27,15 @@ int main() {
     ios::sync_with_stdio(false);
     
     int n; cin >> n;
-    int k; cin >> k;
-
-    vector<int> a(n), b(n);
-    for(int i = 0; i < n; i++) cin >> a[i] >> b[i];
-
-    // dp[i][largest][j] = i 桁目が j となりえるか？
+    vector<vector<int>> g(n + 1);
+    for(int i = 0; i < n; i++){
+        int a; cin >> a;
+        g[a].push_back(i);
+    }
+    int q; cin >> q;
+    query(q){
+        int l, r, x; cin >> l >> r >> x;
+        l--;
+        cout << lower_bound(all(g[x]), r) - lower_bound(all(g[x]), l) << "\n";
+    }
 }

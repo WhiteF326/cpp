@@ -22,6 +22,7 @@ using ld = long double;
 #define chmax(a, b) a = max(a, b)
 
 
+constexpr int modline = 4;
 constexpr ll mods[] = {916471357, 936547751, 951231241, 976977707};
 constexpr ll bases[] = {10007, 15679, 20693, 25693};
 constexpr ll invl[] = {116218862, 565608180, 738304014, 368310671};
@@ -33,10 +34,10 @@ struct RollingHash{
     RollingHash(string s){
         s = (char)0 + s;
         this->s = s;
-        hash.resize(4);
-        pows.resize(4);
-        invs.resize(4);
-        for (int i = 0; i < 4; i++){
+        hash.resize(modline);
+        pows.resize(modline);
+        invs.resize(modline);
+        for (int i = 0; i < modline; i++){
             hash[i].resize(s.length());
             pows[i].resize(s.length());
             invs[i].resize(s.length());
@@ -52,9 +53,10 @@ struct RollingHash{
         }
     }
 
+    // get hash for [l: r)
     vector<ll> get(int l, int r){
-        vector<ll> hashes(4, 0);
-        for (int i = 0; i < 4; i++){
+        vector<ll> hashes(modline, 0);
+        for (int i = 0; i < modline; i++){
             hashes[i] = hash[i][r] - hash[i][l] + mods[i];
             hashes[i] = (hashes[i] * invs[i][l]) % mods[i];
         }
@@ -63,54 +65,66 @@ struct RollingHash{
 
     static bool sameHash(vector<ll> a, vector<ll> b){
         bool ans = true;
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < modline; i++){
             if (a[i] != b[i]) ans = false;
         }
         return ans;
     }
 };
+#define modv 1000000007
+#define mint modint1000000007
+
+
+// int main() {
+//     cin.tie(0);
+//     ios::sync_with_stdio(false);
+    
+//     int n; cin >> n;
+//     string s; cin >> s;
+//     RollingHash rh(s);
+//     vector<RollingHash> t(n, RollingHash(""));
+//     vector<int> l(n);
+//     for(int i = 0; i < n; i++){
+//         string v; cin >> v;
+//         t[i] = RollingHash(v);
+//         l[i] = int(v.length());
+//     }
+
+//     vector<mint> dp(s.length() + 1, 0);
+//     dp[0] = 1;
+//     for(int i = 0; i < s.length(); i++){
+//         for(int j = 0; j < n; j++){
+//             if(i + l[j] > s.length()) continue;
+//             if(RollingHash::sameHash(rh.get(i, i + l[j]), t[j].get(0, l[j]))){
+//                 dp[i + l[j]] += dp[i];
+//             }
+//         }
+//     }
+
+//     cout << dp[s.length()].val() << endl;
+// }
 
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(false);
-
+    
+    int n; cin >> n;
     string s; cin >> s;
-    int n = int(s.length());
-
-    string t = s;
-    reverse(all(t));
-
-    RollingHash sr(s), tr(t);
-
-    auto sr_binary = [&](int div){
-        int l = 0, r = min(div, n - div) + 1;
-        while(r - l > 1){
-            int m = l + (r - l) / 2;
-            if(RollingHash::sameHash(sr.get(0, m), sr.get(div, div + m))){
-                l = m;
-            }else{
-                r = m;
-            }
-        }
-        return min(l, n - div - 1);
-    };
-    auto tr_binary = [&](int div){
-        int l = 0, r = min(div, n - div) + 1;
-        while(r - l > 1){
-            int m = l + (r - l) / 2;
-            if(RollingHash::sameHash(tr.get(0, m), tr.get(n - div, n - div + m))){
-                l = m;
-            }else{
-                r = m;
-            }
-        }
-        return min(l, n - div - 1);
-    };
-
-    ll ans = 0;
-    for(int l = 2; l < n - 1; l++){
-        if(n - l >= l) continue;
-        ans += max(0, sr_binary(l) + tr_binary(l) - n + l + 1);
+    vector<string> t(n);
+    for(int i = 0; i < n; i++){
+        cin >> t[i];
     }
-    cout << ans << endl;
+
+    vector<mint> dp(s.length() + 1, 0);
+    dp[0] = 1;
+    for(int i = 0; i < s.length(); i++){
+        for(int j = 0; j < n; j++){
+            if(i + t[j].length() > s.length()) continue;
+            if(s.substr(i, t[j].length()) == t[j]){
+                dp[i + t[j].length()] += dp[i];
+            }
+        }
+    }
+
+    cout << dp[s.length()].val() << endl;
 }

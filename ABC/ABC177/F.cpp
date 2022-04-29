@@ -22,15 +22,27 @@ using ld = long double;
 #define chmax(a, b) a = max(a, b)
 
 
+enum pos {
+    left, center, right
+};
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(false);
     
-    int n; cin >> n;
-    int k; cin >> k;
+    int h, w; cin >> h >> w;
+    auto getPos = [&](int v, int c){
+        return v * h + c;
+    };
+    vector<vector<pair<int, int>>> g(h * 3 + 3);
+    vector<pair<int, int>> dl(h);
+    for(int i = 0; i < h; i++){
+        int a, b; cin >> a >> b;
+        dl[getPos(i, pos::left)] = {1, a};
+        dl[getPos(i, pos::center)] = {a, b};
+        dl[getPos(i, pos::right)] = {b, w};
+    }
 
-    vector<int> a(n), b(n);
-    for(int i = 0; i < n; i++) cin >> a[i] >> b[i];
-
-    // dp[i][largest][j] = i 桁目が j となりえるか？
+    for(int i = 0; i < h - 1; i++){
+        
+    }
 }

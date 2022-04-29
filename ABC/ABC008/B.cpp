@@ -27,10 +27,15 @@ int main() {
     ios::sync_with_stdio(false);
     
     int n; cin >> n;
-    int k; cin >> k;
-
-    vector<int> a(n), b(n);
-    for(int i = 0; i < n; i++) cin >> a[i] >> b[i];
-
-    // dp[i][largest][j] = i 桁目が j となりえるか？
+    map<string, int> mp;
+    for(int i = 0; i < n; i++){
+        string s; cin >> s;
+        mp[s]++;
+    }
+    int mx = 0;
+    for(auto p : mp) chmax(mx, p.second);
+    for(auto p : mp) if(p.second == mx){
+        cout << p.first << endl;
+        return 0;
+    }
 }
