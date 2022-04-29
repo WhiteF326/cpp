@@ -21,27 +21,31 @@ using ld = long double;
 #define chmax(a, b) a = max(a, b)
 
 
+#define mint modint998244353
 int main(){
     cin.tie(0);
     ios::sync_with_stdio(false);
 
-    bool isPrime[55556] = {false};
-    memset(&isPrime, 1, 55556);
-    for(int i = 2; i * i <= 55555; i++){
-        if(!isPrime[i]) continue;
-        for(int j = i * i; j <= 55555; j += i){
-            isPrime[j] = false;
+    int n; cin >> n;
+    vector<int> a(n), b(n);
+    aryin(a, n);
+    aryin(b, n);
+
+    mint dp[n + 1][3005];
+    dp[0][0] = 1;
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j <= 3000; j++){
+            // max(j, a[i]) ~ b[i] まで
+            dp[i + 1][max(j, a[i])] += dp[i][j];
+            dp[i + 1][b[i] + 1] -= dp[i][j];
+        }
+        // 累積和
+        for(int j = 1; j <= 3000; j++){
+            dp[i + 1][j] += dp[i + 1][j - 1];
         }
     }
 
-    int n; cin >> n;
-    int st = 2;
-    while(n && st <= 55555){
-        if(isPrime[st] && st % 5 == 4){
-            cout << st << " ";
-            n--;
-        }
-        st++;
-    }
-    // if(n) print("failed");
+    mint ans = 0;
+    for(int i = 0; i <= 3000; i++) ans += dp[n][i];
+    cout << ans.val() << endl;
 }

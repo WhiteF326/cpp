@@ -25,23 +25,27 @@ int main(){
     cin.tie(0);
     ios::sync_with_stdio(false);
 
-    bool isPrime[55556] = {false};
-    memset(&isPrime, 1, 55556);
-    for(int i = 2; i * i <= 55555; i++){
-        if(!isPrime[i]) continue;
-        for(int j = i * i; j <= 55555; j += i){
-            isPrime[j] = false;
-        }
+    int n; cin >> n;
+    vector<ll> a(n), b(n);
+    aryin(a, n);
+    aryin(b, n);
+
+    vector<int> bits(63, 0);
+    for(int i = 0; i < 63; i++){
+        for(ll v : b) if(v & (1LL << i)) bits[i]++;
     }
 
-    int n; cin >> n;
-    int st = 2;
-    while(n && st <= 55555){
-        if(isPrime[st] && st % 5 == 4){
-            cout << st << " ";
-            n--;
+    ll ans = 0;
+    for(ll v : a){
+        int carry = 0;
+        ll res = 0;
+        for(int i = 0; i < 63; i++){
+            if(v & (1LL << i)){
+                // 1
+            }else{
+                // 0
+                res += (1LL << i) * ((bits[i] + carry) & 1);
+            }
         }
-        st++;
     }
-    // if(n) print("failed");
 }
