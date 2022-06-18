@@ -1,52 +1,53 @@
+#ifdef _DEBUG
+#define _GLIBCXX_DEBUG
+#define print(x) cout << x << endl;
+#define printarray(x) for(auto v : x) cout << v << " "; cout << endl;
+#endif
+#ifndef _DEBUG
+#define print(x) 42;
+#define printarray(x) 42;
+#endif
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
 using namespace atcoder;
 
 #define fs(n) fixed << setprecision(n)
-#define mp(a, b) make_pair(a, b)
 #define all(x) x.begin(), x.end()
-#define const constexpr
-#define pdesc(t) t, vector<t>, greater<t>
 using ll = long long;
 using ld = long double;
-#define query(t) for(int _ = 0; _ < t; _++)
+#define query(t) while(t--)
 #define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
+#define chmin(a, b) a = min(a, b)
+#define chmax(a, b) a = max(a, b)
 
 
-void chmin(ll& a, ll b){
-  a = min(a, b);
+int popcount(int b){
+    int res = 0;
+    while(b) res += (b & 1), b >>= 1;
+    return res;
 }
-int main(){
-  int n; cin >> n;
-  ll x, y; cin >> x >> y;
-  vector<ll> a(n), b(n);
-  aryin(a, n);
-  aryin(b, n);
+int main() {
+    cin.tie(0);
+    ios::sync_with_stdio(false);
+    
+    int n; ll x, y; cin >> n >> x >> y;
+    vector<int> a(n), b(n);
+    aryin(a, n); aryin(b, n);
 
-  vector<ll> dp(1 << n, LLONG_MAX);
-  dp[0] = 0;
-  for(int i = 0; i < n; i++){
-    dp[0] += abs(a[i] - b[i]);
-  }
-  dp[0] *= x;
-
-  for(int i = 0; i < (1 << (n - 1)); i++){
-    // swap させる場所が j
-    for(int j = 0; j < n - 1; j++){
-      if(i & (1 << j)) continue;
-      ll nxt = dp[i] + y;
-      int f = j;
-      while(i & (1 << (f - 1))) f--;
-      int l = j + 1;
-      while(i & (1 << l)) l++;
-      nxt -= abs(a[f] - b[f]) * x;
-      nxt -= abs(a[l] - b[l]) * x;
-      nxt += abs(a[f] - b[l]) * x;
-      nxt += abs(a[l] - b[f]) * x;
-      chmin(dp[i | (1 << j)], nxt);
+    vector<ll> dp(1 << n, 1LL << 62);
+    dp[0] = 0;
+    for(int i = 0; i < (1 << n); i++){
+        int p = popcount(i);
+        int c = p;
+        for(int j = 0; j < n; j++){
+            if(i & (1 << j)){
+                c--;
+                continue;
+            }
+            chmin(dp[i | (1 << j)], dp[i] + x * abs(a[j] - b[p]) + y * (c + j - p));
+        }
     }
-  }
 
-  cout << *min_element(all(dp)) << endl;
+    cout << dp[(1 << n) - 1] << endl;
 }

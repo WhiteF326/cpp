@@ -1,50 +1,54 @@
+#ifdef _DEBUG
+#define _GLIBCXX_DEBUG
+#define print(x) cout << x << endl;
+#define printarray(x) for(auto v : x) cout << v << " "; cout << endl;
+#endif
+#ifndef _DEBUG
+#define print(x) 42;
+#define printarray(x) 42;
+#endif
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
 using namespace atcoder;
 
-#define fs(n) fixed << setprecision(n);
-#define mp(a, b) make_pair(a, b);
+#define fs(n) fixed << setprecision(n)
+#define all(x) x.begin(), x.end()
 using ll = long long;
 using ld = long double;
+#define query(t) while(t--)
+#define aryin(a, n) for(int i = 0; i < n; i++) cin >> a[i];
+#define chmin(a, b) a = min(a, b)
+#define chmax(a, b) a = max(a, b)
 
-int op(int a, int b){
-  return min(a, b);
-}
 
-int e(){
-  return INT_MAX;
-}
+int main() {
+    cin.tie(0);
+    ios::sync_with_stdio(false);
+    
+    int n, q; cin >> n >> q;
+    vector<ll> a(n);
+    aryin(a, n);
 
-int main(){
-  ll n, q; cin >> n >> q;
-  vector<ll> a(n);
-  for(ll i = 0; i < n; i++) cin >> a[i];
-  vector<vector<ll>> len(1, vector<ll>(1, a[0]));
-  for(ll i = 1; i < n; i++){
-    if(a[i - 1] + 1 == a[i]){
-      len[len.size() - 1].emplace_back(a[i]);
-    }else{
-      len.emplace_back(vector<ll>());
-      len[len.size() - 1].emplace_back(a[i]);
+    vector<ll> b(n, 0);
+    b[0] = a[0] - 1;
+    for(int i = 0; i < n - 1; i++){
+        b[i + 1] = a[i + 1] - a[i] - 1;
     }
-  }
-  vector<ll> rangeMin(len.size(), 0);
-  for(ll i = 0; i < len.size(); i++) rangeMin[i] = len[i][0];
-  vector<ll> lenss(len.size(), len[0].size());
-  for(ll i = 1; i < len.size(); i++){
-    lenss[i] = lenss[i - 1] + len[i].size();
-  }
-  vector<ll> k(q);
-  for(ll i = 0; i < q; i++){
-    ll k; cin >> k;
-    if(rangeMin[0] > k) cout << k << endl;
-    else if(rangeMin[len.size() - 1] < k) cout << k + n << endl;
-    else{
-      vector<ll> v(rangeMin);
-      v.emplace_back(k);
-      ll res = lower_bound(v.begin(), v.end(), k) - v.begin();
-      cout << k + lenss[res] << endl;
+    for(int i = 1; i < n; i++){
+        b[i] += b[i - 1];
     }
-  }
+
+    query(q){
+        ll k; cin >> k;
+        int p = lower_bound(all(b), k) - b.begin();
+
+        if(p == 0){
+            cout << k << "\n";
+        }else{
+            ll d = k - b[p - 1];
+            cout << a[p - 1] + d << "\n";
+        }
+    }
+    fflush(stdout);
 }
